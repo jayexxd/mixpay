@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """mixpay URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -14,15 +15,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+=======
+from django.conf.urls import include, url
+>>>>>>> 36d40d538d9c9b1c228028b39e82c529f57ceaac
 from django.contrib import admin
 import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.homepage, name='index'),
+<<<<<<< HEAD
     url(r'^login/$', views.login, name='login'),
     url(r'^sidebar/$', views.sidebar, name='sidebar'),
     url(r'^settings/$', views.settings, name="settings"),
     url(r'^auth/', include('userauth.urls')),
+=======
+    url(r'^settings/$', views.settings, name="settings"),
+    url(r'^auth/', include('userauth.urls')),
+    url(r'^fanputest/$', views.fanputest),
+>>>>>>> 36d40d538d9c9b1c228028b39e82c529f57ceaac
 
 ]
