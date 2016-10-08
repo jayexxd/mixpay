@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
-
-{% block css %}{% endblock %}
-{% block js %}{% endblock %}
 {% load static %}
 {% load staticfiles %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}" />
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/homepage.js' %}"></script>
+{% endblock %}
+
+
 {% block fluid_body_block %}
 
 <!-- Following Menu -->

@@ -13,3 +13,6 @@ def fanputest(request):
 
 def homepage(request):
     return render(request, 'mixpay/homepage.html')
+
+def login(request):
+    return render(request, 'mixpay/login.html')
