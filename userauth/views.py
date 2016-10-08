@@ -95,7 +95,7 @@ def user_logout(request):
 def user_edit(request):
     context = {}
     context['active_edit_profile'] = True
-    profile = get_object_or_404(UserProfile, user_id=request.user.id)
+    profile = get_object_or_404(UserProfile, user=request.user)
     if request.method == "POST":
         form = UserProfileForm(request.POST, instance=profile)
         context['profile_form'] = form
@@ -104,8 +104,8 @@ def user_edit(request):
             profile.save()
             messages.add_message(request, messages.SUCCESS, 'Your profile details have been successfully updated.')
     else:
-        context['profile_form'] = UserProfileForm(instance=profile)
-    return render(request, 'userauth/edit.html', context)
+        profile_form = UserProfileForm(request.POST or None)
+    return render(request, 'userauth/edit.html', {'profile_form':profile_form})
 
 @login_required
 def user_settings(request):

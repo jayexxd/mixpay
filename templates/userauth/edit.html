@@ -1,4 +1,4 @@
-{% extends 'auth/user_panel_base.html' %}
+{% extends 'userauth/user_panel_base.html' %}
 {% load static %}
 {% block content_block %}
 <div class="page-header">
@@ -6,9 +6,8 @@
 </div>
 {% csrf_token %}
 
-<form id="user_form" method="post" action="/auth/edit/"     enctype="multipart/form-data">
-  {% load crispy_forms_tags %}
-  {% crispy profile_form %}
+<form id="user_form" method="post" action="/auth/edit/" enctype="multipart/form-data">
+{{profile_form.as_p}}
 </form>
 {% endblock %}
 {% block js_scripts %}

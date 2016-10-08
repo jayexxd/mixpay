@@ -4,24 +4,18 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-gender_choices = (
-    ('M', 'Male'),
-    ('F', 'Female'),
-    ('O', 'Other'),
-)
-
 class Organization(models.Model):
     owner = models.ForeignKey(User)
     org_name = models.CharField(default='', max_length=50)
     desc = models.CharField('Describe your organization', max_length=1000, default='', null=True)
 
     def __unicode__(self):
-        return self.user.username.encode('utf8')
+        return self.owner.username.encode('utf8')
 
 # UserProfile class is to add the additional form fields we require from a user on top of the template User model by Django which provides only basic attribs
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
-    user = models.OneToOneField(User)
+    user = models.ForeignKey(User)
 
     # The additional attributes we wish to include.
     first_name = models.CharField(default='',max_length=100)
