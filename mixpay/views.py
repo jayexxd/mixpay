@@ -90,7 +90,7 @@ def org(request):
     print request.user
     def list_organization():
         context["orgs"] = Organization.objects.filter(userprofile= UserProfile.objects.get(user=request.user))
-
+        context["user"] = request.user
     list_organization()
     print context["orgs"]
     return render(request, 'mixpay/org.html', context)
