@@ -11,8 +11,8 @@ gender_choices = (
 )
 
 class Organization(models.Model):
-    user = models.OneToOneField(User)
-    org_name = models.CharField(default='', max_length=30)
+    owner = models.ForeignKey(User)
+    org_name = models.CharField(default='', max_length=50)
     desc = models.CharField('Describe your organization', max_length=1000, default='', null=True)
 
     def __unicode__(self):
@@ -27,8 +27,9 @@ class UserProfile(models.Model):
     first_name = models.CharField(default='',max_length=100)
     last_name = models.CharField(default='', max_length=100)
 
-    business = models.ForeignKey(Organization, on_delete=models.SET_NULL, null=True)
+    # business = models.ForeignKey(Organization, on_delete=models.SET_NULL, null=True)
 
+    organization = models.ManyToManyField(Organization)
     desc = models.CharField('Describe yourself', max_length=1000, default='', null=True)
 
     email = models.CharField('Your Email', max_length=100, default='', null=True)
