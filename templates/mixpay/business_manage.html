@@ -119,44 +119,41 @@
   </div>
 </div>
 <div class="eight wide column">&nbsp;</div>
-
+<!-- <canvas id="pieChart" width="300" height="300"></canvas> -->
 <div class="sixteen wide column">&nbsp;</div>
-
-<canvas id="pieChart" width="300" height="300"></canvas>
 <script>
 
 $(document).ready(function() {
-
-  var ctx = $("#pieChart").get(0).getContext('2d');
-
-  var data = {
-      labels: [
-          "Red",
-          "Blue",
-          "Yellow"
-      ],
-      datasets: [
-          {
-              data: [300, 50, 100],
-              backgroundColor: [
-                  "#FF6384",
-                  "#36A2EB",
-                  "#FFCE56"
-              ],
-              hoverBackgroundColor: [
-                  "#FF6384",
-                  "#36A2EB",
-                  "#FFCE56"
-              ]
-          }]
-  };
-
-var myDoughnutChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: data,
-    options: options
-});
-
+//
+//   var ctx = $("#pieChart").get(0).getContext('2d');
+//
+//   var data = {
+//       labels: [
+//           "Red",
+//           "Blue",
+//           "Yellow"
+//       ],
+//       datasets: [
+//           {
+//               data: [300, 50, 100],
+//               backgroundColor: [
+//                   "#FF6384",
+//                   "#36A2EB",
+//                   "#FFCE56"
+//               ],
+//               hoverBackgroundColor: [
+//                   "#FF6384",
+//                   "#36A2EB",
+//                   "#FFCE56"
+//               ]
+//           }]
+//   };
+//
+// var myDoughnutChart = new Chart(ctx, {
+//     type: 'doughnut',
+//     data: data,
+//     options: options
 $('.ui.checkbox').checkbox();
+});
 </script>
 {% endblock %}

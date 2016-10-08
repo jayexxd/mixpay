@@ -71,14 +71,13 @@
 	<a class="item" href="{% url 'userauth:logout' %}"><i class="sign out icon"></i> Logout</a>
 	{% endif %}
       </div>
-      </div>
       <div class="pusher">
         <div class="ui container" style="width:80%">
           {% block content %}
           {% endblock %}
         </div>
       </div>
-    </div>
+
 
     <!-- Sign up/login modal -->
     <div class="ui small modal auth">
@@ -130,6 +129,7 @@
       </a>
     </div>
 
+
     <!-- Sign-up only modal -->
     <div class="ui small modal signup">
       <div class="header">Sign Up</div>
@@ -157,6 +157,7 @@
     		  <i class="user icon"></i>
     		</div>
     	      </div>
+
     	      <div class="field">
     		<div class="ui left icon input">
     		  <input type="text" name="email" placeholder="Email">
@@ -169,6 +170,7 @@
     		  <i class="lock icon"></i>
     		</div>
     	      </div>
+
     	      <div class="field">
     		<select name="gender" class="ui dropdown select">
     		  <option value="">Gender</option>
@@ -176,15 +178,16 @@
     		  <option value="F">Female</option>
     		</select>
     	      </div>
+
     	      <button class="ui blue submit button" type="submit">Sign Up</button>
     	    </form>
     	  </div>
     	</div>
       </div>
     </div>
+        </div>
     <script src="{% static 'js/sidebar.js' %}"></script>
     <script>
-
       $('.auth').click(function(){
       $(".ui.modal.auth").modal("show");
       $('.ui.modal.signup').modal('attach events', '.signup.button', 'show');
@@ -198,8 +201,6 @@
       $('.toc').click(function() {
       $('.ui.vertical.menu').sidebar('toggle');
       });
-
-
     </script>
 
     {% endblock %}
@@ -212,7 +213,7 @@
     </div>
     <!-- body_block provides a standard container -->
     <div class="ui container">
-      {% block body_block %}{% endblock %}
+
       {% block js %}{% endblock %}
     </div>
   </body>
