@@ -4,6 +4,8 @@ from userauth.models import gender_choices, UserProfile, User, Organization
 class UserForm(forms.ModelForm):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput())
+
+
     class Meta:
         model = User
         fields = ('username', 'password', 'first_name', 'last_name')
@@ -13,11 +15,12 @@ class UserForm(forms.ModelForm):
     #     self.helper = FormHelper()
     #     self.helper.form_tag = False
 
-# class UserProfileRegistrationForm(forms.ModelForm):
-    # gender = forms.ModelMultipleChoiceField(queryset=gender_choices)
-    # class Meta:
-    #     model = UserProfile
-    #     fields = ('gender')
+class UserProfileRegistrationForm(forms.ModelForm):
+    last_name = forms.CharField()
+    first_name = forms.CharField()
+    class Meta:
+        model = UserProfile
+        fields = ("first_name", "last_name")
     # def __init__(self, *args, **kwargs):
     #     super(UserProfileRegistrationForm, self).__init__(*args, **kwargs)
     #     self.helper = FormHelper()

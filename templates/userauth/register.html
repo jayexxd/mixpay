@@ -13,9 +13,8 @@
 
 <form id="user_form" method="post" action="/auth/register/" enctype="multipart/form-data">
   {% csrf_token %}
-  {% load crispy_forms_tags %}
-  {% crispy user_form %}
-  {% crispy profile_form %}
+	Go to homepage to register.
+	<a href="/">Return to the homepage.</a>
   <div class="g-recaptcha" data-sitekey="6LdgTR8TAAAAACTBN-M3WlUIpWonjHLI87PxadoH"></div>
 </form>
 <br>
