@@ -11,9 +11,6 @@ def settings(request):
 def fanputest(request):
     return render(request, 'mixpay/fanputest.html')
 
-def org(request):
-	return render(request, 'mixpay/org.html')
-
 def homepage(request):
     return render(request, 'mixpay/homepage.html')
 
@@ -22,3 +19,6 @@ def login(request):
 
 def register(request):
     return render(request, 'mixpay/register.html')
+
+def sidebar(request):
+    return render(request, 'mixpay/sidebar.html')
