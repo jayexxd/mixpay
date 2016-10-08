@@ -55,24 +55,26 @@
         <a class="item">Work</a>
         <a class="item">Company</a>
         <a class="item">Careers</a>
-        {% if user.is_authenticated %}
-        <div class="item">
-    	<div class="header">
-    	    <strong>Hello, {{ user.first_name }}!</strong>
-    	</div>
-    </div>
-    	<div class="menu">
-    	    <a class="item" href="{% url 'userauth:profile' user.id %}"><i class="user icon"></i>Profile</a>
-    	    <a class="item" href="{% url 'userauth:edit_profile' %}"><i class="edit icon"></i> Edit Profile</a>
-    	    <a class="item" href="{% url 'userauth:edit_settings' %}"><i class="settings icon"></i> Account Settings</a>
-    	    <a class="item" href="{% url 'userauth:logout' %}"><i class="sign out icon"></i> Logout</a>
-    	</div>
+        <div class="right menu">
+          {% if user.is_authenticated %}
+          <div class="item">
+        <div class="header">
+            <strong>Hello, {{ user.first_name }}!</strong>
         </div>
-        {% else %}
-        <a class="item auth"><i class="sign in icon"></i>Log in</a>
-        <a class="item signup only"><i class="add user icon"></i>Sign Up</a>
+      </div>
+        <div class="menu">
+            <a class="item" href="{% url 'userauth:profile' user.id %}"><i class="user icon"></i>Profile</a>
+            <a class="item" href="{% url 'userauth:edit_profile' %}"><i class="edit icon"></i> Edit Profile</a>
+            <a class="item" href="{% url 'userauth:edit_settings' %}"><i class="settings icon"></i> Account Settings</a>
+            <a class="item" href="{% url 'userauth:logout' %}"><i class="sign out icon"></i> Logout</a>
+        </div>
+          </div>
+          {% else %}
+          <a class="item auth"><i class="sign in icon"></i>Log in</a>
+          <a class="item signup only"><i class="add user icon"></i>Sign Up</a>
 
-        {% endif %}
+          {% endif %}
+        </div>
       </div>
     </div>
 
