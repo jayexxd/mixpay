@@ -14,7 +14,7 @@
 				<tr><th colspan="2">
 					<h3>My Organizations</h3>
 				</th>
-				<th class=" five wide columnright aligned"> <div class="ui labeled icon buttons"><button class="ui blue button"><i class="plus icon"></i>New Organization</button></div></th>
+				<th class=" five wide columnright aligned"> <div class="ui labeled icon buttons"><button onclick="neworg()" class="ui blue button"><i class="plus icon"></i>New Organization</button></div></th>
 			</tr></thead>
 			<tbody>
 				<tr>
@@ -34,5 +34,37 @@
 			</tbody>
 		</table>
 	</div>
-
+	<div class="ui modal neworgmodal">
+  <i class="close icon"></i>
+  <div class="header">
+    New Organization
+  </div>
+  <div class="content">
+		<form class="ui form">
+  <div class="field">
+    <label>Name</label>
+    <input type="text" name="org-name" placeholder="Name of your organization">
+  </div>
+  <div class="field">
+    <label>Description</label>
+    <input type="text" name="org-desc" placeholder="Description of your organization">
+  </div>
+	<div class="field">
+		<label>Members</label>
+		<input type="text" name="org-members" placeholder="Key in list of semi-colon separated users">
+	</div>
+</form>
+  </div>
+  <div class="actions">
+    <div class="ui positive left labeled icon button">
+      Create New Organization
+      <i class="plus icon"></i>
+    </div>
+  </div>
+</div>
+<script>
+	function neworg() {
+		$('.neworgmodal').modal('show');
+	}
+</script>
 {% endblock %}
