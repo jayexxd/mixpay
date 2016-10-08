@@ -23,7 +23,7 @@ Sample payment request:
 
 curl -v https://api.sandbox.paypal.com/v1/payments/payment \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer A101.TPgod_3f-JP4xlSPnyYr1kZDsBgiAX0BolMRbz15eQEfxaAAGqvhe75CN7XGRKNu.c70HbokBvHF7mRPt4pHv7BQ6s_e" \
+  -H "Authorization: Bearer A101.FDIvUOiZU20Zuck26PZUfMuiBrK5wbmdzspwRNW0oT72lTQ47LMc10ZJe3rm-ee8.IJT7xqV2iah3gEYhnjX6hnyx1h4" \
   -d '{
   "intent":"sale",
   "redirect_urls":{
@@ -358,3 +358,124 @@ Payouts API $0.25 USD flat per transaction
 }
 
 
+curl -v https://api.sandbox.paypal.com/v1/payments/payment \
+  -H "Content-Type:application/json" \
+  -H "Authorization: Bearer A101.FDIvUOiZU20Zuck26PZUfMuiBrK5wbmdzspwRNW0oT72lTQ47LMc10ZJe3rm-ee8.IJT7xqV2iah3gEYhnjX6hnyx1h4" \
+  -d '{
+  "intent": "sale",
+  "payer":
+  {
+    "payment_method": "credit_card",
+    "funding_instruments": [
+    {
+      "credit_card":
+      {
+        "number": "5421138491640015",
+        "type": "mastercard",
+        "expire_month": 12,
+        "expire_year": 2018,
+        "cvv2": 111,
+        "first_name": "Betsy",
+        "last_name": "Buyer"
+      }
+    }]
+  },
+  "transactions": [
+  {
+    "amount":
+    {
+      "total": "747",
+      "currency": "SGD"
+    },
+    "description": "Thank you for shopping with us."
+  }]
+}'
+
+
+
+{  
+   "id":"PAY-0P68457782345280YK74XCOY",
+   "create_time":"2016-10-08T22:20:43Z",
+   "update_time":"2016-10-08T22:20:49Z",
+   "state":"approved",
+   "intent":"sale",
+   "payer":{  
+      "payment_method":"credit_card",
+      "funding_instruments":[  
+         {  
+            "credit_card":{  
+               "type":"mastercard",
+               "number":"xxxxxxxxxxxx0015",
+               "expire_month":"12",
+               "expire_year":"2018",
+               "first_name":"Betsy",
+               "last_name":"Buyer"
+            }
+         }
+      ]
+   },
+   "transactions":[  
+      {  
+         "amount":{  
+            "total":"747.00",
+            "currency":"SGD",
+            "details":{  
+               "subtotal":"747.00"
+            }
+         },
+         "description":"This is the payment transaction description.",
+         "related_resources":[  
+            {  
+               "sale":{  
+                  "id":"41J760630H2488416",
+                  "create_time":"2016-10-08T22:20:43Z",
+                  "update_time":"2016-10-08T22:20:49Z",
+                  "amount":{  
+                     "total":"747.00",
+                     "currency":"SGD"
+                  },
+                  "state":"completed",
+                  "parent_payment":"PAY-0P68457782345280YK74XCOY",
+                  "links":[  
+                     {  
+                        "href":"https://api.sandbox.paypal.com/v1/payments/sale/41J760630H2488416",
+                        "rel":"self",
+                        "method":"GET"
+                     },
+                     {  
+                        "href":"https://api.sandbox.paypal.com/v1/payments/sale/41J760630H2488416/refund",
+                        "rel":"refund",
+                        "method":"POST"
+                     },
+                     {  
+                        "href":"https://api.sandbox.paypal.com* Closing connection 0 
+/v1/payments/payment/PAY-0P68457782345280YK74XCOY",
+                        "rel":"parent_payment",
+                        "method":"GET"
+                     }
+                  ],
+                  "fmf_details":{  
+
+                  },
+                  "processor_response":{  
+                     "avs_code":"X",
+                     "cvv_code":"M"
+                  }
+               }
+            }
+         ]
+      }
+   ],
+   "links":[  
+      {  
+         "href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-0P68457782345280YK74XCOY",
+         "rel":"self",
+         "method":"GET"
+      }
+   ]
+}
+
+get transaction details
+curl -v -X GET https://api.sandbox.paypal.com/v1/payments/payment?count=10&start_index=0&sort_by=update_time&sort_order=asc \
+-H "Content-Type:application/json" \
+-H "Authorization: Bearer Access-Token"
