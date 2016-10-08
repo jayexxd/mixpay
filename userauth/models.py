@@ -20,16 +20,11 @@ class UserProfile(models.Model):
     first_name = models.CharField(default='',max_length=100)
     last_name = models.CharField(default='', max_length=100)
 
-    business_name = models.CharField(default='Not Applicable', max_length = 30)
+    business = models.ForeignKey(Organization, on_delete=models.SET_NULL, null=True)
 
     desc = models.CharField('Describe yourself', max_length=1000, default='', null=True)
 
     email = models.CharField('Your Email', max_length=100, default='', null=True)
-    phone_number = PhoneNumberField(null=True, blank=True)
-
-    work = models.CharField('Your occupation', null=True, max_length=100)
-
-    org = models.OneToOneField(Organization)
 
     def __unicode__(self):
         return self.user.username.encode('utf8')
@@ -39,8 +34,7 @@ class Organization(models.Model):
 
     org_name = models.CharField(default='', max_length=30)
 
-    desc = models.CharField('Describe your Organization', max_length=1000, default='', null=True)
-
+    desc = models.CharField('Describe your organization', max_length=1000, default='', null=True)
 
     def __unicode__(self):
         return self.user.username.encode('utf8')
