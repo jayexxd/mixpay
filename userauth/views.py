@@ -130,5 +130,5 @@ def user_settings(request):
       #          raise ValidationError(_('New passwords do not match'), code='invalid')
 
     form = ChangePWForm(request.POST, instance=user)
-    context['pw_form'] = ChangePWForm()
-    return render(request, 'userauth/settings.html', context)
+    pw_form = ChangePWForm()
+    return render(request, 'userauth/settings.html', {'pw_form':pw_form})
