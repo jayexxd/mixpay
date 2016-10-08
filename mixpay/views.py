@@ -1,4 +1,6 @@
 from django.shortcuts import render
+import urllib2
+
 
 # Create your views here.
 def index(request):
