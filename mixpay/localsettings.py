@@ -3,9 +3,9 @@ from settings import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis', #django.db.backends.postgresql',
-        'NAME': 'localdb',
-        'USER': 'vortex',
-        'PASSWORD': 'Bad2655pW',
+        'NAME': 'mixpaydb',
+        'USER': 'fanpu',
+        'PASSWORD': 'isitpublicornot',
         'HOST':'localhost',
 	# 'PORT':'',
     }
