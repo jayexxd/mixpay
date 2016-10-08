@@ -4,7 +4,7 @@
   display: none;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 500px) {
   .ui.fixed.menu {
     display: none !important;
   }
@@ -64,47 +64,7 @@
         </div>
       </div>
 
-      <div class="pusher">
-            <!-- <div class="ui container">
-        <div class="ui vertical masthead center aligned segment">
-            <div class="ui large secondary menu">
-              <div class="right menu">
-                <a class="toc item">
-                  <i class="sidebar icon"></i>
-                </a>
-                <a class="active item">Home</a>
-                <a class="item">Work</a>
-                <a class="item">Company</a>
-                <a class="item">Careers</a>
-                {% if user.is_authenticated %}
-                <div class="item">
-              <div class="header">
-                  <strong>Hello, {{ user.first_name }}!</strong>
-              </div>
-            </div>
-              <div class="menu">
-                  <a class="item" href="{% url 'userauth:profile' user.id %}"><i class="user icon"></i>Profile</a>
-                  <a class="item" href="{% url 'userauth:edit_profile' %}"><i class="edit icon"></i> Edit Profile</a>
-                  <a class="item" href="{% url 'userauth:edit_settings' %}"><i class="settings icon"></i> Account Settings</a>
-                  <a class="item" href="{% url 'userauth:logout' %}"><i class="sign out icon"></i> Logout</a>
-              </div>
-                </div>
-                {% else %}
-                <a class="item auth"><i class="sign in icon"></i>Log in</a>
-                <a class="item signup only"><i class="add user icon"></i>Sign Up</a>
-                {% endif %}
-              </div>
-          </div>
-
-        </div> -->
-        <div class="ui basic segment">
-          <h3 class="ui header">Application Content</h3>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
-        </div>
-      </div>
+    
 </div>
 
 <!-- Sign up/login modal -->

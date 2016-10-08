@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'Semantic-UI-master/dist/semantic.css' %}" />
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.css" />
@@ -30,6 +30,44 @@
   {% block navbar %}
       {% include 'navbar.html'%}
   {% endblock %}
+
+
+  <div class="pusher">
+    {% block content %}
+    {% endblock %}
+        <!-- <div class="ui container">
+    <div class="ui vertical masthead center aligned segment">
+        <div class="ui large secondary menu">
+          <div class="right menu">
+            <a class="toc item">
+              <i class="sidebar icon"></i>
+            </a>
+            <a class="active item">Home</a>
+            <a class="item">Work</a>
+            <a class="item">Company</a>
+            <a class="item">Careers</a>
+            {% if user.is_authenticated %}
+            <div class="item">
+          <div class="header">
+              <strong>Hello, {{ user.first_name }}!</strong>
+          </div>
+        </div>
+          <div class="menu">
+              <a class="item" href="{% url 'userauth:profile' user.id %}"><i class="user icon"></i>Profile</a>
+              <a class="item" href="{% url 'userauth:edit_profile' %}"><i class="edit icon"></i> Edit Profile</a>
+              <a class="item" href="{% url 'userauth:edit_settings' %}"><i class="settings icon"></i> Account Settings</a>
+              <a class="item" href="{% url 'userauth:logout' %}"><i class="sign out icon"></i> Logout</a>
+          </div>
+            </div>
+            {% else %}
+            <a class="item auth"><i class="sign in icon"></i>Log in</a>
+            <a class="item signup only"><i class="add user icon"></i>Sign Up</a>
+            {% endif %}
+          </div>
+      </div>
+
+    </div> -->
+  </div>
 
   <div class="ui fluid container" style="margin: 0; padding: 0">
 

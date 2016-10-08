@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 
-
 class Organization(models.Model):
     owner = models.ForeignKey(User)
     org_name = models.CharField(default='', max_length=50)
