@@ -97,7 +97,9 @@ def org(request):
     return render(request, 'mixpay/org.html', context)
 
 def payments(request):
-    return render(request, 'mixpay/payments.html')
+    context = {}
+    context["a_payments"] = True
+    return render(request, 'mixpay/payments.html', context)
 
 def received_hist():
     payment_history = Payment.all({"count": 100})
@@ -116,7 +118,7 @@ def business(request):
     print context["orgs"]
     context["a_business"] = True
     return render(request, 'mixpay/business.html', context)
-    
+
 def business_manage(request, org_id):
     context = {}
     context["org"] = Organization.objects.get(id=org_id)
@@ -125,5 +127,6 @@ def business_manage(request, org_id):
     return render(request, 'mixpay/business_manage.html', context)
 
 def dashboard(request):
-    return render(request, 'mixpay/dashboard.html')
-
+    context = {}
+    context["a_dashboard"] = True
+    return render(request, 'mixpay/dashboard.html', context)

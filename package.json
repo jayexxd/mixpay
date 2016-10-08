@@ -1,0 +1,23 @@
+{
+  "name": "mixpay",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.com/jayexxd/mixpay.svg?token=8MZYpT6ZjsvMJhgF4oqx&branch=master)](https://travis-ci.com/jayexxd/mixpay)",
+  "main": "index.js",
+  "dependencies": {
+    "chart.js": "^2.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayexxd/mixpay.git"
+  },
+  "author": "Xiaochen Du <duxiaochen1996@outlook.com> (http://dxc2007.github.io/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jayexxd/mixpay/issues"
+  },
+  "homepage": "https://github.com/jayexxd/mixpay#readme"
+}
