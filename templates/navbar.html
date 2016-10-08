@@ -4,7 +4,7 @@
   display: none;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 500px) {
   .ui.fixed.menu {
     display: none !important;
   }
@@ -65,6 +65,8 @@
       </div>
 
       <div class="pusher">
+        {% block content %}
+        {% endblock %}
             <!-- <div class="ui container">
         <div class="ui vertical masthead center aligned segment">
             <div class="ui large secondary menu">
@@ -97,13 +99,6 @@
           </div>
 
         </div> -->
-        <div class="ui basic segment">
-          <h3 class="ui header">Application Content</h3>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
-        </div>
       </div>
 </div>
 
