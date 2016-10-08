@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+{% block css %}
+<title>Welcome to Mixpay</title>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/sidebar.js' %}"></script>
+<script src="{% static 'js/transition.js' %}"></script>
+<script src="{% static 'js/visibility.js' %}"></script>
+<script src="{% static 'js/homepage.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#toggle').click(function() {
+    $('.ui.labeled.icon.sidebar').sidebar('toggle');
+  });
+});
+
+</script>
+{% endblock %}
+
+
+{% block fluid_body_block %}
+
+  <div class="ui left demo vertical inverted sidebar labeled icon menu">
+    <a class="item">
+      <i class="home icon"></i>
+      Home
+    </a>
+    <a class="item">
+      <i class="block layout icon"></i>
+      Work
+    </a>
+    <a class="item">
+      <i class="smile icon"></i>
+      Own
+    </a>
+  </div>
+  <div id="toggle" class="item">
+    <i class="sidebar icon"></i>
+
+  </div>
+  <div class="pusher">
+  Your site's actual content
+</div>
+
+
+{% endblock %}

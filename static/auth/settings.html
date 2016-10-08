@@ -1,0 +1,13 @@
+{% extends 'auth/user_panel_base.html' %}
+{% load static %}
+{% block content_block %}
+<h1>Account Settings</h1><hr>
+  {% csrf_token %}
+  {% load crispy_forms_tags %}
+  {% crispy pw_form %}
+
+{% endblock %}
+
+{% block js_scripts %}
+
+{% endblock %}

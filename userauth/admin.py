@@ -1,9 +1,9 @@
 from django.contrib import admin
-from auth.models import UserProfile
+from userauth.models import UserProfile
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
-from lmaomove.admin import *
+from mixpay.admin import *
 
 class UserProfileAdmin(CustomModelAdmin):
     pass

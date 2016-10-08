@@ -12,7 +12,7 @@
 <script src="{% static 'js/transition.js' %}"></script>
 <script src="{% static 'js/visibility.js' %}"></script>
 <script src="{% static 'js/homepage.js' %}"></script>
-<script>
+<!-- <script>
 $(document)
   .ready(function() {
 
@@ -36,14 +36,14 @@ $(document)
 
   })
 ;
-</script>
+</script> -->
 {% endblock %}
 
 
 {% block fluid_body_block %}
 
 <!-- Following Menu -->
-<div class="ui large top fixed menu navbar">
+<!-- <div class="ui large top fixed menu navbar">
   <div class="ui container">
     <a class="active item">Home</a>
     <a class="item">Work</a>
@@ -58,7 +58,7 @@ $(document)
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- Sidebar Menu -->
 <div class="ui vertical inverted sidebar menu">
@@ -85,17 +85,17 @@ $(document)
         <a class="item">Company</a>
         <a class="item">Careers</a>
         <div class="right item">
-          <a class="ui inverted button">Log in</a>
-          <a class="ui inverted button">Sign Up</a>
+          <a class="ui inverted button" href="{% url 'userauth:login' %}">Log in</a>
+          <a class="ui inverted button" href="{% url 'userauth:register' %}">Sign Up</a>
         </div>
       </div>
     </div>
 
     <div class="ui text container">
       <h1 class="ui inverted header">
-        Imagine-a-Company
+        Mixpay
       </h1>
-      <h2>Do whatever you want when you want to.</h2>
+      <h2>Do wonders with just 3 finger taps</h2>
       <div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div>
     </div>
 

@@ -1,7 +1,7 @@
 from django.conf.urls import url
 import views
 
-app_name = 'auth'
+app_name = 'userauth'
 urlpatterns = [
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.user_login, name='login'),

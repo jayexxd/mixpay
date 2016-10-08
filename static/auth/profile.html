@@ -1,0 +1,64 @@
+{% extends 'auth/user_panel_base.html' %}
+{% load static %}
+{% block content_block %}
+<div class="ui grid">
+    <div class="four wide column">
+	<div class="ui card">
+	    <div class="ui image">
+		<img src="{% static 'images/putin.jpg' %}">
+	    </div>
+	    <div class="content">
+		<a class="header">{{ profile.first_name }} {{ profile.last_name }}</a>
+		<div class="meta">
+		    <span class="date">Member since {{ profile.user.date_joined|date }}</span>
+		</div>
+		<div class="description">
+		    <h4>{{ profile.country.name }} <img src="{{ profile.country.flag }}"></h4>
+		</div>
+	    </div>
+	    
+	</div>
+    </div>
+    <div class="eight wide column stretched">
+	{{ profile.desc }}
+    </div>
+    <div class="four wide column">
+	some more details and shit
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block rand %}
+
+<div class="row">
+    <div class="col-xs-3">
+	<img src="{% static 'images/putin.jpg' %}" class="img-fluid img-rounded" alt="Profile picture">
+	<br>
+	<div class="card">
+	    <div class="card-header">
+		About Me
+	    </div>
+	    <div class="card-block">
+		<h4 class="card-title">School</h4>
+		<p class="card-text">Website: {{ profile.website }}</p> 
+		
+		<p class="card-text">Email: <a href="{{ profile.user.username }}">{{ profile.user.username }}</a></p>
+		<p class="card-text">Education: {{ profile.education }}</p>
+		<p class="card-text">Member Since: {{ profile.user.date_joined|date }}</p>	
+	    </div>
+	    
+	</div>
+	<p><i class="fa fa-flag"></i> Report this user</p>
+    </div>
+
+    <div class="col-xs-9">
+	<h2><strong>{{ profile.first_name }} {{ profile.last_name }}</strong></h2>
+	<h4>{{ profile.country.name }} <img src="{{ profile.country.flag }}"></h4>
+	<p>{{ profile.desc }}</p>
+	
+    </div>
+</div>
+{% endblock %}

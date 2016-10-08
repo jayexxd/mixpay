@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from auth.forms import UserForm, UserProfileForm, UserLoginForm, UserProfileRegistrationForm, ChangePWForm
+from userauth.forms import UserForm, UserProfileForm, UserLoginForm, ChangePWForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
@@ -14,7 +14,7 @@ def register(request):
     registered = False
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
-        profile_form = UserProfileRegistrationForm(data=request.POST)
+        profile_form = UserProfileForm(data=request.POST)
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
