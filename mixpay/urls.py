@@ -8,4 +8,6 @@ urlpatterns = [
     url(r'^$', views.homepage, name='index'),
     url(r'^settings/$', views.settings, name="settings"),
     url(r'^auth/', include('userauth.urls')),
+    url(r'^fanputest/$', views.fanputest),
+
 ]
