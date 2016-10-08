@@ -30,10 +30,10 @@ while(1):
              # A resource representing a credit card that can be
              # used to fund a payment.
              "credit_card": {
-                 "type": "visa",
-                 "number": "4417119669820331",
+                 "type": "mastercard",
+                 "number": "5421138491640015",
                  "expire_month": "11",
-                 "expire_year": "2018",
+                 "expire_year": "2021",
                  "cvv2": "874",
                  "first_name": "Big Fan Of",
                  "last_name": "MixPay",
