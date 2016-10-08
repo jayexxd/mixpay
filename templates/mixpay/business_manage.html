@@ -1,17 +1,128 @@
 {% extends 'base.html' %}
 {% block content %}
-	<div class="sixteen wide column">&nbsp;</div>
-	<div class="sixteen wide column">&nbsp;</div>
-	<div class="sixteen wide column">
-		<div class="ui huge header">View and Manage {{ org.org_name }}</div>
-	</div>
-	<div class="sixteen wide column">&nbsp;</div>
-	<div class="sixteen wide column"><font size="3em">View and manage the organizations that you belong to.</font></div>
-	<div class="sixteen wide column">&nbsp;</div>
-	<div class="eight wide column">
-	  Manage Users
-	</div>
-	<div class="eight wide column">&nbsp;</div>
-	<div class="sixteen wide column">&nbsp;</div>
+<script>
+  function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+  }
+  function check2() {
+  return (isNumber(document.getElementById("freserve").value) && isNumber(document.getElementById("fblock").value));
+  }
+  function check() {
+  if (!check2()) {
+  var savebtn = document.getElementById("save").disabled = true;
+  return;
+  }
+  var block = parseInt(document.getElementById("fblock").value);
+  var total = 0;
+  var users = 2;
+  for (var i = 1; i <= users; i++)
+		       {
+		       if (!isNumber(document.getElementById("p" + String(i)).value)) {
+		       total = 200;
+		       break;
+		       }
+		       total += parseInt(document.getElementById("p" + String(i)).value);
+		       document.getElementById("d" + String(i)).innerHTML = "$ " + String(parseInt(document.getElementById("p" + String(i)).value) / 100.00 * block);
+		       }
+		       if (total != 100) {
+		       var savebtn = document.getElementById("save").disabled = true;
+		       }
+		       else {
+		       var savebtn = document.getElementById("save").disabled = false;
+		       }
+		       }
+		       </script>
+<div class="sixteen wide column">&nbsp;</div>
+<div class="sixteen wide column">&nbsp;</div>
+<div class="sixteen wide column">
+  <div class="ui huge header">View and Manage <b><font color="navy">{{ org.org_name }}</font></b></div>
+</div>
+<div class="sixteen wide column">&nbsp;</div>
+<div class="sixteen wide column"><font size="3em">View and manage the organizations that you belong to.</font></div>
+<div class="sixteen wide column">
+  <div class="sixteen wide column">&nbsp;</div>
+  <div class="sixteen wide column">&nbsp;</div>
+  <div class="sixteen wide column">
+    <div class="ui huge header">Payments</div>
+  </div>
+  <div class="sixteen wide column">&nbsp;</div>
+  <div class="sixteen wide column"><font size="3em">View and manage the payments in your organization.</font></div>
+  <div class="sixteen wide column">&nbsp;</div>
+  <div class="sixteen wide column">
+    <table class="ui selectable striped table form">
+      <thead>
+	<tr><th colspan="2">
+	    <h3>Payments in my Organization</h3>
+	  </th>
+	  <th class="six wide column"><div class="twelve wide field ui mini">Reserve: <div class="ui labled input"><div class="ui label">$</div><input id="freserve" type="text" onchange="check()"></div></div></th>
+	  <th class="six wide column"><div class="twelve wide field ui mini">Block: <div class="ui labled input"><div class="ui label">$</div><input id="fblock" type="text" onchange="check()"></div></div></th>
+      </tr></thead>
+      <tbody>
+	<tr>
+	  <td>
+	    <i class="user icon"></i> <a href="#">User1_Name</a>
+	  </td>
+	  <td><font color="DeepSkyBlue"><i class="user icon"></i> Member</font></td>
+	  <td class="collapsing"><div class="six wide field ui mini"><div class="ui right labled input"><input id="p1" type="text" maxlength="3" onchange="check()"><div class="ui label">%</div></div></div></td>
+	  <td id="d1">$ 0.00</td>
+	</tr>
+	<tr>
+	  <td>
+	    <i class="user icon"></i> <a href="#">User2_Name</a>
+	  </td>
+	  <td><font color="DeepSkyBlue"><i class="user icon"></i> Member</font></td>
+	  <td class="collapsing"><div class="six wide field ui mini"><div class="ui right labled input"><input id="p2" type="text" maxlength="3" onchange="check()"><div class="ui label">%</div></div></div></td>
+	  <td id="d2">$ 0.00</td>
+	</tr>
+	<tr>
+	  <td colspan="4" class="right aligned">
+	    <button id="save" class="ui positive right labeled icon button" disabled>
+	      Save
+	      <i class="checkmark icon"></i>
+	    </button>
+	  </td>
+	</tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="sixteen wide column">&nbsp;</div>
+<div class="sixteen wide column">&nbsp;</div>
+<div class="sixteen wide column">
+  <div class="ui huge header">Manage Members</div>
+</div>
+<div class="sixteen wide column">&nbsp;</div>
 
+<div class="ui grid">
+  <div class="eight wide column">
+    <table class="ui selectable striped table form">
+      <thead>
+	<tr>
+	  <th colspan="2">
+	    <h3>Members</h3>
+	  </th>
+	</tr>
+      </thead>
+      <tbody>
+	<tr>
+	  <td><i class="user icon"></i><a href="#">John Smith</a></td>
+	  <td id="d1">
+	    <div class="ui checkbox">
+	      <input type="checkbox" tabindex="0" class="hidden">
+	    </div>
+
+	  </td>
+	</tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="eight wide column">&nbsp;</div>
+
+<div class="sixteen wide column">&nbsp;</div>
+<script>
+  $('.ui.checkbox')
+  .checkbox()
+  ;
+</script>
 {% endblock %}
