@@ -1,6 +1,4 @@
 from django.shortcuts import render
-import urllib2
-
 
 # Create your views here.
 def index(request):
@@ -12,3 +10,9 @@ def settings(request):
 
 def fanputest(request):
     return render(request, 'mixpay/fanputest.html')
+
+def homepage(request):
+    return render(request, 'mixpay/homepage.html')
+
+def login(request):
+    return render(request, 'mixpay/login.html')
