@@ -1,0 +1,183 @@
+{% load static %}
+<div class="ui sidebar overlay inverted vertical menu" style="z-index: 99">
+    <!-- <a href="/" class="item">
+	<img src="{% static 'logo/textonly.png' %}" style="height:30px; width: auto">
+    </a> -->
+    {% if user.is_authenticated %}
+    <div class="item">
+	<div class="header">
+	    <strong>Hello, {{ user.first_name }}!</strong>
+	</div>
+	<div class="menu">
+	    <a class="item" href="{% url 'userauth:profile' user.id %}"><i class="user icon"></i>Profile</a>
+	    <a class="item" href="{% url 'userauth:edit_profile' %}"><i class="edit icon"></i> Edit Profile</a>
+	    <a class="item" href="{% url 'userauth:edit_settings' %}"><i class="settings icon"></i> Account Settings</a>
+	    <a class="item" href="{% url 'userauth:logout' %}"><i class="sign out icon"></i> Logout</a>
+	</div>
+    </div>
+    {% else %}
+    <a class="item auth"><i class="sign in icon"></i>Log in</a>
+    <a class="item signup only"><i class="add user icon"></i>Sign Up</a>
+    {% endif %}
+    {% if user.is_staff %}
+    <a class="item" href="/admin"><strong>Django Admin</strong></a>
+    <a class="item" href="/staffpanel"><strong>Admin Panel</strong></a>
+    {% endif %}
+</div>
+
+<div class="ui grid">
+    <div class="sixteen wide computer sixteen wide tablet only column">
+	<div class="ui menu">
+	    <!-- <a href="/" class="item">
+		<img src="{% static 'logo/textonly.png' %}" style="height:30px; width: auto">
+	    </a> -->
+	    <div class="item">
+		<div class="ui search fluid">
+		    <div class="ui icon input">
+		    </div>
+		    <div class="results"></div>
+		</div>
+	    </div>
+
+	    <div class="right menu">
+		{% if user.is_authenticated %}
+		<div class="ui simple dropdown item">
+		    <strong>Hello, {{ user.first_name }}!</strong>
+		    <i class="dropdown icon"></i>
+		    <div class="menu">
+			<a class="item" href="{% url 'userauth:profile' user.id %}"><i class="user icon"></i>Profile</a>
+			<a class="item" href="{% url 'userauth:edit_profile' %}"><i class="edit icon"></i> Edit Profile</a>
+			<a class="item" href="{% url 'userauth:edit_settings' %}"><i class="settings icon"></i> Account Settings</a>
+			<a class="item" href="{% url 'userauth:logout' %}"><i class="sign out icon"></i> Logout</a>
+		    </div>
+		</div>
+		{% else %}
+		<a class="item auth"><i class="sign in icon"></i>Log in</a>
+		<a class="item signup only"><i class="add user icon"></i>Sign Up</a>
+		{% endif %}
+		{% if user.is_staff %}
+		<a class="item" href="/admin"><strong>Django Admin</strong></a>
+		<a class="item" href="/staffpanel"><strong>Admin Panel</strong></a>
+		{% endif %}
+            </div>
+	</div>
+    </div>
+
+    <div class="mobile only row">
+	<div class="ui top fixed borderless menu">
+	    <a class="ui dropdown sidebar-dropdown icon item">
+		<i class="content large icon"></i>
+	    </a>
+	    <a href="/" class="item" style="border-style: none">
+		<img src="{% static 'logo/textonly.png' %}" style="height:30px; width: auto">
+	    </a>
+	</div>
+    </div>
+
+
+</div>
+
+<!-- Sign up/login modal -->
+<div class="ui small modal auth">
+    <div class="content">
+	<div class="ui two column middle aligned very relaxed stackable grid">
+	    <div class="column">
+		<form class="ui form" action="{% url 'userauth:login' %}" method="post">
+		    {% csrf_token %}
+		    <div class="field">
+			<div class="ui left icon input">
+			    <input type="text" name="username" placeholder="Username">
+			    <i class="user icon"></i>
+			</div>
+		    </div>
+		    <div class="field">
+			<div class="ui left icon input">
+			    <input type="password" name="password" placeholder="Password">
+			    <i class="lock icon"></i>
+			</div>
+		    </div>
+		    <button class="ui blue submit button" type="submit">Login</button>
+		</form>
+	    </div>
+	    <div class="ui vertical divider">
+		Or
+	    </div>
+	    <div class="center aligned column">
+		<div class="ui big green labeled icon button signup">
+		    <i class="signup icon"></i>
+		    Sign Up
+		</div>
+	    </div>
+	</div>
+    </div>
+</div>
+
+<!-- Sign-up only modal -->
+<div class="ui small modal signup">
+    <div class="header">Sign Up</div>
+    <div class="content">
+	<div class="ui one column middle aligned stackable grid">
+	    <div class="column">
+		<form class="ui form" action="{% url 'userauth:register' %}" method="POST">
+		    {% csrf_token %}
+		    <div class="field">
+			<div class="ui left icon input">
+			    <input type="text" name="username" placeholder="Username">
+			    <i class="mail icon"></i>
+			</div>
+		    </div>
+
+		    <div class="field">
+			<div class="ui left icon input">
+			    <input type="text" name="first_name" placeholder="First name">
+			    <i class="user icon"></i>
+			</div>
+		    </div>
+		    <div class="field">
+			<div class="ui left icon input">
+			    <input type="text" name="last_name" placeholder="Last name">
+			    <i class="user icon"></i>
+			</div>
+		    </div>
+
+		    <div class="field">
+			<div class="ui left icon input">
+			    <input type="text" name="email" placeholder="Email">
+			    <i class="mail icon"></i>
+			</div>
+		    </div>
+		    <div class="field">
+			<div class="ui left icon input">
+			    <input type="password" name="password" placeholder="Password">
+			    <i class="lock icon"></i>
+			</div>
+		    </div>
+
+		    <div class="field">
+			<select name="gender" class="ui dropdown select">
+			    <option value="">Gender</option>
+			    <option value="M">Male</option>
+			    <option value="F">Female</option>
+			</select>
+		    </div>
+
+		    <button class="ui blue submit button" type="submit">Sign Up</button>
+		</form>
+	    </div>
+	</div>
+    </div>
+</div>
+
+<script>
+ $('.auth').click(function(){
+	$(".ui.modal.auth").modal("show");
+	$('.ui.modal.signup').modal('attach events', '.signup.button', 'show');
+	$('.select').dropdown();
+    });
+
+
+
+    $('.signup').click(function(){
+	$('.ui.modal.signup').modal("show");
+    });
+  </script>

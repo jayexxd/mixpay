@@ -2,6 +2,7 @@ from django import forms
 from userauth.models import gender_choices, UserProfile, User, Organization
 
 class UserForm(forms.ModelForm):
+    username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model = User
@@ -27,9 +28,9 @@ class UserProfileForm(forms.ModelForm):
     gender = forms.ModelMultipleChoiceField(queryset=gender_choices)
     business = forms.ModelMultipleChoiceField(queryset=Organization.objects.all())
 
-    # class Meta:
-    #     model = UserProfile
-    #     fields = ('gender', 'desc', 'business')
+    class Meta:
+        model = UserProfile
+        fields = ('gender', 'desc', 'business')
 
     # def __init__(self, *args, **kwargs):
     #     super(UserProfileForm, self).__init__(*args, **kwargs)
@@ -40,9 +41,9 @@ class UserLoginForm(forms.ModelForm):
     # need to re-declare password to override the default instance which is visible
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput(), max_length=100)
-    # class Meta:
-    #     model = User
-    #     fields = ('email', 'password')
+    class Meta:
+        model = User
+        fields = ('username', 'password')
 
     # def __init__(self, *args, **kwargs):
     #     super(UserLoginForm, self).__init__(*args, **kwargs)
@@ -58,9 +59,9 @@ class ChangePWForm(forms.ModelForm):
     new_pw = forms.CharField(label="New password", widget=forms.PasswordInput(), max_length=100)
     confirm_pw = forms.CharField(label="Confirm password", widget=forms.PasswordInput(), max_length=100)
 
-    # class Meta:
-    #     model = User
-    #     fields = ('password', 'new_pw', 'confirm_pw')
+    class Meta:
+        model = User
+        fields = ('password', 'new_pw', 'confirm_pw')
     # def __init__(self, *args, **kwargs):
     #     super(ChangePWForm, self).__init__(*args, **kwargs)
     #     self.helper = FormHelper()

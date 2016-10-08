@@ -78,3 +78,6 @@ def register(request):
 
 def sidebar(request):
     return render(request, 'mixpay/sidebar.html')
+
+def org(request):
+    return render(request, 'mixpay/org.html')

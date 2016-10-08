@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'^settings/$', views.settings, name="settings"),
     url(r'^auth/', include('userauth.urls')),
     url(r'^fanputest/$', views.fanputest),
+    url(r'^org/$', views.org, name="org")
 
 ]

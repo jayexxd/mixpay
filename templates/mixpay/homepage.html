@@ -7,38 +7,9 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}" />
 {% endblock %}
 
-{% block js %}
-<script src="{% static 'js/sidebar.js' %}"></script>
-<script src="{% static 'js/transition.js' %}"></script>
-<script src="{% static 'js/visibility.js' %}"></script>
-<script src="{% static 'js/homepage.js' %}"></script>
-<!-- <script>
-$(document)
-  .ready(function() {
+{% block navbar %}
 
-    // fix menu when passed
-    $('.masthead')
-      .visibility({
-        once: false,
-        onBottomPassed: function() {
-          $('.fixed.menu').transition('fade in');
-        },
-        onBottomPassedReverse: function() {
-          $('.fixed.menu').transition('fade out');
-        }
-      })
-    ;
-
-    // create sidebar and attach to menu open
-    $('.ui.sidebar')
-      .sidebar('attach events', '.toc.item')
-    ;
-
-  })
-;
-</script> -->
 {% endblock %}
-
 
 {% block fluid_body_block %}
 
@@ -84,9 +55,25 @@ $(document)
         <a class="item">Work</a>
         <a class="item">Company</a>
         <a class="item">Careers</a>
-        <div class="right item">
-          <a class="ui inverted button" href="{% url 'userauth:login' %}">Log in</a>
-          <a class="ui inverted button" href="{% url 'userauth:register' %}">Sign Up</a>
+        <div class="right menu">
+          {% if user.is_authenticated %}
+          <div class="item">
+        <div class="header">
+            <strong>Hello, {{ user.first_name }}!</strong>
+        </div>
+      </div>
+        <div class="menu">
+            <a class="item" href="{% url 'userauth:profile' user.id %}"><i class="user icon"></i>Profile</a>
+            <a class="item" href="{% url 'userauth:edit_profile' %}"><i class="edit icon"></i> Edit Profile</a>
+            <a class="item" href="{% url 'userauth:edit_settings' %}"><i class="settings icon"></i> Account Settings</a>
+            <a class="item" href="{% url 'userauth:logout' %}"><i class="sign out icon"></i> Logout</a>
+        </div>
+          </div>
+          {% else %}
+          <a class="item auth"><i class="sign in icon"></i>Log in</a>
+          <a class="item signup only"><i class="add user icon"></i>Sign Up</a>
+
+          {% endif %}
         </div>
       </div>
     </div>
@@ -182,4 +169,132 @@ $(document)
     </div>
   </div>
 </div>
+
+<div class="ui small modal auth">
+    <div class="content">
+	<div class="ui two column middle aligned very relaxed stackable grid">
+	    <div class="column">
+		<form class="ui form" action="{% url 'userauth:login' %}" method="post">
+		    {% csrf_token %}
+		    <div class="field">
+			<div class="ui left icon input">
+			    <input type="text" name="username" placeholder="Username">
+			    <i class="user icon"></i>
+			</div>
+		    </div>
+		    <div class="field">
+			<div class="ui left icon input">
+			    <input type="password" name="password" placeholder="Password">
+			    <i class="lock icon"></i>
+			</div>
+		    </div>
+		    <button class="ui blue submit button" type="submit">Login</button>
+		</form>
+	    </div>
+	    <div class="ui vertical divider">
+		Or
+	    </div>
+	    <div class="center aligned column">
+		<div class="ui big green labeled icon button signup">
+		    <i class="signup icon"></i>
+		    Sign Up
+		</div>
+	    </div>
+	</div>
+    </div>
+</div>
+<div class="ui small modal signup">
+    <div class="header">Sign Up</div>
+    <div class="content">
+	<div class="ui one column middle aligned stackable grid">
+	    <div class="column">
+		<form class="ui form" action="{% url 'userauth:register' %}" method="POST">
+		    {% csrf_token %}
+		    <div class="field">
+			<div class="ui left icon input">
+			    <input type="text" name="username" placeholder="Username">
+			    <i class="mail icon"></i>
+			</div>
+		    </div>
+
+		    <div class="field">
+			<div class="ui left icon input">
+			    <input type="text" name="first_name" placeholder="First name">
+			    <i class="user icon"></i>
+			</div>
+		    </div>
+		    <div class="field">
+			<div class="ui left icon input">
+			    <input type="text" name="last_name" placeholder="Last name">
+			    <i class="user icon"></i>
+			</div>
+		    </div>
+
+		    <div class="field">
+			<div class="ui left icon input">
+			    <input type="text" name="email" placeholder="Email">
+			    <i class="mail icon"></i>
+			</div>
+		    </div>
+		    <div class="field">
+			<div class="ui left icon input">
+			    <input type="password" name="password" placeholder="Password">
+			    <i class="lock icon"></i>
+			</div>
+		    </div>
+
+		    <div class="field">
+			<select name="gender" class="ui dropdown select">
+			    <option value="">Gender</option>
+			    <option value="M">Male</option>
+			    <option value="F">Female</option>
+			</select>
+		    </div>
+
+		    <button class="ui blue submit button" type="submit">Sign Up</button>
+		</form>
+	    </div>
+	</div>
+    </div>
+</div>
+
+
+{% endblock %}
+{% block js %}
+<script src="{% static 'js/sidebar.js' %}"></script>
+<script src="{% static 'js/transition.js' %}"></script>
+<script src="{% static 'js/visibility.js' %}"></script>
+<script src="{% static 'js/homepage.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+$('.auth').click(function(){
+  $(".ui.modal.auth").modal("show");
+  $('.ui.modal.signup').modal('attach events', '.signup.button', 'show');
+});
+
+$('.signup').click(function(){
+  $('.ui.modal.signup').modal("show");
+});
+
+// fix menu when passed
+$('.masthead')
+.visibility({
+once: false,
+onBottomPassed: function() {
+$('.fixed.menu').transition('fade in');
+},
+onBottomPassedReverse: function() {
+$('.fixed.menu').transition('fade out');
+}
+})
+;
+
+// create sidebar and attach to menu open
+$('.ui.sidebar')
+.sidebar('attach events', '.toc.item')
+;
+
+});
+</script>
 {% endblock %}

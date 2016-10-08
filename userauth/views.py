@@ -37,7 +37,7 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileRegistrationForm()
     return render(request,
-                  'auth/register.html',
+                  'userauth/register.html',
                   {'user_form': user_form, 'profile_form':  profile_form, 'registered': registered} )
 
 def user_login(request):
@@ -77,7 +77,7 @@ def user_login(request):
     # This scenario would most likely be a HTTP GET.
     else:
         context['login_form'] = UserLoginForm()
-        return render(request, 'auth/login.html', context)
+        return render(request, 'userauth/login.html', context)
 
 
 
@@ -86,7 +86,7 @@ def profile(request, profile_id):
     context = {}
     context['profile'] = user
     context['active_profile'] = True
-    return render(request, 'auth/profile.html', context)
+    return render(request, 'userauth/profile.html', context)
 
 @login_required
 def user_logout(request):
@@ -108,7 +108,7 @@ def user_edit(request):
             messages.add_message(request, messages.SUCCESS, 'Your profile details have been successfully updated.')
     else:
         context['profile_form'] = UserProfileForm(instance=profile)
-    return render(request, 'auth/edit.html', context)
+    return render(request, 'userauth/edit.html', context)
 
 @login_required
 def user_settings(request):
@@ -134,4 +134,4 @@ def user_settings(request):
 
     form = ChangePWForm(request.POST, instance=user)
     context['pw_form'] = ChangePWForm()
-    return render(request, 'auth/settings.html', context)
+    return render(request, 'userauth/settings.html', context)
