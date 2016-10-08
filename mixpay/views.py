@@ -25,7 +25,7 @@ def fanputest(request):
     configure({
         "mode": "sandbox", # sandbox or live
         "client_id": "ASUu0Pp7oePCdm2iVehU3ekpnwVaXdvWyPp1wIJ-6jqbgqIrr6dpvpbQawJwVfUvGJd4dpzGaKWR3YWa",
-        "client_secret": "EDKkKGae9m4RE6gD8f32Z2V7HgyUcDk__pi6QHq2dPiAbeFy7KZ_RtvW8mwduOENWmUXsiacwNwkqhNg" })    
+        "client_secret": "EDKkKGae9m4RE6gD8f32Z2V7HgyUcDk__pi6QHq2dPiAbeFy7KZ_RtvW8mwduOENWmUXsiacwNwkqhNg" })
     payment_list = [{"email" : "mixpay-employee-1@gmail.com", "amount" : "20.00", "note" : "Thank you"}, {"email" : "mixpay-employee-2@gmail.com", "amount" : "65.00", "note" : "Thank you"}, {"email" : "mixpay-employee-3@gmail.com", "amount" : "15.00", "note" : "Thank you"} ]
     obj = json.dumps(payment_list, separators=(',', ': '))
     pprint(obj)
@@ -94,3 +94,7 @@ def org(request):
     list_organization()
     print context["orgs"]
     return render(request, 'mixpay/org.html', context)
+
+def payments(request):
+    return render(request, 'mixpay/payments.html')
+
