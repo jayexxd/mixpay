@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 
-
 gender_choices = (
     ('M', 'Male'),
     ('F', 'Female'),
@@ -16,7 +15,7 @@ class Organization(models.Model):
     desc = models.CharField('Describe your organization', max_length=1000, default='', null=True)
 
     def __unicode__(self):
-        return self.user.username.encode('utf8')
+        return self.owner.username.encode('utf8')
 
 # UserProfile class is to add the additional form fields we require from a user on top of the template User model by Django which provides only basic attribs
 class UserProfile(models.Model):
