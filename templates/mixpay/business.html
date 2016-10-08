@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+	<div class="sixteen wide column">&nbsp;</div>
+	<div class="sixteen wide column">&nbsp;</div>
+	<div class="sixteen wide column">
+		<div class="ui huge header">Choose an Organization</div>
+	</div>
+	<div class="sixteen wide column">&nbsp;</div>
+	<div class="sixteen wide column"><font size="3em">View and manage the organizations that you belong to.</font></div>
+	<div class="sixteen wide column">&nbsp;</div>
+	<div class="sixteen wide column">
+		<table class="ui selectable striped table">
+			<thead>
+				<tr><th colspan="2">
+					<h3>Your Organizations</h3>
+				</th>
+				<th class=" five wide columnright aligned"> <div class="ui labeled icon buttons"><button onclick="neworg()" class="ui blue button"><i class="plus icon"></i>New Organization</button></div></th>
+			</tr></thead>
+			<tbody>
+			  {% if not orgs %}
+			  <tr>
+			    <td class="collapsing">You are not in any organizations yet :(</td>
+			  </tr>
+			  {% else %}
+			  {% for org in orgs %}
+			  <tr>
+					<td class="collapsing">
+						<i class="users icon"></i> <a href="{% url 'business_manage' org.id %}">{{ org.org_name }}</a>
+					</td>
+					<td>{{ org.desc }}</td>
+					{% if user == org.owner %}
+					<td class="right aligned collapsing"><font color="OrangeRed"><i class="university icon"></i> Manager</font></td>
+					{% else %}
+					<td class="right aligned"><font color="DeepSkyBlue"><i class="user icon"></i> Member</font></td>
+					{% endif %}
+			  </tr>
+			  {% endfor %}
+			  {% endif %}
+			</tbody>
+		</table>
+	</div>
+	<div class="ui modal neworgmodal">
+  <i class="close icon"></i>
+  <div class="header">
+    New Organization
+  </div>
+  <div class="content">
+		<form class="ui form">
+  <div class="field">
+    <label>Name</label>
+    <input type="text" name="org-name" placeholder="Name of your organization">
+  </div>
+  <div class="field">
+    <label>Description</label>
+    <input type="text" name="org-desc" placeholder="Description of your organization">
+  </div>
+	<div class="field">
+		<label>Members</label>
+		<input type="text" name="org-members" placeholder="Key in list of semi-colon separated users">
+	</div>
+</form>
+  </div>
+  <div class="actions">
+    <div class="ui positive left labeled icon button">
+      Create New Organization
+      <i class="plus icon"></i>
+    </div>
+  </div>
+</div>
+<script>
+	function neworg() {
+		$('.neworgmodal').modal('show');
+	}
+</script>
+{% endblock %}
+

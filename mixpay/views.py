@@ -98,5 +98,23 @@ def org(request):
 def payments(request):
     return render(request, 'mixpay/payments.html')
 
+def business(request):
+    context = {}
+    # List all organizations that the user belongs to
+    print request.user
+    def list_organization():
+        context["orgs"] = Organization.objects.filter(userprofile= UserProfile.objects.get(user=request.user))
+        context["user"] = request.user
+    list_organization()
+    print context["orgs"]
+    context["a_business"] = True
+    return render(request, 'mixpay/business.html', context)
+    
+def business_manage(request, org_id):
+    context = {}
+    context["org"] = Organization.objects.get(id=org_id)
+    return render(request, 'mixpay/business_manage.html', context)
+
 def dashboard(request):
     return render(request, 'mixpay/dashboard.html')
+

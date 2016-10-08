@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^fanputest/$', views.fanputest),
     url(r'^org/$', views.org, name="org"),
     url(r'^payments/$', views.payments, name="payments"),
+    url(r'^business/$', views.business, name="business"),
+    url(r'^business/(?P<org_id>\d+)/$', views.business_manage, name="business_manage"),
     url(r'^dashboard/$', views.dashboard, name="dashboard")
-
 ]
