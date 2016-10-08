@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"></script>
 <script>
   function isNumber(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
@@ -120,9 +121,42 @@
 <div class="eight wide column">&nbsp;</div>
 
 <div class="sixteen wide column">&nbsp;</div>
+
+<canvas id="pieChart" width="300" height="300"></canvas>
 <script>
-  $('.ui.checkbox')
-  .checkbox()
-  ;
+
+$(document).ready(function() {
+
+  var ctx = $("#pieChart").get(0).getContext('2d');
+
+  var data = {
+      labels: [
+          "Red",
+          "Blue",
+          "Yellow"
+      ],
+      datasets: [
+          {
+              data: [300, 50, 100],
+              backgroundColor: [
+                  "#FF6384",
+                  "#36A2EB",
+                  "#FFCE56"
+              ],
+              hoverBackgroundColor: [
+                  "#FF6384",
+                  "#36A2EB",
+                  "#FFCE56"
+              ]
+          }]
+  };
+
+var myDoughnutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: data,
+    options: options
+});
+
+$('.ui.checkbox').checkbox();
 </script>
 {% endblock %}

@@ -61,7 +61,7 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
                 context['user_id_tracking'] = True
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/dashboard/')
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your account has been disabled")
