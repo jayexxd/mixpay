@@ -118,13 +118,19 @@ def business_manage(request, org_id):
     context["org"] = Organization.objects.get(id=org_id)
     payment_history = None
     def received_hist():
-        payment_history = Payment.all({"count": 3})
+        payment_history = Payment.all({"count": 20})
         context["payments"] = payment_history
         print payment_history
         print("List Payment:")
         for payment in payment_history.payments:
             print("  -> Payment[%s]" % (payment.id))
-    received_hist()    
+            
+    def getOrgMembers():
+        return UserProfile.objects.filter(organization=org_id)
+    context["members"] = getOrgMembers()
+    received_hist()
+
+    
     return render(request, 'mixpay/business_manage.html', context)
 
 def dashboard(request):

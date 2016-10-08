@@ -45,7 +45,7 @@
 <table class="ui selectable striped table form">
   <thead>
     <tr>
-      <th colspan="2">
+      <th colspan="6">
 	<h3>Payments</h3>
       </th>
     </tr>
@@ -57,7 +57,9 @@
     {% for payment in payments.payments %}
     <tr>
       <td>{{ payment.update_time }}</td>
-      <td><i class="user icon"></i><a href="#">John Smith</a></td>
+      <td><i class="user icon"></i><a href="#">{{ payment.payer.funding_instruments.0.credit_card.first_name }} {{ payment.payer.funding_instruments.0.credit_card.last_name }}</a></td>
+      <td>{{ payment.payer.funding_instruments.0.credit_card.billing_address.line1 }}, {{ payment.payer.funding_instruments.0.credit_card.billing_address.city }}</td>
+      <td>{{ payment.transactions.0.related_resources.0.sale.state }}</td>
       <td>${{ payment.transactions.0.amount.total }} {{ payment.transactions.0.amount.currency }}</td>
     </tr>
     {% endfor %}
@@ -83,22 +85,20 @@
 	  <th class="six wide column"><div class="twelve wide field ui mini">Block: <div class="ui labled input"><div class="ui label">$</div><input id="fblock" type="text" onchange="check()"></div></div></th>
       </tr></thead>
       <tbody>
+	{% if not members %}
+	<tr><td>You have no members in this organization:(</td></tr>
+	{% else %}
+	{% for member in members %}
 	<tr>
 	  <td>
-	    <i class="user icon"></i> <a href="#">User1_Name</a>
+	    <i class="user icon"></i> <a href="#">{{ member.first_name }} {{ member.last_name }}</a>
 	  </td>
 	  <td><font color="DeepSkyBlue"><i class="user icon"></i> Member</font></td>
 	  <td class="collapsing"><div class="six wide field ui mini"><div class="ui right labled input"><input id="p1" type="text" maxlength="3" onchange="check()"><div class="ui label">%</div></div></div></td>
 	  <td id="d1">$ 0.00</td>
 	</tr>
-	<tr>
-	  <td>
-	    <i class="user icon"></i> <a href="#">User2_Name</a>
-	  </td>
-	  <td><font color="DeepSkyBlue"><i class="user icon"></i> Member</font></td>
-	  <td class="collapsing"><div class="six wide field ui mini"><div class="ui right labled input"><input id="p2" type="text" maxlength="3" onchange="check()"><div class="ui label">%</div></div></div></td>
-	  <td id="d2">$ 0.00</td>
-	</tr>
+	{% endfor %}
+	{% endif %}
 	<tr>
 	  <td colspan="4" class="right aligned">
 	    <button id="save" class="ui positive right labeled icon button" disabled>
