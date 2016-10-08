@@ -1,11 +1,14 @@
-{% extends 'auth/user_panel_base.html' %}
+{% extends 'userauth/user_panel_base.html' %}
 {% load static %}
 {% block content_block %}
-<h1>Account Settings</h1><hr>
+<div class="page-header">
+  <h1>Edit Profile</h1>
+</div>
   {% csrf_token %}
-  {% load crispy_forms_tags %}
-  {% crispy pw_form %}
-
+  <form id="pw_form" method="post" action="/auth/edit/" enctype="multipart/form-data">
+  {{pw_form.as_p}}
+   <button type="submit" class="save btn btn-default">Save</button>
+  </form>
 {% endblock %}
 
 {% block js_scripts %}

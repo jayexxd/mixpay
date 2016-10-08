@@ -5,6 +5,16 @@
 {% block css %}
  <title>Welcome to Mixpay</title>
 <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}" />
+<style>
+#jumbotron {
+  background: url("{% static 'images/coins.jpg' %}");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+</style>
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/transition.css' %}" /> -->
 {% endblock %}
 
 {% block navbar %}
@@ -44,7 +54,7 @@
 
 <!-- Page Contents -->
 <div class="pusher">
-  <div class="ui inverted vertical masthead center aligned segment">
+  <div class="ui vertical inverted masthead center aligned segment" id="jumbotron">
     <div class="ui container">
       <div class="ui large secondary inverted pointing menu">
         <a class="toc item">
@@ -92,11 +102,10 @@
       <div class="row">
         <div class="eight wide column">
           <h3 class="ui header">We Help Companies and Companions</h3>
-          <p>We can give your company superpowers to do things that you never thought possible. Let us empower your needs...through pure data analytics.</p>
-
+          <p>We can give your company superpowers to do things that you never thought possible. Let us empower your needs...through pure distribution</p>
         </div>
         <div class="six wide right floated column">
-          <img src="assets/images/wireframe/white-image.png" class="ui large bordered rounded image">
+          <img src="{% static 'images/white-image.png' %}" class="ui large bordered rounded image">
         </div>
       </div>
       <div class="row">
@@ -130,12 +139,6 @@
         <h3 class="ui header">Breaking The Grid, Grabs Your Attention</h3>
         <p>Instead of focusing on content creation and hard work, we have learned how to master the art of doing nothing by providing massive amounts of whitespace and generic content that can seem massive, monolithic and worth your attention.</p>
         <a class="ui large button">Read More</a>
-      <h4 class="ui horizontal header divider">
-        <a href="#">Case Studies</a>
-      </h4>
-      <h3 class="ui header">Did We Tell You About Our Bananas?</h3>
-      <p>Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
-      <a class="ui large button">I'm Still Quite Interested</a>
     </div>
   </div>
 
@@ -214,7 +217,7 @@
 			    <i class="user icon"></i>
 			</div>
 		    </div>
-		    
+
 		    <div class="field">
 			<div class="ui left icon input">
 			    <input type="text" name="last_name" placeholder="Last name">

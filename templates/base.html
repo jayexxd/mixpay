@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.css" />
     <style>
       body {
+        !important
         background: url("{% static 'images/brickwall.png' %}");
       }
     </style>
@@ -27,35 +28,56 @@
   </head>
 
 <body>
+
   {% block navbar %}
-      {% include 'navbar.html'%}
-  {% endblock %}
+    {% load static %}
+    <style>
+    .secondary.menu .toc.item {
+      display: none;
+    }
 
-  <div class="ui fluid container" style="margin: 0; padding: 0">
+    @media only screen and (max-width: 500px) {
+      .ui.fixed.menu {
+        display: none !important;
+      }
 
-    {% block fluid_body_block %}
-    {% endblock %}
-  </div>
-  <div class="pusher">
-    {% block content %}
-    {% endblock %}
-        <!-- <div class="ui container">
-    <div class="ui vertical masthead center aligned segment">
-        <div class="ui large secondary menu">
+      .secondary.menu .item,
+      .secondary.menu .menu {
+        display: none;
+      }
+
+      .secondary.menu .toc.item {
+        display: block;
+      }
+    }
+    </style>
+        <!-- Sidebar Menu -->
+        <div class="ui bottom attached segment pushable">
+        <div class="ui vertical inverted left visible sidebar menu">
+          <a class="item">
+         <i class="home icon"></i>
+         Home
+       </a>
+       <a class="item">
+        <i class="block layout icon"></i>
+        Work
+      </a>
+      <a class="item">
+        <i class="smile icon"></i>
+        Friends
+      </a>
+      <a class="item">
+        <i class="calendar icon"></i>
+        History
+      </a>
+      <a class="item auth"><i class="sign in icon"></i>Log in</a>
+      <a class="item signup only"><i class="add user icon"></i>Sign Up</a>
           <div class="right menu">
-            <a class="toc item">
-              <i class="sidebar icon"></i>
-            </a>
-            <a class="active item">Home</a>
-            <a class="item">Work</a>
-            <a class="item">Company</a>
-            <a class="item">Careers</a>
             {% if user.is_authenticated %}
             <div class="item">
           <div class="header">
               <strong>Hello, {{ user.first_name }}!</strong>
           </div>
-        </div>
           <div class="menu">
               <a class="item" href="{% url 'userauth:profile' user.id %}"><i class="user icon"></i>Profile</a>
               <a class="item" href="{% url 'userauth:edit_profile' %}"><i class="edit icon"></i> Edit Profile</a>
@@ -67,10 +89,150 @@
             <a class="item auth"><i class="sign in icon"></i>Log in</a>
             <a class="item signup only"><i class="add user icon"></i>Sign Up</a>
             {% endif %}
+            {% if user.is_staff %}
+            <a class="item" href="/admin"><strong>Django Admin</strong></a>
+            <a class="item" href="/staffpanel"><strong>Admin Panel</strong></a>
+            {% endif %}
+            </div>
           </div>
-      </div>
+            <div class="pusher">
+              <div class="ui container" style="width:80%">
+              {% block content %}
+              {% endblock %}
+            </div>
+          </div>
+    </div>
 
-    </div> -->
+    <!-- Sign up/login modal -->
+    <div class="ui small modal auth">
+        <div class="content">
+    	<div class="ui two column middle aligned very relaxed stackable grid">
+    	    <div class="column">
+    		<form class="ui form" action="{% url 'userauth:login' %}" method="post">
+    		    {% csrf_token %}
+    		    <div class="field">
+    			<div class="ui left icon input">
+    			    <input type="text" name="username" placeholder="Username">
+    			    <i class="user icon"></i>
+    			</div>
+    		    </div>
+    		    <div class="field">
+    			<div class="ui left icon input">
+    			    <input type="password" name="password" placeholder="Password">
+    			    <i class="lock icon"></i>
+    			</div>
+    		    </div>
+    		    <button class="ui blue submit button" type="submit">Login</button>
+    		</form>
+    	    </div>
+    	    <div class="ui vertical divider">
+    		Or
+    	    </div>
+    	    <div class="center aligned column">
+    		<div class="ui big green labeled icon button signup">
+    		    <i class="signup icon"></i>
+    		    Sign Up
+    		</div>
+    	    </div>
+    	</div>
+        </div>
+    </div>
+
+    <div class="ui left demo vertical inverted sidebar labeled icon menu">
+      <a class="item">
+        <i class="home icon"></i>
+        Home
+      </a>
+      <a class="item">
+        <i class="block layout icon"></i>
+        Work
+      </a>
+      <a class="item">
+        <i class="smile icon"></i>
+        Own
+      </a>
+    </div>
+
+
+    <!-- Sign-up only modal -->
+    <div class="ui small modal signup">
+        <div class="header">Sign Up</div>
+        <div class="content">
+    	<div class="ui one column middle aligned stackable grid">
+    	    <div class="column">
+    		<form class="ui form" action="{% url 'userauth:register' %}" method="POST">
+    		    {% csrf_token %}
+    		    <div class="field">
+    			<div class="ui left icon input">
+    			    <input type="text" name="username" placeholder="Username">
+    			    <i class="mail icon"></i>
+    			</div>
+    		    </div>
+
+    		    <div class="field">
+    			<div class="ui left icon input">
+    			    <input type="text" name="first_name" placeholder="First name">
+    			    <i class="user icon"></i>
+    			</div>
+    		    </div>
+    		    <div class="field">
+    			<div class="ui left icon input">
+    			    <input type="text" name="last_name" placeholder="Last name">
+    			    <i class="user icon"></i>
+    			</div>
+    		    </div>
+
+    		    <div class="field">
+    			<div class="ui left icon input">
+    			    <input type="text" name="email" placeholder="Email">
+    			    <i class="mail icon"></i>
+    			</div>
+    		    </div>
+    		    <div class="field">
+    			<div class="ui left icon input">
+    			    <input type="password" name="password" placeholder="Password">
+    			    <i class="lock icon"></i>
+    			</div>
+    		    </div>
+
+    		    <div class="field">
+    			<select name="gender" class="ui dropdown select">
+    			    <option value="">Gender</option>
+    			    <option value="M">Male</option>
+    			    <option value="F">Female</option>
+    			</select>
+    		    </div>
+
+    		    <button class="ui blue submit button" type="submit">Sign Up</button>
+    		</form>
+    	    </div>
+    	</div>
+        </div>
+    </div>
+    <script src="{% static 'js/sidebar.js' %}"></script>
+    <script>
+     $('.auth').click(function(){
+    	$(".ui.modal.auth").modal("show");
+    	$('.ui.modal.signup').modal('attach events', '.signup.button', 'show');
+    	$('.select').dropdown();
+        });
+
+        $('.signup').click(function(){
+    	$('.ui.modal.signup').modal("show");
+        });
+
+        $('.toc').click(function() {
+          $('.ui.vertical.menu').sidebar('toggle');
+      });
+      </script>
+
+  {% endblock %}
+
+
+  <div class="ui fluid container" style="margin: 0; padding: 0">
+
+    {% block fluid_body_block %}
+    {% endblock %}
   </div>
   <!-- body_block provides a standard container -->
   <div class="ui container">

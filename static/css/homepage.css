@@ -1,7 +1,20 @@
+.pushable {
+  margin: 0 -14px;
+  padding: 0;
+}
 
     .hidden.menu {
       display: none;
     }
+
+    .pusher {
+    position: relative;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    overflow: hidden;
+    min-height: 100%;
+    display: block;
+}
 
     .masthead.segment {
       min-height: 700px;
@@ -23,7 +36,9 @@
       font-size: 1.7em;
       font-weight: normal;
     }
-
+    .ui.pointing.menu {
+      border: none;
+    }
     .ui.vertical.stripe {
       padding: 8em 0em;
     }
