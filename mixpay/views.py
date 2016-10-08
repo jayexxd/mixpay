@@ -130,3 +130,8 @@ def dashboard(request):
     context = {}
     context["a_dashboard"] = True
     return render(request, 'mixpay/dashboard.html', context)
+
+def personal(request):
+    context = {}
+    context["a_personal"] = True
+    return render(request, 'mixpay/personal.html', context)
