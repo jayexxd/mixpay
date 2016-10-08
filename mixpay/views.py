@@ -88,3 +88,6 @@ def org(request):
 
 def payments(request):
     return render(request, 'mixpay/payments.html')
+
+def dashboard(request):
+    return render(request, 'mixpay/dashboard.html')

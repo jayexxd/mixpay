@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^auth/', include('userauth.urls')),
     url(r'^fanputest/$', views.fanputest),
     url(r'^org/$', views.org, name="org"),
-    url(r'^payments/$', views.payments, name="payments")
+    url(r'^payments/$', views.payments, name="payments"),
+    url(r'^dashboard/$', views.dashboard, name="dashboard")
 
 ]

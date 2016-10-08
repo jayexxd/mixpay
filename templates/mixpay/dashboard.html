@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="ui container">
+  <div class="sixteen wide column">&nbsp;</div>
+  <div class="sixteen wide column">&nbsp;</div>
+  <div class="sixteen wide column">
+    <div class="ui huge header">Dashboard</div>
+  </div>
+  <div class="sixteen wide column">&nbsp;</div>
+  <div class="sixteen wide column"><font size="3em">The important things</font></div>
+  <div class="sixteen wide column">&nbsp;</div>
+  <!-- <div class="ui two column doubling stackable grid container">
+  <div class="column">
+  <p>Organisations</p>
+</div>
+<div class="column">
+<p>Personal</p>
+</div>
+</div> -->
+
+<div class="sixteen wide column">
+  <table class="ui selectable striped table form">
+    <tbody>
+      <tr>
+        <td>
+          <h4 class="ui image header">
+            <div class="content">
+              You own
+            </div>
+          </h4></td>
+          <td>
+            4
+          </td>
+          <td>
+            <h4 class="ui image header">
+              <div class="content">
+                You joined
+              </div>
+            </h4>
+
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            <h4 class="ui image header">
+              <div class="content">
+                Your share
+              </div>
+            </h4>
+          </td>
+          <td>
+            70%
+          </td>
+        </tr>
+        <tr>
+          <tr>
+            <td>
+              <h4 class="ui image header">
+                <div class="content">
+                  Total revenue
+                </div>
+              </h4></td>
+              <td>
+                S$14,000
+              </td>
+              <td>
+                <h4 class="ui image header">
+                  <div class="content">
+                    Cost
+                  </div>
+                </h4>
+              </td>
+              <td>
+                S$3,000
+              </td>
+              <td>
+                <h4 class="ui image header">
+                  <div class="content">
+                    Money in pocket
+                  </div>
+                </h4>
+              </td>
+              <td>
+                S$5,000
+              </td>
+            </tr>
+          </tr>
+          <tr>
+            <td colspan="6" class="right aligned">
+              <button id="refresh" class="ui positive right labeled icon button" onclick="refresh()">
+                Refresh
+                <i class="refresh icon"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+  function refresh() {
+    get from server
+  }
+  </script>
+  {% endblock %}
