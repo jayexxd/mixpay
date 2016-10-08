@@ -28,10 +28,11 @@
 
 <body>
   {% block navbar %}
-
+      {% include 'navbar.html'%}
   {% endblock %}
 
   <div class="ui fluid container" style="margin: 0; padding: 0">
+
     {% block fluid_body_block %}
     {% endblock %}
   </div>

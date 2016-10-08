@@ -1,80 +1,110 @@
 {% load static %}
-<div class="ui sidebar overlay inverted vertical menu" style="z-index: 99">
-    <!-- <a href="/" class="item">
-	<img src="{% static 'logo/textonly.png' %}" style="height:30px; width: auto">
-    </a> -->
-    {% if user.is_authenticated %}
-    <div class="item">
-	<div class="header">
-	    <strong>Hello, {{ user.first_name }}!</strong>
-	</div>
-	<div class="menu">
-	    <a class="item" href="{% url 'userauth:profile' user.id %}"><i class="user icon"></i>Profile</a>
-	    <a class="item" href="{% url 'userauth:edit_profile' %}"><i class="edit icon"></i> Edit Profile</a>
-	    <a class="item" href="{% url 'userauth:edit_settings' %}"><i class="settings icon"></i> Account Settings</a>
-	    <a class="item" href="{% url 'userauth:logout' %}"><i class="sign out icon"></i> Logout</a>
-	</div>
-    </div>
-    {% else %}
-    <a class="item auth"><i class="sign in icon"></i>Log in</a>
-    <a class="item signup only"><i class="add user icon"></i>Sign Up</a>
-    {% endif %}
-    {% if user.is_staff %}
-    <a class="item" href="/admin"><strong>Django Admin</strong></a>
-    <a class="item" href="/staffpanel"><strong>Admin Panel</strong></a>
-    {% endif %}
-</div>
+<style>
+.secondary.menu .toc.item {
+  display: none;
+}
 
-<div class="ui grid">
-    <div class="sixteen wide computer sixteen wide tablet only column">
-	<div class="ui menu">
-	    <!-- <a href="/" class="item">
-		<img src="{% static 'logo/textonly.png' %}" style="height:30px; width: auto">
-	    </a> -->
-	    <div class="item">
-		<div class="ui search fluid">
-		    <div class="ui icon input">
-		    </div>
-		    <div class="results"></div>
-		</div>
-	    </div>
+@media only screen and (max-width: 700px) {
+  .ui.fixed.menu {
+    display: none !important;
+  }
 
-	    <div class="right menu">
-		{% if user.is_authenticated %}
-		<div class="ui simple dropdown item">
-		    <strong>Hello, {{ user.first_name }}!</strong>
-		    <i class="dropdown icon"></i>
-		    <div class="menu">
-			<a class="item" href="{% url 'userauth:profile' user.id %}"><i class="user icon"></i>Profile</a>
-			<a class="item" href="{% url 'userauth:edit_profile' %}"><i class="edit icon"></i> Edit Profile</a>
-			<a class="item" href="{% url 'userauth:edit_settings' %}"><i class="settings icon"></i> Account Settings</a>
-			<a class="item" href="{% url 'userauth:logout' %}"><i class="sign out icon"></i> Logout</a>
-		    </div>
-		</div>
-		{% else %}
-		<a class="item auth"><i class="sign in icon"></i>Log in</a>
-		<a class="item signup only"><i class="add user icon"></i>Sign Up</a>
-		{% endif %}
-		{% if user.is_staff %}
-		<a class="item" href="/admin"><strong>Django Admin</strong></a>
-		<a class="item" href="/staffpanel"><strong>Admin Panel</strong></a>
-		{% endif %}
+  .secondary.menu .item,
+  .secondary.menu .menu {
+    display: none;
+  }
+
+  .secondary.menu .toc.item {
+    display: block;
+  }
+}
+</style>
+    <!-- Sidebar Menu -->
+    <div class="ui bottom attached segment pushable">
+    <div class="ui vertical inverted left visible sidebar menu">
+      <a class="item">
+     <i class="home icon"></i>
+     Home
+   </a>
+   <a class="item">
+    <i class="block layout icon"></i>
+    Work
+  </a>
+  <a class="item">
+    <i class="smile icon"></i>
+    Friends
+  </a>
+  <a class="item">
+    <i class="calendar icon"></i>
+    History
+  </a>
+  <a class="item auth"><i class="sign in icon"></i>Log in</a>
+  <a class="item signup only"><i class="add user icon"></i>Sign Up</a>
+      <div class="right menu">
+        {% if user.is_authenticated %}
+        <div class="item">
+      <div class="header">
+          <strong>Hello, {{ user.first_name }}!</strong>
+      </div>
+      <div class="menu">
+          <a class="item" href="{% url 'userauth:profile' user.id %}"><i class="user icon"></i>Profile</a>
+          <a class="item" href="{% url 'userauth:edit_profile' %}"><i class="edit icon"></i> Edit Profile</a>
+          <a class="item" href="{% url 'userauth:edit_settings' %}"><i class="settings icon"></i> Account Settings</a>
+          <a class="item" href="{% url 'userauth:logout' %}"><i class="sign out icon"></i> Logout</a>
+      </div>
+        </div>
+        {% else %}
+        <a class="item auth"><i class="sign in icon"></i>Log in</a>
+        <a class="item signup only"><i class="add user icon"></i>Sign Up</a>
+        {% endif %}
+        {% if user.is_staff %}
+        <a class="item" href="/admin"><strong>Django Admin</strong></a>
+        <a class="item" href="/staffpanel"><strong>Admin Panel</strong></a>
+        {% endif %}
+        </div>
+      </div>
+
+      <div class="pusher">
+            <!-- <div class="ui container">
+        <div class="ui vertical masthead center aligned segment">
+            <div class="ui large secondary menu">
+              <div class="right menu">
+                <a class="toc item">
+                  <i class="sidebar icon"></i>
+                </a>
+                <a class="active item">Home</a>
+                <a class="item">Work</a>
+                <a class="item">Company</a>
+                <a class="item">Careers</a>
+                {% if user.is_authenticated %}
+                <div class="item">
+              <div class="header">
+                  <strong>Hello, {{ user.first_name }}!</strong>
+              </div>
             </div>
-	</div>
-    </div>
+              <div class="menu">
+                  <a class="item" href="{% url 'userauth:profile' user.id %}"><i class="user icon"></i>Profile</a>
+                  <a class="item" href="{% url 'userauth:edit_profile' %}"><i class="edit icon"></i> Edit Profile</a>
+                  <a class="item" href="{% url 'userauth:edit_settings' %}"><i class="settings icon"></i> Account Settings</a>
+                  <a class="item" href="{% url 'userauth:logout' %}"><i class="sign out icon"></i> Logout</a>
+              </div>
+                </div>
+                {% else %}
+                <a class="item auth"><i class="sign in icon"></i>Log in</a>
+                <a class="item signup only"><i class="add user icon"></i>Sign Up</a>
+                {% endif %}
+              </div>
+          </div>
 
-    <div class="mobile only row">
-	<div class="ui top fixed borderless menu">
-	    <a class="ui dropdown sidebar-dropdown icon item">
-		<i class="content large icon"></i>
-	    </a>
-	    <a href="/" class="item" style="border-style: none">
-		<img src="{% static 'logo/textonly.png' %}" style="height:30px; width: auto">
-	    </a>
-	</div>
-    </div>
-
-
+        </div> -->
+        <div class="ui basic segment">
+          <h3 class="ui header">Application Content</h3>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </div>
 </div>
 
 <!-- Sign up/login modal -->
@@ -111,6 +141,22 @@
 	</div>
     </div>
 </div>
+
+<div class="ui left demo vertical inverted sidebar labeled icon menu">
+  <a class="item">
+    <i class="home icon"></i>
+    Home
+  </a>
+  <a class="item">
+    <i class="block layout icon"></i>
+    Work
+  </a>
+  <a class="item">
+    <i class="smile icon"></i>
+    Own
+  </a>
+</div>
+
 
 <!-- Sign-up only modal -->
 <div class="ui small modal signup">
@@ -167,7 +213,7 @@
 	</div>
     </div>
 </div>
-
+<script src="{% static 'js/sidebar.js' %}"></script>
 <script>
  $('.auth').click(function(){
 	$(".ui.modal.auth").modal("show");
@@ -175,9 +221,11 @@
 	$('.select').dropdown();
     });
 
-
-
     $('.signup').click(function(){
 	$('.ui.modal.signup').modal("show");
     });
+
+    $('.toc').click(function() {
+      $('.ui.vertical.menu').sidebar('toggle');
+  });
   </script>

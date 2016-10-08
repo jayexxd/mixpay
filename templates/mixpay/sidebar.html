@@ -7,29 +7,16 @@
 {% endblock %}
 
 {% block js %}
-<script src="{% static 'js/sidebar.js' %}"></script>
 <!-- <script src="{% static 'js/transition.js' %}"></script>
 <script src="{% static 'js/visibility.js' %}"></script>
 <script src="{% static 'js/homepage.js' %}"></script> -->
-<script type="text/javascript">
-$(document).ready(function(){
-  $('#toggle').click(function() {
-    $('.ui.labeled.icon.sidebar').sidebar('toggle');
-  });
-});
-</script>
 {% endblock %}
 
 
 {% block fluid_body_block %}
-<div class="ui large top fixed menu navbar">
+<!-- <div class="ui large top fixed menu navbar">
   <div class="ui container">
-    <div id="toggle" class="item">
-      <i class="big sidebar icon"></i>
-    </div>
-    <a class="active item">Home</a>
-    <a class="item">Work</a>
-    <a class="item">Own</a>
+
     <div class="right menu">
       <div class="item">
         <a class="ui button">Log in</a>
@@ -39,10 +26,10 @@ $(document).ready(function(){
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
-  <div class="ui left demo vertical inverted sidebar labeled icon menu">
+  <!-- <div class="ui left demo vertical inverted sidebar labeled icon menu">
     <a class="item">
       <i class="home icon"></i>
       Home
@@ -58,7 +45,7 @@ $(document).ready(function(){
   </div>
   <div class="pusher">
   Your site's actual content
-</div>
+</div> -->
 
 
 {% endblock %}

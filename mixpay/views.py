@@ -66,7 +66,7 @@ def fanputest(request):
     '''
     return render(request, 'mixpay/fanputest.html')
 
-    
+
 def homepage(request):
     return render(request, 'mixpay/homepage.html')
 
