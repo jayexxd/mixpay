@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+
+    'userauth'
 ]
 
 MIDDLEWARE = [

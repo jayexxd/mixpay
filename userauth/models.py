@@ -10,6 +10,13 @@ gender_choices = (
     ('O', 'Other'),
 )
 
+class Organization(models.Model):
+    user = models.OneToOneField(User)
+    org_name = models.CharField(default='', max_length=30)
+    desc = models.CharField('Describe your organization', max_length=1000, default='', null=True)
+
+    def __unicode__(self):
+        return self.user.username.encode('utf8')
 
 # UserProfile class is to add the additional form fields we require from a user on top of the template User model by Django which provides only basic attribs
 class UserProfile(models.Model):
@@ -25,16 +32,6 @@ class UserProfile(models.Model):
     desc = models.CharField('Describe yourself', max_length=1000, default='', null=True)
 
     email = models.CharField('Your Email', max_length=100, default='', null=True)
-
-    def __unicode__(self):
-        return self.user.username.encode('utf8')
-
-class Organization(models.Model):
-    user = models.OneToOneField(User)
-
-    org_name = models.CharField(default='', max_length=30)
-
-    desc = models.CharField('Describe your organization', max_length=1000, default='', null=True)
 
     def __unicode__(self):
         return self.user.username.encode('utf8')
