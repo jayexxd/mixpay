@@ -5,7 +5,6 @@
   <h1>Edit Profile</h1>
 </div>
 {% csrf_token %}
-
 <form id="user_form" method="post" action="/auth/edit/" enctype="multipart/form-data">
 {{profile_form.as_p}}
 </form>

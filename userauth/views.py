@@ -79,7 +79,7 @@ def user_login(request):
 
 
 def profile(request, profile_id):
-    user = get_object_or_404(UserProfile, user_id=profile_id)
+    user = get_object_or_404(UserProfile, user=User.objects.get(id=profile_id))
     context = {}
     context['profile'] = user
     context['active_profile'] = True
