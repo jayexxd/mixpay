@@ -7,83 +7,25 @@
 	    <div class="item">
 		<div class="header">My Account</div>
 		<div class="menu">
-		    <a class="item {% if active_profile %}active{% endif %}" href="{% url 'auth:profile' user.id%}">
+		    <a class="item {% if active_profile %}active{% endif %}" href="{% url 'userauth:profile' user.id%}">
 			<i class="user icon"></i>
 			Profile
 		    </a>
-		    <a class="item {% if active_edit_profile %}active{% endif %}" href="{% url 'auth:edit_profile' %}">
+		    <a class="item {% if active_edit_profile %}active{% endif %}" href="{% url 'userauth:edit_profile' %}">
 			<i class="edit icon"></i>
 			Edit Profile
 		    </a>
-		    <a class="item {% if active_settings %}active{% endif %}" href="{% url 'auth:edit_settings' %}">
-			<i class="settings icon"></i>	
+		    <a class="item {% if active_settings %}active{% endif %}" href="{% url 'userauth:edit_settings' %}">
+			<i class="settings icon"></i>
 			Settings
 		    </a>
 		</div>
 	    </div>
-	    <div class="item">
-		<div class="header">Messaging</div>
-		<div class="menu">
-		    <a class="item {% if active_inbox %}active{% endif %}" href="{% url 'messaging:inbox' %}">
-			<i class="mail icon"></i>
-			Inbox
-		    </a>
-		    <a class="item">
-			<i class="wait icon"></i>
-			Pending
-		    </a>
-		    <a class="item">
-			<i class="checkmark box icon" aria-hidden="true"></i>
 
-			Confirmed Bookings
-		    </a>
-		    <a class="item">
-			<i class="archive icon"></i>
-			Archived
-		    </a>
-		</div>
-	    </div>
-	    <div class="item">
-		<div class="header">Hosting</div>
-		<div class="menu">
-		    <a class="item {% if active_listings %}active{% endif %}" href="{% url 'tourlisting:listed_trips' %}">
-		    	<i class="travel icon" aria-hidden="true"></i>
-			My Listings
-		    </a>
-		    <a class="item {% if active_host_trip %}active{% endif %}" href="{% url 'tourlisting:host_trip' %}">
-		    	<i class="plus circle icon" aria-hidden="true"></i>
-			Host a Trip
-		    </a>
-		    <a class="item">
-			<i class="line chart icon" aria-hidden="true"></i>
-			Performance
-		    </a>
-		    <a class="item">
-			<i class="star icon" aria-hidden="true"></i>
-			Reviews</a>
-		</div>
-	    </div>
-	    <div class="item">
-		<div class="header">Support</div>
-		<div class="menu">
-		    <a class="item">
-			<i class="help circle icon" aria-hidden="true"></i>
-			FAQ
-		    </a>
-		    <a class="item">
-			<i class="book icon" aria-hidden="true"></i>
-			Guides</a>
-		    <a class="item">
-			<i class="talk outline icon" aria-hidden="true"></i>
-			Contact Us</a>
-		</div>
-	    </div>
-	</div>
-    </div>
     <div class="fourteen wide computer twelve wide tablet only column">
 	{% block content_block %}
 	{% endblock %}
-	
+
     </div>
 </div>
 {% endblock %}

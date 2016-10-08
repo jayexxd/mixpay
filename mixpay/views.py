@@ -4,7 +4,7 @@ import os
 import logging
 from payouts import mixpay_payout # same folder
 from pprint import pprint
-
+import json
 logging.basicConfig(level=logging.INFO)
 
 # set environment variables using fanpu's paypal client account, or alternatively configure before calling
@@ -24,10 +24,14 @@ def fanputest(request):
     configure({
         "mode": "sandbox", # sandbox or live
         "client_id": "ASUu0Pp7oePCdm2iVehU3ekpnwVaXdvWyPp1wIJ-6jqbgqIrr6dpvpbQawJwVfUvGJd4dpzGaKWR3YWa",
-        "client_secret": "EDKkKGae9m4RE6gD8f32Z2V7HgyUcDk__pi6QHq2dPiAbeFy7KZ_RtvW8mwduOENWmUXsiacwNwkqhNg" })
-
-    # mixpay_payout();
-    payout = Payout.find("PHMMW5XEQSXW4")
+        "client_secret": "EDKkKGae9m4RE6gD8f32Z2V7HgyUcDk__pi6QHq2dPiAbeFy7KZ_RtvW8mwduOENWmUXsiacwNwkqhNg" })    
+    payment_list = [{"email" : "mixpay-employee-1@gmail.com", "amount" : "20.00", "note" : "Thank you"}, {"email" : "mixpay-employee-2@gmail.com", "amount" : "65.00", "note" : "Thank you"}, {"email" : "mixpay-employee-3@gmail.com", "amount" : "15.00", "note" : "Thank you"} ]
+    obj = json.dumps(payment_list, separators=(',', ': '))
+    pprint(obj)
+    # mixpay_payout(payment_list);
+    # payout = Payout.find("PHMMW5XEQSXW4")
+    payout = Payout.find("M3U2WQJQKQBN8")
+    # SHH99UV5L3QKW
     print("Got Details for Payout[%s]" % (payout.batch_header.payout_batch_id))
     pprint (vars(payout))
 
