@@ -11,6 +11,9 @@ def settings(request):
 def fanputest(request):
     return render(request, 'mixpay/fanputest.html')
 
+def org(request):
+	return render(request, 'mixpay/org.html')
+
 def homepage(request):
     return render(request, 'mixpay/homepage.html')
 
