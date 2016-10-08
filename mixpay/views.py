@@ -1,7 +1,11 @@
 from django.shortcuts import render
-import paypalrestsdk
+from paypalrestsdk import *
 import os
 import logging
+from payouts import mixpay_payout # same folder
+from pprint import pprint
+
+logging.basicConfig(level=logging.INFO)
 
 # set environment variables using fanpu's paypal client account, or alternatively configure before calling
 # os.environ['PAYPAL_MODE'] = "sandbox"
@@ -17,11 +21,18 @@ def settings(request):
     return render(request, 'mixpay/settings.html')
 
 def fanputest(request):
-    paypalrestsdk.configure({
+    configure({
         "mode": "sandbox", # sandbox or live
         "client_id": "ASUu0Pp7oePCdm2iVehU3ekpnwVaXdvWyPp1wIJ-6jqbgqIrr6dpvpbQawJwVfUvGJd4dpzGaKWR3YWa",
         "client_secret": "EDKkKGae9m4RE6gD8f32Z2V7HgyUcDk__pi6QHq2dPiAbeFy7KZ_RtvW8mwduOENWmUXsiacwNwkqhNg" })
 
+    # mixpay_payout();
+    payout = Payout.find("PHMMW5XEQSXW4")
+    print("Got Details for Payout[%s]" % (payout.batch_header.payout_batch_id))
+    pprint (vars(payout))
+
+
+    '''
     payment = paypalrestsdk.Payment({
         "intent": "sale",
         "payer": {
@@ -52,8 +63,10 @@ def fanputest(request):
         print("Payment created successfully")
     else:
         print(payment.error)
+    '''
     return render(request, 'mixpay/fanputest.html')
 
+    
 def homepage(request):
     return render(request, 'mixpay/homepage.html')
 
