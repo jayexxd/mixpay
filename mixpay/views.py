@@ -9,9 +9,9 @@ import json
 logging.basicConfig(level=logging.INFO)
 
 # set environment variables using fanpu's paypal client account, or alternatively configure before calling
-# os.environ['PAYPAL_MODE'] = "sandbox"
-# os.environ['PAYPAL_CLIENT_ID'] = "ASUu0Pp7oePCdm2iVehU3ekpnwVaXdvWyPp1wIJ-6jqbgqIrr6dpvpbQawJwVfUvGJd4dpzGaKWR3YWa"
-# os.environ['PAYPAL_CLIENT_SECRET'] = "EDKkKGae9m4RE6gD8f32Z2V7HgyUcDk__pi6QHq2dPiAbeFy7KZ_RtvW8mwduOENWmUXsiacwNwkqhNg"
+os.environ['PAYPAL_MODE'] = "sandbox"
+os.environ['PAYPAL_CLIENT_ID'] = "ASUu0Pp7oePCdm2iVehU3ekpnwVaXdvWyPp1wIJ-6jqbgqIrr6dpvpbQawJwVfUvGJd4dpzGaKWR3YWa"
+os.environ['PAYPAL_CLIENT_SECRET'] = "EDKkKGae9m4RE6gD8f32Z2V7HgyUcDk__pi6QHq2dPiAbeFy7KZ_RtvW8mwduOENWmUXsiacwNwkqhNg"
 
 # Create your views here.
 def index(request):
@@ -26,15 +26,16 @@ def fanputest(request):
         "mode": "sandbox", # sandbox or live
         "client_id": "ASUu0Pp7oePCdm2iVehU3ekpnwVaXdvWyPp1wIJ-6jqbgqIrr6dpvpbQawJwVfUvGJd4dpzGaKWR3YWa",
         "client_secret": "EDKkKGae9m4RE6gD8f32Z2V7HgyUcDk__pi6QHq2dPiAbeFy7KZ_RtvW8mwduOENWmUXsiacwNwkqhNg" })
-    payment_list = [{"email" : "mixpay-employee-1@gmail.com", "amount" : "20.00", "note" : "Thank you"}, {"email" : "mixpay-employee-2@gmail.com", "amount" : "65.00", "note" : "Thank you"}, {"email" : "mixpay-employee-3@gmail.com", "amount" : "15.00", "note" : "Thank you"} ]
+    # payment_list = [{"email" : "mixpay-employee-1@gmail.com", "amount" : "20.00", "note" : "Thank you"}, {"email" : "mixpay-employee-2@gmail.com", "amount" : "65.00", "note" : "Thank you"}, {"email" : "mixpay-employee-3@gmail.com", "amount" : "15.00", "note" : "Thank you"} ]
+    payment_list = [{"email" : "dev-null@gmail.com", "amount" : "9110000", "note" : "danke"}]
     obj = json.dumps(payment_list, separators=(',', ': '))
     pprint(obj)
-    # mixpay_payout(payment_list);
+    mixpay_payout(payment_list);
     # payout = Payout.find("PHMMW5XEQSXW4")
-    payout = Payout.find("M3U2WQJQKQBN8")
+    # payout = Payout.find("M3U2WQJQKQBN8")
     # SHH99UV5L3QKW
-    print("Got Details for Payout[%s]" % (payout.batch_header.payout_batch_id))
-    pprint (vars(payout))
+    # print("Got Details for Payout[%s]" % (payout.batch_header.payout_batch_id))
+    # pprint (vars(payout))
 
 
     '''
@@ -115,6 +116,8 @@ def business(request):
 def business_manage(request, org_id):
     context = {}
     context["org"] = Organization.objects.get(id=org_id)
+    payment_history = Payment.all({"count": 10})
+    print payment_history
     return render(request, 'mixpay/business_manage.html', context)
 
 def dashboard(request):
