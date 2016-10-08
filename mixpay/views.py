@@ -118,7 +118,8 @@ def business_manage(request, org_id):
     context["org"] = Organization.objects.get(id=org_id)
     payment_history = None
     def received_hist():
-        context["hist"] = Payment.all({"count": 1})
+        payment_history = Payment.all({"count": 3})
+        context["payments"] = payment_history
         print payment_history
         print("List Payment:")
         for payment in payment_history.payments:

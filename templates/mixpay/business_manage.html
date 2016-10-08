@@ -40,6 +40,30 @@
 </div>
 <div class="sixteen wide column">&nbsp;</div>
 <div class="sixteen wide column"><font size="3em">View and manage the organizations that you belong to.</font></div>
+<br>
+<div class="ui huge header">Recent Incoming Payments</div>
+<table class="ui selectable striped table form">
+  <thead>
+    <tr>
+      <th colspan="2">
+	<h3>Payments</h3>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if not payments %}
+    <td>You don't have any recent payments :(</td>
+    {% else %}
+    {% for payment in payments.payments %}
+    <tr>
+      <td>{{ payment.update_time }}</td>
+      <td><i class="user icon"></i><a href="#">John Smith</a></td>
+      <td>${{ payment.transactions.0.amount.total }} {{ payment.transactions.0.amount.currency }}</td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+  </tbody>
+</table>
 <div class="sixteen wide column">
   <div class="sixteen wide column">&nbsp;</div>
   <div class="sixteen wide column">&nbsp;</div>
@@ -123,37 +147,37 @@
 <div class="sixteen wide column">&nbsp;</div>
 <script>
 
-$(document).ready(function() {
-//
-//   var ctx = $("#pieChart").get(0).getContext('2d');
-//
-//   var data = {
-//       labels: [
-//           "Red",
-//           "Blue",
-//           "Yellow"
-//       ],
-//       datasets: [
-//           {
-//               data: [300, 50, 100],
-//               backgroundColor: [
-//                   "#FF6384",
-//                   "#36A2EB",
-//                   "#FFCE56"
-//               ],
-//               hoverBackgroundColor: [
-//                   "#FF6384",
-//                   "#36A2EB",
-//                   "#FFCE56"
-//               ]
-//           }]
-//   };
-//
-// var myDoughnutChart = new Chart(ctx, {
-//     type: 'doughnut',
-//     data: data,
-//     options: options
-$('.ui.checkbox').checkbox();
-});
+  $(document).ready(function() {
+  //
+  //   var ctx = $("#pieChart").get(0).getContext('2d');
+  //
+  //   var data = {
+  //       labels: [
+  //           "Red",
+  //           "Blue",
+  //           "Yellow"
+  //       ],
+  //       datasets: [
+  //           {
+  //               data: [300, 50, 100],
+  //               backgroundColor: [
+  //                   "#FF6384",
+  //                   "#36A2EB",
+  //                   "#FFCE56"
+  //               ],
+  //               hoverBackgroundColor: [
+  //                   "#FF6384",
+  //                   "#36A2EB",
+  //                   "#FFCE56"
+  //               ]
+  //           }]
+  //   };
+  //
+  // var myDoughnutChart = new Chart(ctx, {
+  //     type: 'doughnut',
+  //     data: data,
+  //     options: options
+  $('.ui.checkbox').checkbox();
+  });
 </script>
 {% endblock %}
