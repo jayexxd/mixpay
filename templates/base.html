@@ -61,7 +61,7 @@
           <i class="home icon"></i>
           Dashboard
 	</a>
-	<a class="item"><i class="block layout icon"></i>Business</a>
+	<a class="item {% if a_business %}active{% endif %}" href={% url 'business' %}><i class="block layout icon"></i>Business</a>
 	<a class="item"><i class="smile icon"></i>Personal</a>
 	<a class="item"><i class="calendar icon"></i>Analytics</a>
 	<a class="item" href=""><i class="settings icon"></i>Settings</a>
