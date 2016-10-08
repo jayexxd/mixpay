@@ -86,8 +86,7 @@ if os.getenv('TRAVIS', None):
     }
 else:
     DATABASES={
-    'default':dj_database_url.config(default='postgres://wytdixiwaaqjgz:-YI7l62Zq99lMfSHspiBV3cYM6@ec2-174-129-29-118.compute-1.amazonaws.com:5432/dcernd8o38isl8
-')
+    'default':dj_database_url.config(default='postgres://wytdixiwaaqjgz:-YI7l62Zq99lMfSHspiBV3cYM6@ec2-174-129-29-118.compute-1.amazonaws.com:5432/dcernd8o38isl8')
     }
     DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
