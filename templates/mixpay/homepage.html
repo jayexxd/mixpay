@@ -88,7 +88,11 @@
         MixPay
       </h1>
       <h2>Do wonders with just 3 finger taps</h2>
-      <div class="ui huge primary button">Create an Account to Get Started <i class="right arrow icon"></i></div>
+      {% if user.is_authenticated %}
+      <div class="ui huge primary button">Welcome back, Professor.</i></div>
+      {%else%}
+      <div class="ui huge primary button signup">Create an Account to Get Started <i class="right arrow icon"></i></div>
+      {%endif%}
     </div>
 
   </div>
@@ -123,7 +127,7 @@
         <div class="column">
           <h3>"I shouldn't have gone with their competitor. Because there was no competition to begin with."</h3>
           <p>
-            <i class="hand pointer icon"></i> <b>Mr K T Koh</b> CEO, Three Finger Industries Pte Ltd
+            <i class="hand pointer icon"></i> <b>Mr Koh K T</b> CEO, Three Finger Technologies Pte Ltd
           </p>
         </div>
       </div>

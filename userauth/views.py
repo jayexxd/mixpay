@@ -78,7 +78,7 @@ def user_login(request):
 
 
 def profile(request, profile_id):
-    user = get_object_or_404(UserProfile, user=User.objects.get(id=profile_id))
+    user = get_object_or_404(UserProfile, user_id=profile_id)
     context = {}
     context['profile'] = user
     context['active_profile'] = True
@@ -94,7 +94,7 @@ def user_logout(request):
 def user_edit(request):
     context = {}
     context['active_edit_profile'] = True
-    profile = get_object_or_404(UserProfile, user=request.user)
+    profile = get_object_or_404(UserProfile, user_id=request.user.id)
     if request.method == "POST":
         form = UserProfileForm(request.POST, instance=profile)
         context['profile_form'] = form
