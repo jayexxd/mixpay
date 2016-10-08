@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block css %}
- <title>Welcome to Mixpay</title>
+ <title>Welcome to MixPay</title>
 <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}" />
 <style>
 #jumbotron {
@@ -43,27 +43,27 @@
 
 <!-- Sidebar Menu -->
 <div class="ui vertical inverted sidebar menu">
-  <a class="active item">Home</a>
-  <a class="item">Work</a>
-  <a class="item">Company</a>
-  <a class="item">Careers</a>
+  <a class="active item" href="#page1">Home</a>
+  <a class="item" href="#page2">About</a>
+  <a class="item" href="#page3">Reviews</a>
+  <a class="item" href="#page4">Try us</a>
   <a class="item">Login</a>
   <a class="item">Signup</a>
 </div>
 
 
 <!-- Page Contents -->
-<div class="pusher">
+<div class="pusher" id="page1">
   <div class="ui vertical inverted masthead center aligned segment" id="jumbotron">
     <div class="ui container">
       <div class="ui large secondary inverted pointing menu">
         <a class="toc item">
           <i class="sidebar icon"></i>
         </a>
-        <a class="active item">Home</a>
-        <a class="item">Work</a>
-        <a class="item">Company</a>
-        <a class="item">Careers</a>
+        <a class="active item" href="#page1">Home</a>
+        <a class="item" href="#page2">About</a>
+        <a class="item" href="#page3">Reviews</a>
+        <a class="item" href="#page4">Try us</a>
         <div class="right menu">
           {% if user.is_authenticated %}
           <div class="item">
@@ -89,7 +89,7 @@
 
     <div class="ui text container">
       <h1 class="ui inverted header">
-        Mixpay
+        MixPay
       </h1>
       <h2>Do wonders with just 3 finger taps</h2>
       <div class="ui huge primary button">Create an Account to Get Started <i class="right arrow icon"></i></div>
@@ -97,15 +97,15 @@
 
   </div>
 
-  <div class="ui vertical stripe segment">
+  <div class="ui vertical stripe segment" id="page2">
     <div class="ui middle aligned stackable grid container">
       <div class="row">
         <div class="eight wide column">
-          <h3 class="ui header">We Help Companies and Companions</h3>
-          <p>We can give your company superpowers to do things that you never thought possible. Let us empower your needs...through pure distribution</p>
+          <h3 class="ui header">Things get ugly when it comes to money.</h3>
+          <p>Don't sweat about it. Let us handle your finance matters so you can concentrate on doing what you love most.</p>
         </div>
         <div class="six wide right floated column">
-          <img src="{% static 'images/white-image.png' %}" class="ui large bordered rounded image">
+          <img src="{% static 'images/putin.jpg' %}" class="ui large bordered rounded image">
         </div>
       </div>
       <div class="row">
@@ -117,7 +117,7 @@
   </div>
 
 
-  <div class="ui vertical stripe quote segment">
+  <div class="ui vertical stripe quote segment" id="page3">
     <div class="ui equal width stackable internally celled grid">
       <div class="center aligned row">
         <!-- <div class="column">
@@ -125,19 +125,19 @@
           <p>That is what they all say about us</p>
         </div> -->
         <div class="column">
-          <h3>"I shouldn't have gone with their competitor."</h3>
+          <h3>"I shouldn't have gone with their competitor. Because there was no competition to begin with."</h3>
           <p>
-            <img src="assets/images/avatar/nan.jpg" class="ui avatar image"> <b>Nan</b> Chief Fun Officer Acme Toys
+            <i class="hand pointer icon"></i> <b>Mr K T Koh</b> CEO, Three Finger Industries Pte Ltd
           </p>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="ui vertical stripe segment">
+  <div class="ui vertical stripe segment" id="page4">
     <div class="ui text container">
-        <h3 class="ui header">Breaking The Grid, Grabs Your Attention</h3>
-        <p>Instead of focusing on content creation and hard work, we have learned how to master the art of doing nothing by providing massive amounts of whitespace and generic content that can seem massive, monolithic and worth your attention.</p>
+        <h3 class="ui header">30 days free. Automatic refunds thereafter. </h3>
+        <p>Try us today.</p>
         <a class="ui large button">Read More</a>
     </div>
   </div>
@@ -163,7 +163,7 @@
           </div>
         </div>
         <div class="seven wide column">
-          <h4 class="ui inverted header">Mixpay</h4>
+          <h4 class="ui inverted header">MixPay</h4>
           <p>Serving partners, friends and startup colleagues since 2016</p>
         </div>
       </div>
@@ -280,6 +280,16 @@ $('.fixed.menu').transition('fade out');
 $('.ui.sidebar')
 .sidebar('attach events', '.toc.item');
 
+$('.ui.secondary.inverted > .item').click(function() {
+  var container = $(this);
+  var scrollTo = $($(this).attr('href'));
+  console.log(container, scrollTo);
+  $('.ui.secondary.inverted > .item' ).removeClass('active');
+  $(this).addClass('active');
+container.animate({
+    scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
+});
+});
 });
 </script>
 {% endblock %}

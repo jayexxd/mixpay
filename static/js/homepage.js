@@ -19,5 +19,12 @@ $(document)
         .sidebar('attach events', '.toc.item')
       ;
 
+      $('ui.secondary.inverted > .item').click(function() {
+        console.log($(this));
+        $('ui.secondary.inverted').children.removeClass('active');
+        $(this).addClass('active');
+      });
+
+
     })
   ;
