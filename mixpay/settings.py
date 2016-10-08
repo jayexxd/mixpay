@@ -77,9 +77,9 @@ if os.getenv('TRAVIS', None):
     DATABASES = {
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.postgis', #django.db.backends.postgresql',
-            'NAME': 'localdb',
-            'USER': 'vortex',
-            'PASSWORD': 'Bad2655pW',
+            'NAME': 'mixpaydb',
+            'USER': 'fanpu',
+            'PASSWORD': 'isitpublicornot',
             'HOST':'localhost',
             # 'PORT':'',
         }
@@ -132,3 +132,12 @@ STATIC_URL = '/static/'
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+try:
+    LOCAL_SETTINGS
+except NameError:
+    try:
+        from localsettings import *
+    except ImportError:
+        pass
