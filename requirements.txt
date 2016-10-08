@@ -1,4 +1,4 @@
-pycurl==7.43.0
-python-apt==1.1.0b1
-pyxdg==0.25
-virtualenv==15.0.1
+Django==1.10
+gunicorn==19.4.5
+psycopg2==2.6.1
+whitenoise==2.0.6
