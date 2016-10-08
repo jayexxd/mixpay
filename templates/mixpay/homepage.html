@@ -71,13 +71,14 @@
             <strong>Hello, {{ user.first_name }}!</strong>
         </div>
       </div>
-            <a class="item" href="{% url 'userauth:profile' user.id %}"><i class="user icon"></i>Profile</a>
+            <a class="item" href="{% url 'dashboard'%}"><i class="user icon"></i>Profile</a>
             <a class="item" href="{% url 'userauth:edit_profile' %}"><i class="edit icon"></i> Edit Profile</a>
             <a class="item" href="{% url 'userauth:edit_settings' %}"><i class="settings icon"></i> Account Settings</a>
             <a class="item" href="{% url 'userauth:logout' %}"><i class="sign out icon"></i> Logout</a>
           {% else %}
           <a class="item auth"><i class="sign in icon"></i>Log in</a>
           <a class="item signup only"><i class="add user icon"></i>Sign Up</a>
+
           {% endif %}
         </div>
       </div>

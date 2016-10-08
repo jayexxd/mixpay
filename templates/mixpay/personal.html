@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="ui container">
+  <div class="sixteen wide column">&nbsp;</div>
+  <div class="sixteen wide column">&nbsp;</div>
+  <div class="sixteen wide column">
+    <div class="ui huge header">Personal</div>
+  </div>
+  <div class="sixteen wide column">&nbsp;</div>
+  <div class="sixteen wide column"><font size="3em">Here's how you've been doing</font></div>
+  <div class="sixteen wide column">&nbsp;</div>
+  <!-- <div class="ui two column doubling stackable grid container">
+  <div class="column">
+  <p>Organisations</p>
+</div>
+<div class="column">
+<p>Personal</p>
+</div>
+</div> -->
+
+<div class="sixteen wide column">
+  <table class="ui selectable striped table form">
+    <tbody>
+      <tr>
+        <td>
+          <h4 class="ui image header">
+            <div class="content">
+              No.
+            </div>
+          </h4></td>
+          <td>
+            <h4 class="ui image header">
+              <div class="content">
+                Date
+              </div>
+            </h4></td>
+            <td>
+              <h4 class="ui image header">
+                <div class="content">
+                  Organization
+                </div>
+              </h4></td>
+              <td>
+                <h4 class="ui image header">
+                  <div class="content">
+                    Profit
+                  </div>
+                </h4></td>
+
+
+        </tr>
+        <tr>
+          <tr>
+            <td>
+              <h4 class="ui image header">
+                <div class="content">
+                  Total revenue
+                </div>
+              </h4></td>
+              <td>
+                S$5,000
+              </td>
+
+
+              <td>
+                mixpay
+              </td>
+              <td>
+
+                  S$14,000
+
+
+              </td>
+            </tr>
+          </tr>
+          <tr>
+            <td colspan="6" class="right aligned">
+              <button id="refresh" class="ui positive right labeled icon button" onclick="refresh()">
+                Refresh
+                <i class="refresh icon"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+  function refresh() {
+    get from server
+  }
+  </script>
+  {% endblock %}

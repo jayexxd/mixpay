@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^business/$', views.business, name="business"),
     url(r'^business/(?P<org_id>\d+)/$', views.business_manage, name="business_manage"),
     url(r'^dashboard/$', views.dashboard, name="dashboard"),
+    url(r'^personal/$', views.personal, name="personal"),
 ]
