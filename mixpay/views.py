@@ -101,29 +101,29 @@ def payments(request):
     context["a_payments"] = True
     return render(request, 'mixpay/payments.html', context)
 
-def received_hist():
-    payment_history = Payment.all({"count": 100})
-    print("List Payment:")
-    for payment in payment_history.payments:
-        print("  -> Payment[%s]" % (payment.id))
+
         
 def business(request):
     context = {}
     # List all organizations that the user belongs to
-    print request.user
     def list_organization():
         context["orgs"] = Organization.objects.filter(userprofile= UserProfile.objects.get(user=request.user))
         context["user"] = request.user
     list_organization()
-    print context["orgs"]
     context["a_business"] = True
     return render(request, 'mixpay/business.html', context)
 
 def business_manage(request, org_id):
     context = {}
     context["org"] = Organization.objects.get(id=org_id)
-    payment_history = Payment.all({"count": 10})
-    print payment_history
+    payment_history = None
+    def received_hist():
+        context["hist"] = Payment.all({"count": 1})
+        print payment_history
+        print("List Payment:")
+        for payment in payment_history.payments:
+            print("  -> Payment[%s]" % (payment.id))
+    received_hist()    
     return render(request, 'mixpay/business_manage.html', context)
 
 def dashboard(request):
