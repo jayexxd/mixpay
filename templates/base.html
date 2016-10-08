@@ -31,11 +31,7 @@
       {% include 'navbar.html'%}
   {% endblock %}
 
-  <div class="ui fluid container" style="margin: 0; padding: 0">
 
-    {% block fluid_body_block %}
-    {% endblock %}
-  </div>
   <div class="pusher">
     {% block content %}
     {% endblock %}
@@ -71,6 +67,12 @@
       </div>
 
     </div> -->
+  </div>
+
+  <div class="ui fluid container" style="margin: 0; padding: 0">
+
+    {% block fluid_body_block %}
+    {% endblock %}
   </div>
   <!-- body_block provides a standard container -->
   <div class="ui container">
