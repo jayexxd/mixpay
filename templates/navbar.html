@@ -169,3 +169,16 @@
 	</div>
     </div>
 </div>
+
+<script>
+ $('.auth').click(function(){
+	$(".ui.modal.auth").modal("show");
+	$('.ui.modal.signup').modal('attach events', '.signup.button', 'show');
+	$('.select').dropdown();
+    });
+
+
+
+    $('.signup').click(function(){
+	$('.ui.modal.signup').modal("show");
+    });</script>
