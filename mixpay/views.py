@@ -99,6 +99,12 @@ def org(request):
 def payments(request):
     return render(request, 'mixpay/payments.html')
 
+def received_hist():
+    payment_history = Payment.all({"count": 100})
+    print("List Payment:")
+    for payment in payment_history.payments:
+        print("  -> Payment[%s]" % (payment.id))
+        
 def business(request):
     context = {}
     # List all organizations that the user belongs to
