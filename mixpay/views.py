@@ -19,3 +19,6 @@ def homepage(request):
 
 def login(request):
     return render(request, 'mixpay/login.html')
+
+def register(request):
+    return render(request, 'mixpay/register.html')
