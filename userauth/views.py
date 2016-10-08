@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from userauth.forms import UserForm, UserProfileForm, UserLoginForm, ChangePWForm
+from userauth.forms import UserForm, UserProfileForm, UserProfileRegistrationForm, UserLoginForm, ChangePWForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
@@ -14,7 +14,7 @@ def register(request):
     registered = False
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
-        profile_form = UserProfileForm(data=request.POST)
+        profile_form = UserProfileRegistrationForm(data=request.POST)
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
@@ -26,8 +26,6 @@ def register(request):
             # a bit of redundancy but it's for simplicity
             profile.first_name = user.first_name
             profile.last_name = user.last_name
-            # Did the user provide a profile picture?
-            # If so, we need to get it from the input form and put it in the UserProfile model.
             profile.save()
             registered = True
             return HttpResponseRedirect('/')
@@ -35,10 +33,9 @@ def register(request):
             print user_form.errors, profile_form.errors
     else:
         user_form = UserForm()
-        profile_form = UserProfileRegistrationForm()
     return render(request,
                   'userauth/register.html',
-                  {'user_form': user_form, 'profile_form':  profile_form, 'registered': registered} )
+                  {'user_form': user_form,  'registered': registered} )
 
 def user_login(request):
     context = {}
