@@ -1,0 +1,85 @@
+Request request token
+
+curl -v https://api.sandbox.paypal.com/v1/oauth2/token \
+  -H "Accept: application/json" \
+  -H "Accept-Language: en_US" \
+  -u "ASUu0Pp7oePCdm2iVehU3ekpnwVaXdvWyPp1wIJ-6jqbgqIrr6dpvpbQawJwVfUvGJd4dpzGaKWR3YWa:EDKkKGae9m4RE6gD8f32Z2V7HgyUcDk__pi6QHq2dPiAbeFy7KZ_RtvW8mwduOENWmUXsiacwNwkqhNg" \
+  -d "grant_type=client_credentials"
+
+Sample response
+{  
+   "scope":"https://uri.paypal.com/services/subscriptions https://api.paypal.com/v1/payments/.* https://api.paypal.com/v1/vault/credit-card https://uri.paypal.com/services/applications/webhooks openid https://uri.paypal.com/payments/payouts https://api.paypal.com/v1/vault/credit-card/.*",
+   "nonce":"2016-10-08T10:03:26ZQnTvLz838veaZnFkUPa7rWCREzkF2jZ2fvcpUvAouKo",
+   "access_token":"A101.TPgod_3f-JP4xlSPnyYr1kZDsBgiAX0BolMRbz15eQEfxaAAGqvhe75CN7XGRKNu.c70HbokBvHF7mRPt4pHv7BQ6s_e",
+   "token_type":"Bearer",
+   "app_id":"APP-80W284485P519543T",
+   "expires_in":31619
+}
+
+Able to make API request after having a token.
+
+Sample payment request:
+
+
+curl -v https://api.sandbox.paypal.com/v1/payments/payment \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer A101.TPgod_3f-JP4xlSPnyYr1kZDsBgiAX0BolMRbz15eQEfxaAAGqvhe75CN7XGRKNu.c70HbokBvHF7mRPt4pHv7BQ6s_e" \
+  -d '{
+  "intent":"sale",
+  "redirect_urls":{
+    "return_url":"http://example.com/your_redirect_url.html",
+    "cancel_url":"http://example.com/your_cancel_url.html"
+  },
+  "payer":{
+    "payment_method":"paypal"
+  },
+  "transactions":[
+    {
+      "amount":{
+        "total":"1337",
+        "currency":"USD"
+      }
+    }
+  ]
+}'
+
+
+Response:
+
+{  
+   "id":"PAY-2LR11277JM240932YK74MQWA",
+   "intent":"sale",
+   "state":"created",
+   "payer":{  
+      "payment_method":"paypal"
+   },
+   "transactions":[  
+      {  
+         "amount":{  
+            "total":"7.47",
+            "currency":"USD"
+         },
+         "related_resources":[  
+
+         ]
+      }
+   ],
+   "create_time":"2016-10-08T10:20:08Z",
+   "links":[  
+      {  
+         "href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-2LR11277JM240932YK74MQWA",
+         "rel":"self",
+         "method":"GET"
+      },
+      {  
+         "href":"https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-5V2302828A079662K",
+         "rel":"approval_url",
+         "method":"REDIRECT"
+      },
+      {  
+         "href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-2LR11277JM240932YK74MQWA/execute",
+         "rel":"execute",
+         "method":"POST"
+      }
+   ]
+}
