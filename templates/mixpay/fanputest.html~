@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+{% block fluid_body_block %}
+
+dank memes
+
+<button class="ui button">
+  Follow
+</button>
+
+<a href="{% url 'settings' %}">hi</a>
+{% endblock %}

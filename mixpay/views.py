@@ -7,3 +7,6 @@ def index(request):
 
 def settings(request):
     return render(request, 'mixpay/settings.html')
+
+def fanputest(request):
+    return render(request, 'mixpay/fanputest.html')
