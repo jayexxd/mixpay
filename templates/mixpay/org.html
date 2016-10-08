@@ -6,8 +6,36 @@
 	<div class="sixteen wide column">&nbsp;</div>
 	<div class="sixteen wide column">&nbsp;</div>
 	<div class="sixteen wide column">
-		<div class="ui huge header">Organizations</div><div class="sixteen wide column"><font size="3em">View and manage the organizations that you belong to.</font></div>
+		<div class="ui huge header">Organizations</div>
 	</div>
 	<div class="sixteen wide column">&nbsp;</div>
-	
+	<div class="sixteen wide column"><font size="3em">View and manage the organizations that you belong to.</font></div>
+	<div class="sixteen wide column">&nbsp;</div>
+	<div class="sixteen wide column">
+		<table class="ui selectable striped table">
+			<thead>
+				<tr><th colspan="2">
+					<h3>My Organizations</h3>
+				</th>
+				<th class=" five wide columnright aligned"> <div class="ui labeled icon buttons"><button class="ui blue button"><i class="plus icon"></i>New Organization</button></div></th>
+			</tr></thead>
+			<tbody>
+				<tr>
+					<td class="collapsing">
+						<i class="users icon"></i> <a href="#">Organization1_Name</a>
+					</td>
+					<td>Organization1_Description</td>
+					<td class="right aligned collapsing"><font color="OrangeRed"><i class="university icon"></i> Manager</font></td>
+				</tr>
+				<tr>
+					<td>
+						<i class="users icon"></i> <a href="#">Organization2_Name</a>
+					</td>
+					<td>Organization2_Description</td>
+					<td class="right aligned"><font color="DeepSkyBlue"><i class="user icon"></i> Member</font></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
 {% endblock %}
