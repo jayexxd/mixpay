@@ -28,7 +28,6 @@ urlpatterns = [
     url(r'^login/$', views.login, name='login'),
     url(r'^sidebar/$', views.sidebar, name='sidebar'),
     url(r'^settings/$', views.settings, name="settings"),
-    url(r'^auth/', include('userauth.urls')),
 =======
     url(r'^settings/$', views.settings, name="settings"),
     url(r'^auth/', include('userauth.urls')),
