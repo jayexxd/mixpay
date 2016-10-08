@@ -114,3 +114,7 @@ def business_manage(request, org_id):
     context = {}
     context["org"] = Organization.objects.get(id=org_id)
     return render(request, 'mixpay/business_manage.html', context)
+
+def dashboard(request):
+    return render(request, 'mixpay/dashboard.html')
+
