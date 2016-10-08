@@ -17,20 +17,25 @@
 				<th class=" five wide columnright aligned"> <div class="ui labeled icon buttons"><button onclick="neworg()" class="ui blue button"><i class="plus icon"></i>New Organization</button></div></th>
 			</tr></thead>
 			<tbody>
-				<tr>
+			  {% if not orgs %}
+			  <tr>
+			    <td class="collapsing">You are not in any organizations yet :(</td>
+			  </tr>
+			  {% else %}
+			  {% for org in orgs %}
+			  <tr>
 					<td class="collapsing">
-						<i class="users icon"></i> <a href="#">Organization1_Name</a>
+						<i class="users icon"></i> <a href="#">{{ org.org_name }}</a>
 					</td>
-					<td>Organization1_Description</td>
+					<td>{{ org.desc }}</td>
+					{% if user == org.owner %}
 					<td class="right aligned collapsing"><font color="OrangeRed"><i class="university icon"></i> Manager</font></td>
-				</tr>
-				<tr>
-					<td>
-						<i class="users icon"></i> <a href="#">Organization2_Name</a>
-					</td>
-					<td>Organization2_Description</td>
+					{% else %}
 					<td class="right aligned"><font color="DeepSkyBlue"><i class="user icon"></i> Member</font></td>
-				</tr>
+					{% endif %}
+			  </tr>
+			  {% endfor %}
+			  {% endif %}
 			</tbody>
 		</table>
 	</div>

@@ -4,6 +4,7 @@ import os
 import logging
 from payouts import mixpay_payout # same folder
 from pprint import pprint
+from userauth.models import UserProfile, User, Organization
 import json
 logging.basicConfig(level=logging.INFO)
 
@@ -84,7 +85,15 @@ def sidebar(request):
     return render(request, 'mixpay/sidebar.html')
 
 def org(request):
-    return render(request, 'mixpay/org.html')
+    context = {}
+    # List all organizations that the user belongs to
+    print request.user
+    def list_organization():
+        context["orgs"] = Organization.objects.filter(userprofile= UserProfile.objects.get(user=request.user))
+        context["user"] = request.user
+    list_organization()
+    print context["orgs"]
+    return render(request, 'mixpay/org.html', context)
 
 def payments(request):
     return render(request, 'mixpay/payments.html')

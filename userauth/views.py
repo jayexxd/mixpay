@@ -7,8 +7,7 @@ from django.views.generic.edit import UpdateView
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
-
-from models import UserProfile, User
+from models import UserProfile, User, Organization
 
 def register(request):
     registered = False
