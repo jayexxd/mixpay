@@ -1,5 +1,5 @@
 from django import forms
-from userauth.models import gender_choices, UserProfile, User, Organization
+from userauth.models import UserProfile, User, Organization
 
 class UserForm(forms.ModelForm):
     username = forms.CharField()
@@ -28,12 +28,11 @@ class UserProfileRegistrationForm(forms.ModelForm):
 
 class UserProfileForm(forms.ModelForm):
     desc = forms.CharField(widget=forms.Textarea, required=False)
-    gender = forms.ModelMultipleChoiceField(queryset=gender_choices)
     business = forms.ModelMultipleChoiceField(queryset=Organization.objects.all())
 
     class Meta:
         model = UserProfile
-        fields = ('gender', 'desc', 'business')
+        fields = ('desc', 'business')
 
     # def __init__(self, *args, **kwargs):
     #     super(UserProfileForm, self).__init__(*args, **kwargs)
@@ -42,7 +41,7 @@ class UserProfileForm(forms.ModelForm):
 
 class UserLoginForm(forms.ModelForm):
     # need to re-declare password to override the default instance which is visible
-    username = forms.CharField()
+    username = forms.CharField(widget=forms.TextInput())
     password = forms.CharField(widget=forms.PasswordInput(), max_length=100)
     class Meta:
         model = User

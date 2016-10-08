@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.css" />
     <style>
       body {
+        !important
         background: url("{% static 'images/brickwall.png' %}");
       }
     </style>
@@ -95,7 +96,7 @@
             </div>
           </div>
             <div class="pusher">
-              <div class="ui container" style="width">
+              <div class="ui container" style="width:80%">
               {% block content %}
               {% endblock %}
             </div>
