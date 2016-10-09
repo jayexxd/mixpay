@@ -5,7 +5,7 @@ import logging
 from payouts import mixpay_payout # same folder
 from pprint import pprint
 from userauth.models import UserProfile, User, Organization
-import json
+import json, dateutil.parser
 logging.basicConfig(level=logging.INFO)
 
 # set environment variables using fanpu's paypal client account, or alternatively configure before calling
@@ -128,6 +128,10 @@ def business_manage(request, org_id):
             time_data.append(payment["update_time"])
             price_data.append(payment["transactions"][0]["amount"]["total"])
             total += float(payment["transactions"][0]["amount"]["total"])
+        print time_data
+        print price_data
+        print json.dumps(time_data)
+        print json.dumps(price_data)
         context["time_data"] = json.dumps(time_data)
         context["price_data"] = json.dumps(price_data)
         context["total"] = total
