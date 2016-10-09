@@ -1,0 +1,15 @@
+<script>
+function loadbiz(context) {
+  $.ajax({
+      type: 'GET',
+      url: '/business_manage/' + org_id,
+      beforeSend: function() {
+          $('#loading').show();
+      },
+      success: function(data) {
+          ...redirect...
+      },
+      cache: false
+  });
+}
+</script>

@@ -6,6 +6,9 @@ from payouts import mixpay_payout # same folder
 from pprint import pprint
 from userauth.models import UserProfile, User, Organization
 import json, dateutil.parser
+from django.http import HttpResponse
+
+
 logging.basicConfig(level=logging.INFO)
 
 # set environment variables using fanpu's paypal client account, or alternatively configure before calling
@@ -102,7 +105,7 @@ def payments(request):
     return render(request, 'mixpay/payments.html', context)
 
 
-        
+
 def business(request):
     context = {}
     # List all organizations that the user belongs to
@@ -112,6 +115,11 @@ def business(request):
     list_organization()
     context["a_business"] = True
     return render(request, 'mixpay/business.html', context)
+
+def loadbusiness(request, org_id):
+    context={}
+    context["org_id"] = org_id
+    return HttpResponse(request, 'mixpay/loadbusiness.html', context)
 
 def business_manage(request, org_id):
     context = {}
@@ -145,6 +153,19 @@ def business_manage(request, org_id):
     context["a_business"] = True
     
     return render(request, 'mixpay/business_manage.html', context)
+    if request.method == "GET":
+        context["org"] = Organization.objects.get(id=org_id)
+        payment_history = None
+        def received_hist():
+            payment_history = Payment.all({"count": 3})
+            context["paymen ts"] = payment_history
+            print payment_history
+            print("List Payment:")
+            for payment in payment_history.payments:
+                print("  -> Payment[%s]" % (payment.id))
+        received_hist()
+    # return render(request, 'mixpay/business_manage.html', context)
+    return HttpResponse(request, 'mixpay/business_manage.html',context)
 
 def dashboard(request):
     context = {}

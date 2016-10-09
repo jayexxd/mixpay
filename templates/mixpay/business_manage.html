@@ -1,87 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"></script>
-<script>
-  function isNumber(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
-  }
-  function check2() {
-  return (isNumber(document.getElementById("freserve").value) && isNumber(document.getElementById("fblock").value));
-  }
-  function check() {
-  if (!check2()) {
-  var savebtn = document.getElementById("save").disabled = true;
-  return;
-  }
-  var block = parseInt(document.getElementById("fblock").value);
-  var total = 0;
-  for (var i = 1; i <= {{ num_members }}; i++)
-		       {
-		       if (!isNumber(document.getElementById("p" + String(i)).value)) {
-		       total = 200;
-		       break;
-		       }
-		       total += parseInt(document.getElementById("p" + String(i)).value);
-		       document.getElementById("d" + String(i)).innerHTML = "$ " + String(parseInt(document.getElementById("p" + String(i)).value) / 100.00 * block);
-		       }
-		       if (total != 100) {
-		       var savebtn = document.getElementById("save").disabled = true;
-		       }
-		       else {
-		       var savebtn = document.getElementById("save").disabled = false;
-		       }
-		       }
-
-		       // script for payments graph
-
-		      {# var time_data = {{time_data}}; #}
-		{#       var price_data = {{price_data}}; #}
-
-			function drawChart() {
-				var ctx = document.getElementById("myChart");
-				var glables = [];
-				var gvalues = [];
-				for (var i = 1; i <= {{ num_members }}; i++) {
-					glables.push(document.getElementById("u"+String(i)).innerHTML);
-					gvalues.push(parseInt(document.getElementById("p" + String(i)).value));
-				}
-
-				var ostr = "{\"type\": \"doughnut\",\"data\": {\"labels\": "+ JSON.stringify(glables) +",\"datasets\": [{\"data\": "+JSON.stringify(gvalues)+",\"backgroundColor\": [\"#FF6384\",\"#36A2EB\",\"#FFCE56\",\"#9b59b6\",\"#e67e22\"],\"hoverBackgroundColor\": [\"#FF6384\",\"#36A2EB\",\"#FFCE56\",\"#9b59b6\",\"#e67e22\"]}]}}";
-				console.log(ostr);
-				var myDoughnutChart = new Chart(ctx, JSON.parse(ostr));
-			}
-
-			function isNumber(n) {
-				return !isNaN(parseFloat(n)) && isFinite(n);
-			}
-			function check2() {
-				return (isNumber(document.getElementById("freserve").value) && isNumber(document.getElementById("fblock").value));
-			}
-			function check() {
-				if (!check2()) {
-					var savebtn = document.getElementById("save").disabled = true;
-					return;
-				}
-				var block = parseInt(document.getElementById("fblock").value);
-				var total = 0;
-				for (var i = 1; i <= {{ num_members }}; i++) {
-					if (!isNumber(document.getElementById("p" + String(i)).value)) {
-						total = 200;
-						break;
-					}
-					total += parseInt(document.getElementById("p" + String(i)).value);
-					document.getElementById("d" + String(i)).innerHTML = "$ " + String(parseInt(document.getElementById("p" + String(i)).value) / 100.00 * block);
-				}
-				if (total != 100) {
-					var savebtn = document.getElementById("save").disabled = true;
-				}
-				else {
-					var savebtn = document.getElementById("save").disabled = false;
-				}
-				drawChart();
-			}
-		    
-		       </script>
 <div class="sixteen wide column">&nbsp;</div>
 <div class="sixteen wide column">&nbsp;</div>
 <div class="sixteen wide column">
@@ -246,7 +165,36 @@
 <!-- <canvas id="pieChart" width="300" height="300"></canvas> -->
 <div class="sixteen wide column">&nbsp;</div>
 <script>
-
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+function check2() {
+  return (isNumber(document.getElementById("freserve").value) && isNumber(document.getElementById("fblock").value));
+}
+function check() {
+  if (!check2()) {
+    var savebtn = document.getElementById("save").disabled = true;
+    return;
+  }
+  var block = parseInt(document.getElementById("fblock").value);
+  var total = 0;
+  var users = 2;
+  for (var i = 1; i <= users; i++)
+  {
+    if (!isNumber(document.getElementById("p" + String(i)).value)) {
+      total = 200;
+      break;
+    }
+    total += parseInt(document.getElementById("p" + String(i)).value);
+    document.getElementById("d" + String(i)).innerHTML = "$ " + String(parseInt(document.getElementById("p" + String(i)).value) / 100.00 * block);
+  }
+  if (total != 100) {
+    var savebtn = document.getElementById("save").disabled = true;
+  }
+  else {
+    var savebtn = document.getElementById("save").disabled = false;
+  }
+}
   $(document).ready(function() {
   //
   //   var ctx = $("#pieChart").get(0).getContext('2d');
@@ -281,4 +229,5 @@
   $('.ui.dropdown').dropdown();
   });
 </script>
+
 {% endblock %}
