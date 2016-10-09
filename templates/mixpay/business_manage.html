@@ -106,8 +106,8 @@ function check() {
 	<tr><th colspan="2">
 	    <h3>Payments in my Organization</h3>
 	  </th>
-	  <th class="six wide column"><div class="twelve wide field ui mini">Reserve: <div class="ui labled input"><div class="ui label">$</div><input id="freserve" type="text" name="reserve" onchange="check()"></div></div></th>
-	  <th class="six wide column"><div class="twelve wide field ui mini">Block: <div class="ui labled input"><div class="ui label">$</div><input id="fblock" type="text" name="block" onchange="check()"></div></div></th>
+	  <th class="six wide column"><div class="twelve wide field ui mini">Reserve: <div class="ui labled input"><div class="ui label">$</div><input id="freserve" type="text" name="reserve" onchange="check()" value="{{ setting.reserve }}"></div></div></th>
+	  <th class="six wide column"><div class="twelve wide field ui mini">Block: <div class="ui labled input"><div class="ui label">$</div><input id="fblock" type="text" name="block" onchange="check()" value={{ setting.block }}></div></div></th>
       </tr></thead>
       <tbody>
 	{% if not members %}
