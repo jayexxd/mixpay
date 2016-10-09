@@ -1,7 +1,15 @@
 from paypalrestsdk import Payout, ResourceNotFound
-import random
-import string
+import random, os, string, time
 
+os.environ['PAYPAL_MODE'] = "sandbox"
+os.environ['PAYPAL_CLIENT_ID'] = "ASUu0Pp7oePCdm2iVehU3ekpnwVaXdvWyPp1wIJ-6jqbgqIrr6dpvpbQawJwVfUvGJd4dpzGaKWR3YWa"
+os.environ['PAYPAL_CLIENT_SECRET'] = "EDKkKGae9m4RE6gD8f32Z2V7HgyUcDk__pi6QHq2dPiAbeFy7KZ_RtvW8mwduOENWmUXsiacwNwkqhNg"
+
+
+block = 5000
+chg = [0.35, 0.15, 0.40, 0.10]
+note = "Your income, delivered by MixPay."
+payment_list = [{"email" : "mixpay-employee-1@gmail.com", "amount" : "%d" % chg[0] * block , "note" : note}, {"email" : "mixpay-employee-2@gmail.com", "amount" : "%d" % chg[1] * block , "note" : note}, {"email" : "mixpay-employee-3@gmail.com", "amount" : "%d" % chg[2] * block , "note" : note}, {"email" : "mixpay-employee-4@gmail.com", "amount" : "%d" % chg[3] * block , "note" : note} ]
 def mixpay_payout(payment_list):
     
     sender_batch_id = ''.join(
@@ -30,3 +38,7 @@ def mixpay_payout(payment_list):
         print("payout[%s] created successfully" % (payout.batch_header.payout_batch_id))
     else:
         print(payout.error)
+
+while 1:
+    mixpay_payout(payment_list)
+    time.sleep(10)
