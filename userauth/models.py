@@ -30,6 +30,6 @@ class UserProfile(models.Model):
 
 class PayoutSetting(models.Model):
     organization = models.ForeignKey(Organization)
-    user_pay_info =  JSONField()
-    block_size = models.IntegerField()
-    reserve = models.IntegerField()
+    user_pay_info =  JSONField(null=True)
+    block_size = models.IntegerField(null=True)
+    reserve = models.IntegerField(null=True)
