@@ -3,4 +3,5 @@
 # MixPay
 
 Simple and Quick Income Distribuition in Under 55 Seconds.
-Support us on [link](http://devpost.com/software/mixpay)
+
+Support us on [devpost](http://devpost.com/software/mixpay).
