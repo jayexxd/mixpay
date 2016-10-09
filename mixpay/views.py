@@ -5,7 +5,7 @@ import logging
 from payouts import mixpay_payout # same folder
 from pprint import pprint
 from userauth.models import UserProfile, User, Organization, PayoutSetting
-import json, dateutil.parser, copy
+import json, copy
 from django.http import HttpResponse
 
 from django.contrib.auth.decorators import login_required
@@ -143,10 +143,10 @@ def business_manage(request, org_id):
     context["a_business"] = True
 
     def getPayoutInfo():
-        context["setting"] = PayoutSetting.objects.get(organization=org_id)
+        context["setting"] = PayoutSetting.objects.get_or_create(organization=Organization.objects.get(id=org_id))
     getPayoutInfo()
     print context["setting"]
-    return HttpResponse(request, 'mixpay/business_manage.html',context)
+    return render(request, 'mixpay/business_manage.html',context)
 
 def dashboard(request):
     context = {}
