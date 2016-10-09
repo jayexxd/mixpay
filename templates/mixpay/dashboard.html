@@ -8,7 +8,20 @@
     <div class="ui huge header">Dashboard</div>
   </div>
   <div class="sixteen wide column">&nbsp;</div>
-  <div class="sixteen wide column"><font size="3em">The important things</font></div>
+  <div class="sixteen wide column"><font size="3em">The important things.</font></div>
+  <div class="ui container">
+  <div class="ui horizontal segments">
+    <div class="ui segment">
+      <h2 style="text-align: center;">Business Earnings</h2>
+      <canvas id="myChart" style="position:relative; float:left; max-width:35vw; height:50px"></canvas>
+    </div>
+    <div class="ui segment">
+      <h2 style="text-align: center;">Personal Earnings</h2>
+      <canvas id="myCanvas" style="position:relative; float:right; max-width:35vw; height:50px"></canvas>
+    </div>
+  </div>
+</div>
+
   <div class="sixteen wide column">&nbsp;</div>
   <!-- <div class="ui two column doubling stackable grid container">
   <div class="column">
@@ -99,19 +112,33 @@
       </table>
     </div>
 </div>
-    <div class="ui container">
-<div class="ui horizontal segments">
-  <div class="ui segment">
-    <h2 style="text-align: center;">Business Earnings</h2>
-      <canvas id="myChart" style="position:relative; float:left; max-width:35vw; height:50px"></canvas>
-  </div>
-  <div class="ui segment">
-      <h2 style="text-align: center;">Personal Earnings</h2>
-      <canvas id="myCanvas" style="position:relative; float:right; max-width:35vw; height:50px"></canvas>
-  </div>
-    </div>
-  </div>
 
+  <div class="sixteen wide column">&nbsp;</div>
+
+<table class="ui selectable striped table form">
+    <thead>
+    <tr>
+    <th colspan="6">
+    <h3>Recent Payments</h3>
+    </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if not payments %}
+    <td>You don't have any recent payments :(</td>
+{% else %}
+{% for payment in payments.payments %}
+<tr>
+<td>{{ payment.update_time }}</td>
+<td><i class="user icon"></i><a href="#">{{ payment.payer.funding_instruments.0.credit_card.first_name }} {{ payment.payer.funding_instruments.0.credit_card.last_name }}</a></td>
+<td>{{ payment.payer.funding_instruments.0.credit_card.billing_address.line1 }}, {{ payment.payer.funding_instruments.0.credit_card.billing_address.city }}</td>
+<td>{{ payment.transactions.0.related_resources.0.sale.state }}</td>
+<td>${{ payment.transactions.0.amount.total }} {{ payment.transactions.0.amount.currency }}</td>
+</tr>
+{% endfor %}
+{% endif %}
+</tbody>
+</table>
   <script>
   function plotChart() {
     var ctx = document.getElementById("myCanvas");
