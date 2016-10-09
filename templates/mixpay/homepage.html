@@ -28,29 +28,11 @@
 
 {% block fluid_body_block %}
 
-<!-- Following Menu -->
-<!-- <div class="ui large top fixed menu navbar">
-  <div class="ui container">
-    <a class="active item">Home</a>
-    <a class="item">Work</a>
-    <a class="item">Company</a>
-    <a class="item">Careers</a>
-    <div class="right menu">
-      <div class="item">
-        <a class="ui button">Log in</a>
-      </div>
-      <div class="item">
-        <a class="ui primary button">Sign Up</a>
-      </div>
-    </div>
-  </div>
-</div> -->
-
 <!-- Sidebar Menu -->
 <div class="ui vertical inverted sidebar menu">
   <a class="active item" id="1" href="#page1">Home</a>
-  <a class="item" id="3" href="#page2">About</a>
-  <a class="item" id="2" href="#page3">Reviews</a>
+  <a class="item" id="2" href="#page2">About</a>
+  <a class="item" id="3" href="#page3">Reviews</a>
   <a class="item" id="4"href="#page4">Try us</a>
   <a class="item">Login</a>
   <a class="item">Signup</a>
@@ -90,10 +72,10 @@
     </div>
 
     <div class="ui text container">
-      <h1 class="ui inverted header">
+      <h1 class="ui inverted header fadein">
         MixPay
       </h1>
-      <h2>Do wonders with just 3 finger taps</h2>
+      <h2 class="fadein">Do wonders with just 3 finger taps</h2>
       {% if user.is_authenticated %}
       <div class="ui huge primary button">Welcome back, Professor.</i></div>
       {%else%}
