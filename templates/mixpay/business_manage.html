@@ -15,7 +15,7 @@
   }
   var block = parseInt(document.getElementById("fblock").value);
   var total = 0;
-  var users = 2;
+  var users = {{num_members}};
   for (var i = 1; i <= users; i++)
 		       {
 		       if (!isNumber(document.getElementById("p" + String(i)).value)) {
@@ -35,8 +35,53 @@
 
 		       // script for payments graph
 
-		       var time_data = {{time_data}};
-		       var price_data = {{price_data}};
+		      {# var time_data = {{time_data}}; #}
+		{#       var price_data = {{price_data}}; #}
+
+		       var users = 2;
+			function drawChart() {
+				var ctx = document.getElementById("myChart");
+				var glables = [];
+				var gvalues = [];
+				for (var i = 1; i <= users; i++) {
+					glables.push(document.getElementById("u"+String(i)).innerHTML);
+					gvalues.push(parseInt(document.getElementById("p" + String(i)).value));
+				}
+
+				var ostr = "{\"type\": \"doughnut\",\"data\": {\"labels\": "+ JSON.stringify(glables) +",\"datasets\": [{\"data\": "+JSON.stringify(gvalues)+",\"backgroundColor\": [\"#FF6384\",\"#36A2EB\",\"#FFCE56\",\"#9b59b6\",\"#e67e22\"],\"hoverBackgroundColor\": [\"#FF6384\",\"#36A2EB\",\"#FFCE56\",\"#9b59b6\",\"#e67e22\"]}]}}";
+				console.log(ostr);
+				var myDoughnutChart = new Chart(ctx, JSON.parse(ostr));
+			}
+
+			function isNumber(n) {
+				return !isNaN(parseFloat(n)) && isFinite(n);
+			}
+			function check2() {
+				return (isNumber(document.getElementById("freserve").value) && isNumber(document.getElementById("fblock").value));
+			}
+			function check() {
+				if (!check2()) {
+					var savebtn = document.getElementById("save").disabled = true;
+					return;
+				}
+				var block = parseInt(document.getElementById("fblock").value);
+				var total = 0;
+				for (var i = 1; i <= users; i++) {
+					if (!isNumber(document.getElementById("p" + String(i)).value)) {
+						total = 200;
+						break;
+					}
+					total += parseInt(document.getElementById("p" + String(i)).value);
+					document.getElementById("d" + String(i)).innerHTML = "$ " + String(parseInt(document.getElementById("p" + String(i)).value) / 100.00 * block);
+				}
+				if (total != 100) {
+					var savebtn = document.getElementById("save").disabled = true;
+				}
+				else {
+					var savebtn = document.getElementById("save").disabled = false;
+				}
+				drawChart();
+			}
 		    
 		       </script>
 <div class="sixteen wide column">&nbsp;</div>
@@ -95,6 +140,9 @@
 <div class="sixteen wide column">
   <div class="sixteen wide column">&nbsp;</div>
   <div class="sixteen wide column">&nbsp;</div>
+  	<div class="ui center aligned segment">
+				<canvas id="myChart"></canvas>
+			</div>
   <div class="sixteen wide column">
     <div class="ui huge header">Payments</div>
   </div>
@@ -117,11 +165,11 @@
 	{% for member in members %}
 	<tr>
 	  <td>
-	    <i class="user icon"></i> <a href="#">{{ member.first_name }} {{ member.last_name }}</a>
+	    <i class="user icon"></i> <a href="#" id="u{{forloop.counter}}">{{ member.first_name }} {{ member.last_name }}</a>
 	  </td>
 	  <td><font color="DeepSkyBlue"><i class="user icon"></i> Member</font></td>
-	  <td class="collapsing"><div class="six wide field ui mini"><div class="ui right labled input"><input id="p1" type="text" maxlength="3" onchange="check()"><div class="ui label">%</div></div></div></td>
-	  <td id="d1">$ 0.00</td>
+	  <td class="collapsing"><div class="six wide field ui mini"><div class="ui right labled input"><input id="p{{forloop.counter}}" type="text" maxlength="3" onchange="check()"><div class="ui label">%</div></div></div></td>
+	  <td id="d{{forloop.counter}}">$ 0.00</td>
 	</tr>
 	{% endfor %}
 	{% endif %}
