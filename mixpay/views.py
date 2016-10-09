@@ -161,7 +161,7 @@ def business_manage(request, org_id):
         payment_history = None
         def received_hist():
             payment_history = Payment.all({"count": 3})
-            context["paymen ts"] = payment_history
+            context["payments"] = payment_history
             print payment_history
             print("List Payment:")
             for payment in payment_history.payments:
