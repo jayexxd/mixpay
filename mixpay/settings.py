@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'mixpay.wsgi.application'
 if os.getenv('TRAVIS', None):
     DATABASES = {
         'default': {
-            'ENGINE': 'django.contrib.gis.db.backends.postgis', #django.db.backends.postgresql',
+            'ENGINE': 'django.db.backends.postgresql', #django.db.backends.postgresql',
             'NAME': 'mixpaydb',
             'USER': 'fanpu',
             'PASSWORD': 'isitpublicornot',
@@ -96,7 +96,7 @@ else:
     DATABASES={
     'default':dj_database_url.config(default='postgres://wytdixiwaaqjgz:-YI7l62Zq99lMfSHspiBV3cYM6@ec2-174-129-29-118.compute-1.amazonaws.com:5432/dcernd8o38isl8')
     }
-    DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+    DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 
 
 # Password validation
