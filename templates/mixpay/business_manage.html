@@ -129,13 +129,31 @@
 	</tr>
       </thead>
       <tbody>
+	{% if not members %}
+	<tr><td>You have no members in this organization:(</td></tr>
+	{% else %}
+	{% for member in members %}
 	<tr>
-	  <td><i class="user icon"></i><a href="#">John Smith</a></td>
+	  <td><i class="user icon"></i><a href="#">{{ member.first_name }} {{ member.last_name }}</a></td>
 	  <td id="d1">
 	    <div class="ui checkbox">
 	      <input type="checkbox" tabindex="0" class="hidden">
 	    </div>
-
+	  </td>
+	</tr>
+	{% endfor %}
+	{% endif %}
+	<tr>
+	  <td colspan="4" class="right aligned">
+	    <select class="ui dropdown">
+  <option value="">Gender</option>
+  <option value="1">Male</option>
+  <option value="0">Female</option>
+</select>
+	    <button id="save" class="ui warning right labeled icon button">
+	      Apply to Selected
+	      <i class="checkmark icon"></i>
+	    </button>
 	  </td>
 	</tr>
       </tbody>
