@@ -129,10 +129,14 @@ def business_manage(request, org_id):
         data=copy.deepcopy(request.POST)
         data.pop("csrfmiddlewaretoken", None)
         data.pop("num_members", None)
-        reserve = data.pop("reserve")
-        block = data.pop("block")
-        setting = PayoutSetting(organization=org_id, user_pay_info=data, block_size=block, reserve=reserve)
-        setting.save()
+        reserve = int(data.pop("reserve")[0])
+        print reserve
+        block = int(data.pop("block")[0])
+        setting = PayoutSetting.objects.get_or_create(organization=context["org"])
+        setting[0].user_pay_info = data
+        setting[0].block_size = block
+        setting[0].reserve = reserve
+        setting[0].save()
         
     def received_hist():
         num_count = 4
@@ -160,20 +164,11 @@ def business_manage(request, org_id):
     context["num_members"] = len(context["members"])
     received_hist()
     context["a_business"] = True
-    
-    return render(request, 'mixpay/business_manage.html', context)
-    if request.method == "GET":
-        context["org"] = Organization.objects.get(id=org_id)
-        payment_history = None
-        def received_hist():
-            payment_history = Payment.all({"count": 3})
-            context["payments"] = payment_history
-            print payment_history
-            print("List Payment:")
-            for payment in payment_history.payments:
-                print("  -> Payment[%s]" % (payment.id))
-        received_hist()
-    # return render(request, 'mixpay/business_manage.html', context)
+
+    def getPayoutInfo():
+        context["setting"] = PayoutSetting.objects.get(organization=org_id)
+    getPayoutInfo()
+    print context["setting"]
     return HttpResponse(request, 'mixpay/business_manage.html',context)
 
 def dashboard(request):
