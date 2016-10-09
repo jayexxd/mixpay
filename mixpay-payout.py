@@ -8,8 +8,11 @@ os.environ['PAYPAL_CLIENT_SECRET'] = "EDKkKGae9m4RE6gD8f32Z2V7HgyUcDk__pi6QHq2dP
 
 block = 5000
 chg = [0.35, 0.15, 0.40, 0.10]
+for i, val in enumerate(chg):
+    chg[i] *= block
 note = "Your income, delivered by MixPay."
-payment_list = [{"email" : "mixpay-employee-1@gmail.com", "amount" : "%d" % chg[0] * block , "note" : note}, {"email" : "mixpay-employee-2@gmail.com", "amount" : "%d" % chg[1] * block , "note" : note}, {"email" : "mixpay-employee-3@gmail.com", "amount" : "%d" % chg[2] * block , "note" : note}, {"email" : "mixpay-employee-4@gmail.com", "amount" : "%d" % chg[3] * block , "note" : note} ]
+payment_list = [{"email" : "mixpay-employee-1@gmail.com", "amount" : "%d" % chg[0]  , "note" : note}, {"email" : "mixpay-employee-2@gmail.com", "amount" : "%d" % chg[1]  , "note" : note}, {"email" : "mixpay-employee-3@gmail.com", "amount" : "%d" % chg[2]  , "note" : note}, {"email" : "mixpay-employee-4@gmail.com", "amount" : "%d" % chg[3]  , "note" : note} ]
+#print payment_list
 def mixpay_payout(payment_list):
     
     sender_batch_id = ''.join(
@@ -36,6 +39,9 @@ def mixpay_payout(payment_list):
 
     if payout.create():
         print("payout[%s] created successfully" % (payout.batch_header.payout_batch_id))
+        for payment in payment_list:
+            print "    Paid out %d to %s" % (int(payment["amount"]), payment["email"])
+        print "    TOTAL: %d\n\n" % block
     else:
         print(payout.error)
 
