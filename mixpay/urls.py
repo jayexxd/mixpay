@@ -13,8 +13,8 @@ urlpatterns = [
     url(r'^org/$', views.org, name="org"),
     url(r'^payments/$', views.payments, name="payments"),
     url(r'^business/$', views.business, name="business"),
-    url(r'^business/(?P<org_id>\d+)/$', views.loadbusiness, name="load_business"),
-    url(r'^busiess_manage/(?P<org_id>\d+)/$', views.business_manage, name="manage_business"),
+    url(r'^business/(?P<org_id>\d+)/$', views.business_manage, name="manage_business"),
+    url(r'^busiess_manage/(?P<org_id>\d+)/$', views.loadbusiness, name="load_business"),
     url(r'^dashboard/$', views.dashboard, name="dashboard"),
     url(r'^personal/$', views.personal, name="personal"),
 ]
