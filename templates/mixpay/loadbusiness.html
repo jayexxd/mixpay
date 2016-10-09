@@ -1,19 +1,50 @@
 <body>
-<h1>HELLO</h1>
+<style media="screen">
+.modal {
+  display:    none;
+  position:   fixed;
+  z-index:    1000;
+  top:        0;
+  left:       0;
+  height:     100%;
+  width:      100%;
+  background: rgba( 255, 255, 255, .8 )
+              url('http://i.stack.imgur.com/FhHRx.gif')
+              50% 50%
+              no-repeat;
+}
+
+/* When the body has the loading class, we turn
+ the scrollbar off with overflow:hidden */
+body.loading {
+  overflow: hidden;
+}
+
+/* Anytime the body has the loading class, our
+ modal element will be visible */
+body.loading .modal {
+  display: block;
+}
+</style>
+
+<div class="modal">
+  <h1>HELLO</h1>
 
 
+</div>
 <script>
-function loadbiz(context) {
+
+function loadbiz() {
   $.ajax({
       type: 'GET',
       url: '/business_manage/' + org_id,
-      beforeSend: function() {
-          $('#loading').show();
-      },
-      success: function(data) {
-
-      },
-      cache: false
+      // beforeSend: function() {
+      //     $('#loading').show();
+      // },
+      // success: function(data) {
+      //
+      // },
+      // cache: false
   });
 }
 </script>
