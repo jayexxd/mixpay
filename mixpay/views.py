@@ -120,11 +120,14 @@ def business_manage(request, org_id):
     def received_hist():
         payment_history = Payment.all({"count": 20})
         context["payments"] = payment_history
-        print payment_history
-        print("List Payment:")
+        time_data = []
+        price_data = []
         for payment in payment_history.payments:
-            print("  -> Payment[%s]" % (payment.id))
-            
+            time_data.append(payment["update_time"])
+            price_data.append(payment["transactions"][0]["amount"]["total"])
+        context["time_data"] = json.dumps(time_data)
+        context["price_data"] = json.dumps(price_data)
+        
     def getOrgMembers():
         return UserProfile.objects.filter(organization=org_id)
     context["members"] = getOrgMembers()
