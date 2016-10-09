@@ -146,11 +146,11 @@
 	<tr>
 	  <td colspan="4" class="right aligned">
 	    <select class="ui dropdown">
-  <option value="">Gender</option>
-  <option value="1">Male</option>
-  <option value="0">Female</option>
+  <option value="0">Remove</option>
+  <option value="1">Change Role</option>
+  <option value="2">Suspend</option>
 </select>
-	    <button id="save" class="ui warning right labeled icon button">
+	    <button id="save" class="ui right labeled icon button">
 	      Apply to Selected
 	      <i class="checkmark icon"></i>
 	    </button>
@@ -196,6 +196,7 @@
   //     data: data,
   //     options: options
   $('.ui.checkbox').checkbox();
+  $('.ui.dropdown').dropdown();
   });
 </script>
 {% endblock %}
