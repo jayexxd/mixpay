@@ -4,8 +4,8 @@ import os
 import logging
 from payouts import mixpay_payout # same folder
 from pprint import pprint
-from userauth.models import UserProfile, User, Organization
-import json, dateutil.parser
+from userauth.models import UserProfile, User, Organization, PayoutSetting
+import json, dateutil.parser, copy
 from django.http import HttpResponse
 
 
@@ -126,8 +126,14 @@ def business_manage(request, org_id):
     context["org"] = Organization.objects.get(id=org_id)
     payment_history = None
     if request.method == 'POST':
-        data=request.POST
-        print data
+        data=copy.deepcopy(request.POST)
+        data.pop("csrfmiddlewaretoken", None)
+        data.pop("num_members", None)
+        reserve = data.pop("reserve")
+        block = data.pop("block")
+        setting = PayoutSetting(organization=org_id, user_pay_info=data, block_size=block, reserve=reserve)
+        setting.save()
+        
     def received_hist():
         num_count = 4
         total = 0
