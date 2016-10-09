@@ -19,9 +19,6 @@ class UserProfile(models.Model):
     # The additional attributes we wish to include.
     first_name = models.CharField(default='',max_length=100)
     last_name = models.CharField(default='', max_length=100)
-
-    # business = models.ForeignKey(Organization, on_delete=models.SET_NULL, null=True)
-
     organization = models.ManyToManyField(Organization)
     desc = models.CharField('Describe yourself', max_length=1000, default='', null=True)
 
