@@ -1,5 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.bundle.min.js"></script>
+<script>
+var users = 2;
+function drawChart() {
+  var ctx = document.getElementById("myChart");
+  var glables = ["09 Oct 2016 02:04:38", "9 Oct 2016 01:34:31", "08 Oct 2016 23:05:03", "08 Oct 2016 12:54:38"];
+  var gvalues = ["37.9", "245.0", "89.6", "230.3"];
+  for (var i = 0; i < gvalues.length; i++) {
+    glables[i] = Date.parse(glables[i]) / 1000;
+    gvalues[i] = parseInt(gvalues[i]);
+  }
+
+  var ostr = "{\"type\": \"line\",\"data\": {\"labels\": "+ JSON.stringify(glables) +",\"datasets\": [{\"label\":\"SGD\",\"data\": "+JSON.stringify(gvalues)+",\"backgroundColor\": [\"#FF6384\",\"#36A2EB\",\"#FFCE56\",\"#9b59b6\",\"#e67e22\"],\"hoverBackgroundColor\": [\"#FF6384\",\"#36A2EB\",\"#FFCE56\",\"#9b59b6\",\"#e67e22\"]}]},\"options\": {\"scales\": {\"xAxes\": [{\"type\": \"time\",\"time\": {\"displayFormats\": {\"quarter\": \"MMM YYYY\"}}}]}}}";
+
+  var myDoughnutChart = new Chart(ctx, JSON.parse(ostr));
+}
+</script>
 <div class="ui container">
   <div class="sixteen wide column">&nbsp;</div>
   <div class="sixteen wide column">&nbsp;</div>
@@ -9,15 +26,6 @@
   <div class="sixteen wide column">&nbsp;</div>
   <div class="sixteen wide column"><font size="3em">Here's how you've been doing</font></div>
   <div class="sixteen wide column">&nbsp;</div>
-  <!-- <div class="ui two column doubling stackable grid container">
-  <div class="column">
-  <p>Organisations</p>
-</div>
-<div class="column">
-<p>Personal</p>
-</div>
-</div> -->
-
 <div class="sixteen wide column">
   <table class="ui selectable striped table form">
     <tbody>
@@ -31,7 +39,7 @@
           <td>
             <h4 class="ui image header">
               <div class="content">
-                Date
+                Time
               </div>
             </h4></td>
             <td>
@@ -46,90 +54,95 @@
                     Profit
                   </div>
                 </h4></td>
-
-
-        </tr>
-        <tr>
-          <td>
-
-                1
-            </td>
-            <td>
-            Oct-1
-            </td>
-
-
-            <td>
-              mixpay
-            </td>
-            <td>
-
-                S$2,563
-
-
-            </td>
-          </tr>
-          <tr>
-            <td>
-
+              </tr>
+              <tr>
+                <td>
+                  1
+                </td>
+                <td>
+                  Sun, 09 Oct 2016 02:04:38
+                </td>
+                <td>
+                  mixpay
+                </td>
+                <td>
+                  S$37.9
+                </td>
+              </tr>
+              <tr>
+                <td>
                   2
-          </td>
+                </td>
+                <td>
+                  Sun, 09 Oct 2016 01:34:31
+                </td>
+                <td>
+                  asdf
+                </td>
+                <td>
+                  S$245.0
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  3
+                </td>
+                <td>
+                  Sat, 08 Oct 2016 23:05:03
+                </td>
+                <td>
+                  mixpay
+                </td>
+                <td>
+            S$89.6
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  4
+                </td>
+                <td>
+                  Sat, 08 Oct 2016 12:54:38
+                </td>
+                <td>
+                  mixpay
+                </td>
+                <td>
+                  S$230.3
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4 class="ui image header">
+                    <div class="content">
+                      Total revenue
+                    </div>
+                  </h4></td>
+                  <td>
+                  </td>
               <td>
-                Sep-21
-              </td>
-
-
-              <td>
-                asdf
-              </td>
-              <td>
-
-                  S$4,000
-
-
-              </td>
-            </tr>
-
-          <tr>
-            <td>
-              <h4 class="ui image header">
-                <div class="content">
-                  Total revenue
-                </div>
-              </h4></td>
-              <td>
-
-              </td>
-
-
-              <td>
-        
-              </td>
-              <td>
-
-                  S$14,000
-
-
-              </td>
-            </tr>
-
-
-          <tr>
-            <td colspan="6" class="right aligned">
-              <button id="refresh" class="ui positive right labeled icon button" onclick="refresh()">
-                Refresh
-                <i class="refresh icon"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <script>
-  function refresh() {
-    get from server
-  }
-  </script>
-  {% endblock %}
+                  </td>
+                  <td>
+                    S$602.8
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="6" class="right aligned">
+                    <button id="refresh" class="ui positive right labeled icon button" onclick="refresh()">
+                      Refresh
+                      <i class="refresh icon"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <canvas id="myChart" width="300" height="300" onload="drawChart()"></canvas>
+        </div>
+        <script>
+        function refresh() {
+          // get from server
+        }
+        drawChart()
+        </script>
+        {% endblock %}
