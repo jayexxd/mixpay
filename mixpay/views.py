@@ -5,9 +5,8 @@ import logging
 from payouts import mixpay_payout # same folder
 from pprint import pprint
 from userauth.models import UserProfile, User, Organization
-import json
+import json, dateutil.parser
 from django.http import HttpResponse
-
 
 
 logging.basicConfig(level=logging.INFO)
@@ -124,6 +123,36 @@ def loadbusiness(request, org_id):
 
 def business_manage(request, org_id):
     context = {}
+    context["org"] = Organization.objects.get(id=org_id)
+    payment_history = None
+    def received_hist():
+        num_count = 20
+        total = 0
+        payment_history = Payment.all({"count": num_count})
+        context["payments"] = payment_history
+        time_data = []
+        price_data = []
+        for payment in payment_history.payments:
+            time_data.append(payment["update_time"])
+            price_data.append(payment["transactions"][0]["amount"]["total"])
+            total += float(payment["transactions"][0]["amount"]["total"])
+        print time_data
+        print price_data
+        print json.dumps(time_data)
+        print json.dumps(price_data)
+        context["time_data"] = json.dumps(time_data)
+        context["price_data"] = json.dumps(price_data)
+        context["total"] = total
+        context["average"] = total/num_count
+        
+    def getOrgMembers():
+        return UserProfile.objects.filter(organization=org_id)
+    context["members"] = getOrgMembers()
+    context["num_members"] = len(context["members"])
+    received_hist()
+    context["a_business"] = True
+    
+    return render(request, 'mixpay/business_manage.html', context)
     if request.method == "GET":
         context["org"] = Organization.objects.get(id=org_id)
         payment_history = None

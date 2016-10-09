@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import JSONField
 
 class Organization(models.Model):
     owner = models.ForeignKey(User)
@@ -26,3 +27,8 @@ class UserProfile(models.Model):
 
     def __unicode__(self):
         return self.user.username.encode('utf8')
+
+class PayoutSetting(models.Model):
+    organization = models.ForeignKey(Organization)
+    user_pay_info =  JSONField()
+
