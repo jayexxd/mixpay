@@ -110,7 +110,7 @@ def payments(request):
 def business(request):
     context = {}
     # List all organizations that the user belongs to
-    context["orgs"] = Organization.objects.filter(owner= request.user)
+    context["orgs"] = context["orgs"] = Organization.objects.filter(userprofile= UserProfile.objects.get(user=request.user)) # DO NOT TOUCH CODE WITH CORNER CASES YOU DON'T UNDERSTAND
     context["user"] = request.user
     context["a_business"] = True
     return render(request, 'mixpay/business.html', context)
@@ -130,6 +130,7 @@ def business_manage(request, org_id):
             time_data.append(payment["update_time"])
             price_data.append(payment["transactions"][0]["amount"]["total"])
             total += float(payment["transactions"][0]["amount"]["total"])
+            # payment["transactions"][0]["amount"]["total"]
         context["time_data"] = json.dumps(time_data)
         context["price_data"] = json.dumps(price_data)
         context["total"] = total
@@ -156,4 +157,22 @@ def dashboard(request):
 def personal(request):
     context = {}
     context["a_personal"] = True
+    payment_history = None
+    def received_hist():
+        num_count = 20
+        total = 0
+        payment_history = Payment.all({"count": num_count})
+        time_data = []
+        price_data = []
+        for payment in payment_history.payments:
+            time_data.append(payment["update_time"])
+            price_data.append(payment["transactions"][0]["amount"]["total"])
+            payment["transactions"][0]["amount"]["total"] *= 1
+            total += float(payment["transactions"][0]["amount"]["total"])           
+        context["payments"] = payment_history
+        context["time_data"] = json.dumps(time_data)
+        context["price_data"] = json.dumps(price_data)
+        context["total"] = total
+        context["average"] = total/num_count
+    received_hist()
     return render(request, 'mixpay/personal.html', context)

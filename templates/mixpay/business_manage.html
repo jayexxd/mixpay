@@ -1,239 +1,253 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"></script>
-<script>
-  function isNumber(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"></script>
+    <script>
+    users = {{ num_members }};
+    function drawChart() {
+	var ctx = document.getElementById("myChart");
+	var glables = [];
+	var gvalues = [];
+	for (var i = 1; i <= users; i++) {
+	    glables.push(document.getElementById("u"+String(i)).innerHTML);
+	    gvalues.push(parseInt(document.getElementById("p" + String(i)).value));
+	}
+
+	var ostr = "{\"type\": \"doughnut\",\"data\": {\"labels\": "+ JSON.stringify(glables) +",\"datasets\": [{\"data\": "+JSON.stringify(gvalues)+",\"backgroundColor\": [\"#FF6384\",\"#36A2EB\",\"#FFCE56\",\"#9b59b6\",\"#e67e22\"],\"hoverBackgroundColor\": [\"#FF6384\",\"#36A2EB\",\"#FFCE56\",\"#9b59b6\",\"#e67e22\"]}]}}";
+	console.log(ostr);
+	var myDoughnutChart = new Chart(ctx, JSON.parse(ostr));
+    }
+function isNumber(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
 }
 function check2() {
-  return (isNumber(document.getElementById("freserve").value) && isNumber(document.getElementById("fblock").value));
+    return (isNumber(document.getElementById("freserve").value) && isNumber(document.getElementById("fblock").value));
 }
 function check() {
-  if (!check2()) {
-    var savebtn = document.getElementById("save").disabled = true;
-    return;
-  }
-  var block = parseInt(document.getElementById("fblock").value);
-  var total = 0;
-  for (var i = 1; i <= {{ num_members }}; i++)
-  {
-    if (!isNumber(document.getElementById("p" + String(i)).value)) {
-      total = 200;
-      break;
+    if (!check2()) {
+	var savebtn = document.getElementById("save").disabled = true;
+	return;
     }
-    total += parseInt(document.getElementById("p" + String(i)).value);
-    document.getElementById("d" + String(i)).innerHTML = "$ " + String(parseInt(document.getElementById("p" + String(i)).value) / 100.00 * block);
-  }
-  if (total != 100) {
-    var savebtn = document.getElementById("save").disabled = true;
-  }
-  else {
-    var savebtn = document.getElementById("save").disabled = false;
-  }
+    var block = parseInt(document.getElementById("fblock").value);
+    var total = 0;
+    for (var i = 1; i <= {{ num_members }}; i++)
+    {
+	if (!isNumber(document.getElementById("p" + String(i)).value)) {
+	    total = 200;
+	    break;
+	}
+	total += parseInt(document.getElementById("p" + String(i)).value);
+	document.getElementById("d" + String(i)).innerHTML = "$ " + String(parseInt(document.getElementById("p" + String(i)).value) / 100.00 * block);
+    }
+    if (total != 100) {
+	var savebtn = document.getElementById("save").disabled = true;
+    }
+    else {
+	var savebtn = document.getElementById("save").disabled = false;
+    }
 }
-		       </script>
-<div class="sixteen wide column">&nbsp;</div>
-<div class="sixteen wide column">&nbsp;</div>
-<div class="sixteen wide column">
-  <div class="ui huge header">View and Manage <b><font color="navy">{{ org.org_name }}</font></b></div>
-</div>
-<div class="sixteen wide column">&nbsp;</div>
-<div class="sixteen wide column"><font size="3em">View and manage the organizations that you belong to.</font></div>
-  <div class="sixteen wide column">&nbsp;</div>
-<div class="ui huge header">Overview</div>
-<div class="ui four statistics">
-  <div class="statistic">
+</script>
+    <div class="sixteen wide column">&nbsp;</div>
+    <div class="sixteen wide column">&nbsp;</div>
+    <div class="sixteen wide column">
+    <div class="ui huge header">View and Manage <b><font color="navy">{{ org.org_name }}</font></b></div>
+    </div>
+    <div class="sixteen wide column">&nbsp;</div>
+    <div class="sixteen wide column"><font size="3em">View and manage the organizations that you belong to.</font></div>
+    <div class="sixteen wide column">&nbsp;</div>
+    <div class="ui huge header">Overview</div>
+    <div class="ui four statistics">
+    <div class="statistic">
     <div class="value">
-      <i class="money icon"></i>  {{ total }}
-    </div>
-    <div class="label">
-     Total Payment
-    </div>
-  </div>
-  <div class="statistic">
-    <div class="value">
-           <i class="area chart icon"></i> {{ average }}
-    </div>
-    <div class="label">
-  Average Payment
-    </div>
-  </div>
+    <i class="money icon"></i>  {{ total }}
 </div>
-<div class="sixteen wide column">&nbsp;</div>
-<div class="sixteen wide column">&nbsp;</div>
-<div class="ui huge header">Recent Incoming Payments</div>
-<table class="ui selectable striped table form">
-  <thead>
+    <div class="label">
+    Total Payment
+</div>
+    </div>
+    <div class="statistic">
+    <div class="value">
+    <i class="area chart icon"></i> {{ average }}
+</div>
+    <div class="label">
+    Average Payment
+</div>
+    </div>
+    </div>
+    <div class="sixteen wide column">&nbsp;</div>
+    <div class="sixteen wide column">&nbsp;</div>
+    <div class="ui huge header">Recent Incoming Payments</div>
+    <table class="ui selectable striped table form">
+    <thead>
     <tr>
-      <th colspan="6">
-	<h3>Payments</h3>
-      </th>
+    <th colspan="6">
+    <h3>Payments</h3>
+    </th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     {% if not payments %}
     <td>You don't have any recent payments :(</td>
-    {% else %}
-    {% for payment in payments.payments %}
-    <tr>
-      <td>{{ payment.update_time }}</td>
-      <td><i class="user icon"></i><a href="#">{{ payment.payer.funding_instruments.0.credit_card.first_name }} {{ payment.payer.funding_instruments.0.credit_card.last_name }}</a></td>
-      <td>{{ payment.payer.funding_instruments.0.credit_card.billing_address.line1 }}, {{ payment.payer.funding_instruments.0.credit_card.billing_address.city }}</td>
-      <td>{{ payment.transactions.0.related_resources.0.sale.state }}</td>
-      <td>${{ payment.transactions.0.amount.total }} {{ payment.transactions.0.amount.currency }}</td>
-    </tr>
-    {% endfor %}
-    {% endif %}
-  </tbody>
+{% else %}
+{% for payment in payments.payments %}
+<tr>
+<td>{{ payment.update_time }}</td>
+<td><i class="user icon"></i><a href="#">{{ payment.payer.funding_instruments.0.credit_card.first_name }} {{ payment.payer.funding_instruments.0.credit_card.last_name }}</a></td>
+<td>{{ payment.payer.funding_instruments.0.credit_card.billing_address.line1 }}, {{ payment.payer.funding_instruments.0.credit_card.billing_address.city }}</td>
+<td>{{ payment.transactions.0.related_resources.0.sale.state }}</td>
+<td>${{ payment.transactions.0.amount.total }} {{ payment.transactions.0.amount.currency }}</td>
+</tr>
+{% endfor %}
+{% endif %}
+</tbody>
 </table>
-  <div class="sixteen wide column">
-    <div class="ui huge header">Payments</div>
-  </div>
-  <div class="sixteen wide column">
-  <div class="sixteen wide column">&nbsp;</div>
-  <div class="sixteen wide column"><font size="3em">View and manage the payouts in your organization.</font></div>
-  <div class="sixteen wide column">&nbsp;</div>
-  	<div class="ui center aligned segment">
-	  <canvas id="myChart"></canvas>
-	</div>
-  <div class="sixteen wide column">&nbsp;</div>
-  <div class="sixteen wide column">
-    <form action="" method="post">
-      {% csrf_token %}
-    <table class="ui selectable striped table form">
-      <thead>
-	<tr><th colspan="2">
-	    <h3>Payments in my Organization</h3>
-	  </th>
-	  <th class="six wide column"><div class="twelve wide field ui mini">Reserve: <div class="ui labled input"><div class="ui label">$</div><input id="freserve" type="text" name="reserve" onchange="check()" value="{{ setting.reserve }}"></div></div></th>
-	  <th class="six wide column"><div class="twelve wide field ui mini">Block: <div class="ui labled input"><div class="ui label">$</div><input id="fblock" type="text" name="block" onchange="check()" value={{ setting.block }}></div></div></th>
-      </tr></thead>
-      <tbody>
-	{% if not members %}
-	<tr><td>You have no members in this organization:(</td></tr>
-	{% else %}
-	{% for member in members %}
-	<tr>
-	  <td>
-	    <i class="user icon"></i> <a href="#" id="u{{forloop.counter}}">{{ member.first_name }} {{ member.last_name }}</a>
-	  </td>
-	  <td><font color="DeepSkyBlue"><i class="user icon"></i> Member</font></td>
-	  <td class="collapsing"><div class="six wide field ui mini"><div class="ui right labled input"><input id="p{{forloop.counter}}" type="text" maxlength="3" onchange="check()" name="{{member.id}}"><div class="ui label">%</div></div></div></td>
-	  <td id="d{{forloop.counter}}">$ 0.00</td>
-	</tr>
-	{% endfor %}
-	{% endif %}
-	<tr>
-	  <td colspan="4" class="right aligned">
-	    <input type="hidden" name="num_members" value="{{num_members}}">
-	    <button id="save" type="submit" class="ui positive right labeled icon button" disabled>
-	      Save
-	      <i class="checkmark icon"></i>
-	    </button>
-	  </td>
-	</tr>
-      </tbody>
-    </table>
-    </form>
-  </div>
+<div class="sixteen wide column">
+<div class="ui huge header">Payments</div>
+</div>
+<div class="sixteen wide column">
+<div class="sixteen wide column">&nbsp;</div>
+<div class="sixteen wide column"><font size="3em">View and manage the payouts in your organization.</font></div>
+<div class="sixteen wide column">&nbsp;</div>
+<div class="ui center aligned segment">
+<canvas id="myChart"></canvas>
+</div>
+<div class="sixteen wide column">&nbsp;</div>
+<div class="sixteen wide column">
+<form action="" method="post">
+{% csrf_token %}
+<table class="ui selectable striped table form">
+<thead>
+<tr><th colspan="2">
+<h3>Payments in my Organization</h3>
+</th>
+<th class="six wide column"><div class="twelve wide field ui mini">Reserve: <div class="ui labled input"><div class="ui label">$</div><input id="freserve" type="text" name="reserve" onchange="check()" value="{{ setting.reserve }}"></div></div></th>
+<th class="six wide column"><div class="twelve wide field ui mini">Block: <div class="ui labled input"><div class="ui label">$</div><input id="fblock" type="text" name="block" onchange="check()" value={{ setting.block }}></div></div></th>
+</tr></thead>
+<tbody>
+{% if not members %}
+<tr><td>You have no members in this organization:(</td></tr>
+{% else %}
+{% for member in members %}
+<tr>
+<td>
+<i class="user icon"></i> <a href="#" id="u{{forloop.counter}}">{{ member.first_name }} {{ member.last_name }}</a>
+</td>
+<td><font color="DeepSkyBlue"><i class="user icon"></i> Member</font></td>
+<td class="collapsing"><div class="six wide field ui mini"><div class="ui right labled input"><input id="p{{forloop.counter}}" type="text" maxlength="3" onchange="check()" name="{{member.id}}"><div class="ui label">%</div></div></div></td>
+<td id="d{{forloop.counter}}">$ 0.00</td>
+</tr>
+{% endfor %}
+{% endif %}
+<tr>
+<td colspan="4" class="right aligned">
+<input type="hidden" name="num_members" value="{{num_members}}">
+<button id="save" type="submit" class="ui positive right labeled icon button" disabled>
+Save
+<i class="checkmark icon"></i>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</form>
+</div>
 </div>
 <div class="sixteen wide column">&nbsp;</div>
 <div class="sixteen wide column">&nbsp;</div>
 <div class="sixteen wide column">
-  <div class="ui huge header">Manually Perform Payout</div>
+<div class="ui huge header">Manually Perform Payout</div>
 </div>
-  <div class="sixteen wide column"><font size="3em">Set one-off settings for a payout.</font></div>
+<div class="sixteen wide column"><font size="3em">Set one-off settings for a payout.</font></div>
 
 <div class="sixteen wide column">&nbsp;</div>
 <div class="sixteen wide column">&nbsp;</div>
 
 <div class="sixteen wide column">&nbsp;</div>
 <div class="sixteen wide column">
-  <div class="ui huge header">Manage Members</div>
+<div class="ui huge header">Manage Members</div>
 </div>
 <div class="sixteen wide column">&nbsp;</div>
 
 <div class="ui grid">
-  <div class="eight wide column">
-    <table class="ui selectable striped table form">
-      <thead>
-	<tr>
-	  <th colspan="2">
-	    <h3>Members</h3>
-	  </th>
-	</tr>
-      </thead>
-      <tbody>
-	{% if not members %}
-	<tr><td>You have no members in this organization:(</td></tr>
-	{% else %}
-	{% for member in members %}
-	<tr>
-	  <td><i class="user icon"></i><a href="#">{{ member.first_name }} {{ member.last_name }}</a></td>
-	  <td id="d1">
-	    <div class="ui checkbox">
-	      <input type="checkbox" tabindex="0" class="hidden">
-	    </div>
-	  </td>
-	</tr>
-	{% endfor %}
-	{% endif %}
-	<tr>
-	  <td colspan="4" class="right aligned">
-	    <select class="ui dropdown">
-  <option value="0">Remove</option>
-  <option value="1">Change Role</option>
-  <option value="2">Suspend</option>
+<div class="eight wide column">
+<table class="ui selectable striped table form">
+<thead>
+<tr>
+<th colspan="2">
+<h3>Members</h3>
+</th>
+</tr>
+</thead>
+<tbody>
+{% if not members %}
+<tr><td>You have no members in this organization:(</td></tr>
+{% else %}
+{% for member in members %}
+<tr>
+<td><i class="user icon"></i><a href="#">{{ member.first_name }} {{ member.last_name }}</a></td>
+<td id="d1">
+<div class="ui checkbox">
+<input type="checkbox" tabindex="0" class="hidden">
+</div>
+</td>
+</tr>
+{% endfor %}
+{% endif %}
+<tr>
+<td colspan="4" class="right aligned">
+<select class="ui dropdown">
+<option value="0">Remove</option>
+<option value="1">Change Role</option>
+<option value="2">Suspend</option>
 </select>
-	    <button id="save" class="ui right labeled icon button">
-	      Apply to Selected
-	      <i class="checkmark icon"></i>
-	    </button>
-	  </td>
-	</tr>
-      </tbody>
-    </table>
-  </div>
+<button id="save" class="ui right labeled icon button">
+Apply to Selected
+<i class="checkmark icon"></i>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="eight wide column">&nbsp;</div>
 <!-- <canvas id="pieChart" width="300" height="300"></canvas> -->
 <div class="sixteen wide column">&nbsp;</div>
 <script>
 
-  $(document).ready(function() {
-  //
-  //   var ctx = $("#pieChart").get(0).getContext('2d');
-  //
-  //   var data = {
-  //       labels: [
-  //           "Red",
-  //           "Blue",
-  //           "Yellow"
-  //       ],
-  //       datasets: [
-  //           {
-  //               data: [300, 50, 100],
-  //               backgroundColor: [
-  //                   "#FF6384",
-  //                   "#36A2EB",
-  //                   "#FFCE56"
-  //               ],
-  //               hoverBackgroundColor: [
-  //                   "#FF6384",
-  //                   "#36A2EB",
-  //                   "#FFCE56"
-  //               ]
-  //           }]
-  //   };
-  //
-  // var myDoughnutChart = new Chart(ctx, {
-  //     type: 'doughnut',
-  //     data: data,
-  //     options: options
-  $('.ui.checkbox').checkbox();
-  $('.ui.dropdown').dropdown();
-  });
+$(document).ready(function() {
+//
+//   var ctx = $("#pieChart").get(0).getContext('2d');
+//
+//   var data = {
+//       labels: [
+//           "Red",
+//           "Blue",
+//           "Yellow"
+//       ],
+//       datasets: [
+//           {
+//               data: [300, 50, 100],
+//               backgroundColor: [
+//                   "#FF6384",
+//                   "#36A2EB",
+//                   "#FFCE56"
+//               ],
+//               hoverBackgroundColor: [
+//                   "#FF6384",
+//                   "#36A2EB",
+//                   "#FFCE56"
+//               ]
+//           }]
+//   };
+//
+// var myDoughnutChart = new Chart(ctx, {
+//     type: 'doughnut',
+//     data: data,
+//     options: options
+$('.ui.checkbox').checkbox();
+$('.ui.dropdown').dropdown();
+});
 </script>
 
 

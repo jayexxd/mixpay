@@ -2,21 +2,21 @@
 {% block content %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.bundle.min.js"></script>
 <script>
-var users = 2;
-function drawChart() {
+  var users = 2;
+  function drawChart() {
   var ctx = document.getElementById("myChart");
   var glables = ["09 Oct 2016 02:04:38", "9 Oct 2016 01:34:31", "08 Oct 2016 23:05:03", "08 Oct 2016 12:54:38"];
   var gvalues = ["37.9", "245.0", "89.6", "230.3"];
   for (var i = 0; i < gvalues.length; i++) {
-    glables[i] = Date.parse(glables[i]) / 1000;
-    gvalues[i] = parseInt(gvalues[i]);
-  }
+		      glables[i] = Date.parse(glables[i]) / 1000;
+		      gvalues[i] = parseInt(gvalues[i]);
+		      }
 
-  var ostr = "{\"type\": \"line\",\"data\": {\"labels\": "+ JSON.stringify(glables) +",\"datasets\": [{\"label\":\"SGD\",\"data\": "+JSON.stringify(gvalues)+",\"backgroundColor\": [\"#FF6384\",\"#36A2EB\",\"#FFCE56\",\"#9b59b6\",\"#e67e22\"],\"hoverBackgroundColor\": [\"#FF6384\",\"#36A2EB\",\"#FFCE56\",\"#9b59b6\",\"#e67e22\"]}]},\"options\": {\"scales\": {\"xAxes\": [{\"type\": \"time\",\"time\": {\"displayFormats\": {\"quarter\": \"MMM YYYY\"}}}]}}}";
+		      var ostr = "{\"type\": \"line\",\"data\": {\"labels\": "+ JSON.stringify(glables) +",\"datasets\": [{\"label\":\"SGD\",\"data\": "+JSON.stringify(gvalues)+",\"backgroundColor\": [\"#FF6384\",\"#36A2EB\",\"#FFCE56\",\"#9b59b6\",\"#e67e22\"],\"hoverBackgroundColor\": [\"#FF6384\",\"#36A2EB\",\"#FFCE56\",\"#9b59b6\",\"#e67e22\"]}]},\"options\": {\"scales\": {\"xAxes\": [{\"type\": \"time\",\"time\": {\"displayFormats\": {\"quarter\": \"MMM YYYY\"}}}]}}}";
 
-  var myDoughnutChart = new Chart(ctx, JSON.parse(ostr));
-}
-</script>
+		      var myDoughnutChart = new Chart(ctx, JSON.parse(ostr));
+		      }
+		      </script>
 <div class="ui container">
   <div class="sixteen wide column">&nbsp;</div>
   <div class="sixteen wide column">&nbsp;</div>
@@ -24,128 +24,77 @@ function drawChart() {
     <div class="ui huge header">Personal</div>
   </div>
   <div class="sixteen wide column">&nbsp;</div>
-  <div class="sixteen wide column"><font size="3em">Here's how you've been doing</font></div>
+  <div class="sixteen wide column"><font size="3em">Here's how you've been doing.</font></div>
   <div class="sixteen wide column">&nbsp;</div>
-<div class="sixteen wide column">
-  <table class="ui selectable striped table form">
-    <tbody>
-      <tr>
-        <td>
-          <h4 class="ui image header">
-            <div class="content">
-              No.
-            </div>
-          </h4></td>
-          <td>
+  <div class="sixteen wide column">
+    <table class="ui selectable striped table form">
+      <thead>
+          <th>
+            <h4 class="ui image header">
+              <div class="content">
+		No.
+              </div>
+          </h4></th>
+          <th>
             <h4 class="ui image header">
               <div class="content">
                 Time
               </div>
-            </h4></td>
-            <td>
-              <h4 class="ui image header">
-                <div class="content">
-                  Organization
-                </div>
-              </h4></td>
-              <td>
-                <h4 class="ui image header">
-                  <div class="content">
-                    Profit
-                  </div>
-                </h4></td>
-              </tr>
-              <tr>
-                <td>
-                  1
-                </td>
-                <td>
-                  Sun, 09 Oct 2016 02:04:38
-                </td>
-                <td>
-                  mixpay
-                </td>
-                <td>
-                  S$37.9
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  2
-                </td>
-                <td>
-                  Sun, 09 Oct 2016 01:34:31
-                </td>
-                <td>
-                  asdf
-                </td>
-                <td>
-                  S$245.0
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  3
-                </td>
-                <td>
-                  Sat, 08 Oct 2016 23:05:03
-                </td>
-                <td>
-                  mixpay
-                </td>
-                <td>
-            S$89.6
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  4
-                </td>
-                <td>
-                  Sat, 08 Oct 2016 12:54:38
-                </td>
-                <td>
-                  mixpay
-                </td>
-                <td>
-                  S$230.3
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h4 class="ui image header">
-                    <div class="content">
-                      Total revenue
-                    </div>
-                  </h4></td>
-                  <td>
-                  </td>
-              <td>
-                  </td>
-                  <td>
-                    S$602.8
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="6" class="right aligned">
-                    <button id="refresh" class="ui positive right labeled icon button" onclick="refresh()">
-                      Refresh
-                      <i class="refresh icon"></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="ui segment">
-              <h2 style="text-align: center;">Personal Earnings</h2>
-              <canvas id="myChart" style="max-width:50vw; display: block; margin: 0 auto;"></canvas>
-          </div>
-        </div>
-        <script>
-        function refresh() {
-          // get from server
-        }
-        drawChart()
-        </script>
-        {% endblock %}
+          </h4></th>
+          <th>
+            <h4 class="ui image header">
+              <div class="content">
+                Organization
+              </div>
+          </h4></th>
+         <th>
+            <h4 class="ui image header">
+              <div class="content">
+                Status
+              </div>
+          </h4></th>
+ 
+          <th>
+            <h4 class="ui image header">
+              <div class="content">
+                Profit
+              </div>
+          </h4></th>
+        </tr>
+      </thead>
+      <tbody>
+	{% if not payments %}
+	<td>You don't have any recent payments :(</td>
+	{% else %}
+	{% for payment in payments.payments %}
+	<tr>
+	  <td>{{ payment.update_time }}</td>
+	  <td><i class="user icon"></i><a href="#">{{ payment.payer.funding_instruments.0.credit_card.first_name }} {{ payment.payer.funding_instruments.0.credit_card.last_name }}</a></td>
+	  <td>{{ payment.payer.funding_instruments.0.credit_card.billing_address.line1 }}, {{ payment.payer.funding_instruments.0.credit_card.billing_address.city }}</td>
+	  <td>{{ payment.transactions.0.related_resources.0.sale.state }}</td>
+	  <td>${{ payment.transactions.0.amount.total }} {{ payment.transactions.0.amount.currency }}</td>
+	</tr>
+	{% endfor %}
+	{% endif %}
+        <td colspan="7" class="right aligned">
+          <button id="refresh" class="ui positive right labeled icon button" onclick="refresh()">
+            Refresh
+            <i class="refresh icon"></i>
+          </button>
+        </td>
+
+      </tbody>
+    </table>
+  </div>
+  <div class="ui segment">
+    <h2 style="text-align: center;">Personal Earnings</h2>
+    <canvas id="myChart" style="max-width:50vw; display: block; margin: 0 auto;"></canvas>
+  </div>
+</div>
+<script>
+  function refresh() {
+  // get from server
+  }
+  drawChart()
+</script>
+{% endblock %}
