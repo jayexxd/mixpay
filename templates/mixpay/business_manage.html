@@ -1,6 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"></script>
+<script>
+  function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+function check2() {
+  return (isNumber(document.getElementById("freserve").value) && isNumber(document.getElementById("fblock").value));
+}
+function check() {
+  if (!check2()) {
+    var savebtn = document.getElementById("save").disabled = true;
+    return;
+  }
+  var block = parseInt(document.getElementById("fblock").value);
+  var total = 0;
+  for (var i = 1; i <= {{ num_members }}; i++)
+  {
+    if (!isNumber(document.getElementById("p" + String(i)).value)) {
+      total = 200;
+      break;
+    }
+    total += parseInt(document.getElementById("p" + String(i)).value);
+    document.getElementById("d" + String(i)).innerHTML = "$ " + String(parseInt(document.getElementById("p" + String(i)).value) / 100.00 * block);
+  }
+  if (total != 100) {
+    var savebtn = document.getElementById("save").disabled = true;
+  }
+  else {
+    var savebtn = document.getElementById("save").disabled = false;
+  }
+}
+		       </script>
 <div class="sixteen wide column">&nbsp;</div>
 <div class="sixteen wide column">&nbsp;</div>
 <div class="sixteen wide column">
@@ -62,19 +93,20 @@
   <div class="sixteen wide column">&nbsp;</div>
   <div class="sixteen wide column"><font size="3em">View and manage the payouts in your organization.</font></div>
   <div class="sixteen wide column">&nbsp;</div>
-  <div class="sixteen wide column">&nbsp;</div>
   	<div class="ui center aligned segment">
-				<canvas id="myChart"></canvas>
-			</div>
+	  <canvas id="myChart"></canvas>
+	</div>
   <div class="sixteen wide column">&nbsp;</div>
   <div class="sixteen wide column">
+    <form action="" method="post">
+      {% csrf_token %}
     <table class="ui selectable striped table form">
       <thead>
 	<tr><th colspan="2">
 	    <h3>Payments in my Organization</h3>
 	  </th>
-	  <th class="six wide column"><div class="twelve wide field ui mini">Reserve: <div class="ui labled input"><div class="ui label">$</div><input id="freserve" type="text" onchange="check()"></div></div></th>
-	  <th class="six wide column"><div class="twelve wide field ui mini">Block: <div class="ui labled input"><div class="ui label">$</div><input id="fblock" type="text" onchange="check()"></div></div></th>
+	  <th class="six wide column"><div class="twelve wide field ui mini">Reserve: <div class="ui labled input"><div class="ui label">$</div><input id="freserve" type="text" name="reserve" onchange="check()"></div></div></th>
+	  <th class="six wide column"><div class="twelve wide field ui mini">Block: <div class="ui labled input"><div class="ui label">$</div><input id="fblock" type="text" name="block" onchange="check()"></div></div></th>
       </tr></thead>
       <tbody>
 	{% if not members %}
@@ -86,14 +118,15 @@
 	    <i class="user icon"></i> <a href="#" id="u{{forloop.counter}}">{{ member.first_name }} {{ member.last_name }}</a>
 	  </td>
 	  <td><font color="DeepSkyBlue"><i class="user icon"></i> Member</font></td>
-	  <td class="collapsing"><div class="six wide field ui mini"><div class="ui right labled input"><input id="p{{forloop.counter}}" type="text" maxlength="3" onchange="check()"><div class="ui label">%</div></div></div></td>
+	  <td class="collapsing"><div class="six wide field ui mini"><div class="ui right labled input"><input id="p{{forloop.counter}}" type="text" maxlength="3" onchange="check()" name="{{member.id}}"><div class="ui label">%</div></div></div></td>
 	  <td id="d{{forloop.counter}}">$ 0.00</td>
 	</tr>
 	{% endfor %}
 	{% endif %}
 	<tr>
 	  <td colspan="4" class="right aligned">
-	    <button id="save" class="ui positive right labeled icon button" disabled>
+	    <input type="hidden" name="num_members" value="{{num_members}}">
+	    <button id="save" type="submit" class="ui positive right labeled icon button" disabled>
 	      Save
 	      <i class="checkmark icon"></i>
 	    </button>
@@ -101,6 +134,7 @@
 	</tr>
       </tbody>
     </table>
+    </form>
   </div>
 </div>
 <div class="sixteen wide column">&nbsp;</div>
@@ -165,36 +199,7 @@
 <!-- <canvas id="pieChart" width="300" height="300"></canvas> -->
 <div class="sixteen wide column">&nbsp;</div>
 <script>
-function isNumber(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
-}
-function check2() {
-  return (isNumber(document.getElementById("freserve").value) && isNumber(document.getElementById("fblock").value));
-}
-function check() {
-  if (!check2()) {
-    var savebtn = document.getElementById("save").disabled = true;
-    return;
-  }
-  var block = parseInt(document.getElementById("fblock").value);
-  var total = 0;
-  var users = 2;
-  for (var i = 1; i <= users; i++)
-  {
-    if (!isNumber(document.getElementById("p" + String(i)).value)) {
-      total = 200;
-      break;
-    }
-    total += parseInt(document.getElementById("p" + String(i)).value);
-    document.getElementById("d" + String(i)).innerHTML = "$ " + String(parseInt(document.getElementById("p" + String(i)).value) / 100.00 * block);
-  }
-  if (total != 100) {
-    var savebtn = document.getElementById("save").disabled = true;
-  }
-  else {
-    var savebtn = document.getElementById("save").disabled = false;
-  }
-}
+
   $(document).ready(function() {
   //
   //   var ctx = $("#pieChart").get(0).getContext('2d');

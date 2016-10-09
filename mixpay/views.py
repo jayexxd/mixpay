@@ -125,8 +125,11 @@ def business_manage(request, org_id):
     context = {}
     context["org"] = Organization.objects.get(id=org_id)
     payment_history = None
+    if request.method == 'POST':
+        data=request.POST
+        print data
     def received_hist():
-        num_count = 20
+        num_count = 4
         total = 0
         payment_history = Payment.all({"count": num_count})
         context["payments"] = payment_history
