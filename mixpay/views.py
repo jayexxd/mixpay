@@ -144,14 +144,14 @@ def business_manage(request, org_id):
         context["price_data"] = json.dumps(price_data)
         context["total"] = total
         context["average"] = total/num_count
-        
+
     def getOrgMembers():
         return UserProfile.objects.filter(organization=org_id)
     context["members"] = getOrgMembers()
     context["num_members"] = len(context["members"])
     received_hist()
     context["a_business"] = True
-    
+
     return render(request, 'mixpay/business_manage.html', context)
     if request.method == "GET":
         context["org"] = Organization.objects.get(id=org_id)
