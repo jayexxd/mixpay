@@ -8,7 +8,6 @@ from userauth.models import UserProfile, User, Organization, PayoutSetting
 import json, dateutil.parser, copy
 from django.http import HttpResponse
 
-from django.contrib.auth.decorators import login_required
 
 logging.basicConfig(level=logging.INFO)
 
@@ -106,21 +105,41 @@ def payments(request):
     return render(request, 'mixpay/payments.html', context)
 
 
-@login_required
+
 def business(request):
     context = {}
     # List all organizations that the user belongs to
-    context["orgs"] = Organization.objects.filter(owner= request.user)
-    context["user"] = request.user
+    def list_organization():
+        context["orgs"] = Organization.objects.filter(userprofile= UserProfile.objects.get(user=request.user))
+        context["user"] = request.user
+    list_organization()
     context["a_business"] = True
     return render(request, 'mixpay/business.html', context)
+
+def loadbusiness(request, org_id):
+    context={}
+    context["org_id"] = org_id
+    return HttpResponse(request, 'mixpay/loadbusiness.html', context)
 
 def business_manage(request, org_id):
     context = {}
     context["org"] = Organization.objects.get(id=org_id)
     payment_history = None
+    if request.method == 'POST':
+        data=copy.deepcopy(request.POST)
+        data.pop("csrfmiddlewaretoken", None)
+        data.pop("num_members", None)
+        reserve = int(data.pop("reserve")[0])
+        print reserve
+        block = int(data.pop("block")[0])
+        setting = PayoutSetting.objects.get_or_create(organization=context["org"])
+        setting[0].user_pay_info = data
+        setting[0].block_size = block
+        setting[0].reserve = reserve
+        setting[0].save()
+        
     def received_hist():
-        num_count = 20
+        num_count = 4
         total = 0
         payment_history = Payment.all({"count": num_count})
         context["payments"] = payment_history
@@ -138,7 +157,7 @@ def business_manage(request, org_id):
         context["price_data"] = json.dumps(price_data)
         context["total"] = total
         context["average"] = total/num_count
-
+        
     def getOrgMembers():
         return UserProfile.objects.filter(organization=org_id)
     context["members"] = getOrgMembers()

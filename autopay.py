@@ -1,5 +1,5 @@
 from paypalrestsdk import *
-import logging, random, os
+import logging, random, os, time
 from pprint import pprint
 os.environ['PAYPAL_MODE'] = "sandbox"
 os.environ['PAYPAL_CLIENT_ID'] = "ASUu0Pp7oePCdm2iVehU3ekpnwVaXdvWyPp1wIJ-6jqbgqIrr6dpvpbQawJwVfUvGJd4dpzGaKWR3YWa"
@@ -7,6 +7,7 @@ os.environ['PAYPAL_CLIENT_SECRET'] = "EDKkKGae9m4RE6gD8f32Z2V7HgyUcDk__pi6QHq2dP
 logging.basicConfig(level=logging.INFO)
 
 while(1):
+    
     amt = random.randint(10,1000)
     payment = Payment({
         "intent": "sale",
@@ -77,3 +78,4 @@ while(1):
         # Display Error message
         print("Error while creating payment:")
         print(payment.error)
+        time.sleep(random.randint(300,900))
