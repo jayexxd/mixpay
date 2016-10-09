@@ -11,6 +11,11 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  min-height:100vh;
+}
+#page2,#page3 {
+  min-height: 100vh;
+
 }
 </style>
 <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}" />
@@ -43,10 +48,10 @@
 
 <!-- Sidebar Menu -->
 <div class="ui vertical inverted sidebar menu">
-  <a class="active item" href="#page1">Home</a>
-  <a class="item" href="#page2">About</a>
-  <a class="item" href="#page3">Reviews</a>
-  <a class="item" href="#page4">Try us</a>
+  <a class="active item" id="1" href="#page1">Home</a>
+  <a class="item" id="3" href="#page2">About</a>
+  <a class="item" id="2" href="#page3">Reviews</a>
+  <a class="item" id="4"href="#page4">Try us</a>
   <a class="item">Login</a>
   <a class="item">Signup</a>
 </div>
@@ -54,16 +59,16 @@
 
 <!-- Page Contents -->
 <div class="pusher" id="page1">
-  <div class="ui vertical inverted masthead center aligned segment" id="jumbotron">
+  <div class="ui vertical inverted masthead center aligned segment section" id="jumbotron">
     <div class="ui container">
       <div class="ui large secondary inverted pointing menu">
         <a class="toc item">
           <i class="sidebar icon"></i>
         </a>
-        <a class="active item" href="#page1">Home</a>
-        <a class="item" href="#page2">About</a>
-        <a class="item" href="#page3">Reviews</a>
-        <a class="item" href="#page4">Try us</a>
+        <a class="active item" id="1" >Home</a>
+        <a class="item" id="2" >About</a>
+        <a class="item" id="3" href="#page3">Reviews</a>
+        <a class="item" id="4" href="#page4">Try us</a>
         <div class="right menu">
           {% if user.is_authenticated %}
           <div class="item">
@@ -98,7 +103,7 @@
 
   </div>
 
-  <div class="ui vertical stripe segment" id="page2">
+  <div class="ui vertical stripe segment section" id="page2">
     <div class="ui middle aligned stackable grid container">
       <div class="row">
         <div class="eight wide column">
@@ -118,24 +123,29 @@
   </div>
 
 
-  <div class="ui vertical stripe quote segment" id="page3">
-    <div class="ui equal width stackable internally celled grid">
-      <div class="center aligned row">
-        <!-- <div class="column">
-          <h3>"What a Company"</h3>
-          <p>That is what they all say about us</p>
-        </div> -->
-        <div class="column">
-          <h3>"I shouldn't have gone with their competitor. Because there was no competition to begin with."</h3>
+  <div class="ui vertical stripe quote segment section" id="page3">
+  
+    <div class="ui middle aligned stackable grid container">
+      <div class="row">
+        <div class="eight wide left floated column">
+          <img src="{% static 'images/kkt.jpg' %}" class="ui large bordered rounded image">
+        </div>
+        <div class="six wide column">
+          <h3 class="ui header">"I shouldn't have gone with their competitor. Because there was no competition to begin with."</h3>
           <p>
             <i class="hand pointer icon"></i> <b>Mr Koh K T</b> CEO, Three Finger Technologies Pte Ltd
           </p>
         </div>
       </div>
+      <div class="row">
+        <div class="center aligned column">
+          <a class="ui huge button">Check Them Out</a>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="ui vertical stripe segment" id="page4">
+  <div class="ui vertical stripe segment section" id="page4">
     <div class="ui text container">
         <h3 class="ui header">30 days free. Automatic refunds thereafter. </h3>
         <p>Try us today.</p>
@@ -143,12 +153,11 @@
     </div>
   </div>
 
-
   <div class="ui inverted vertical footer segment">
     <div class="ui container">
       <div class="ui stackable inverted divided equal height stackable grid">
         <div class="three wide column">
-          <h4 class="ui inverted header">About</h4>
+          <h4 class="ui inverted sumthing">About</h4>
           <div class="ui inverted link list">
             <a href="#" class="item">Sitemap</a>
             <a href="#" class="item">Contact Us</a>
@@ -156,7 +165,7 @@
           </div>
         </div>
         <div class="three wide column">
-          <h4 class="ui inverted header">Services</h4>
+          <h4 class="ui inverted">Services</h4>
           <div class="ui inverted link list">
             <a href="#" class="item">Get access</a>
             <a href="#" class="item">App FAQ</a>
@@ -164,12 +173,14 @@
           </div>
         </div>
         <div class="seven wide column">
-          <h4 class="ui inverted header">MixPay</h4>
+          <h4 class="ui inverted">MixPay</h4>
           <p>Serving partners, friends and startup colleagues since 2016</p>
         </div>
       </div>
     </div>
   </div>
+
+
 </div>
 
 <div class="ui small modal auth">
@@ -252,8 +263,23 @@
 <script src="{% static 'js/transition.js' %}"></script>
 <script src="{% static 'js/visibility.js' %}"></script>
 <script src="{% static 'js/homepage.js' %}"></script>
+<script src={% static 'js/jquery.scrollify.min.js' %}></script>
 <script type="text/javascript">
 $(document).ready(function() {
+
+  $(function() {
+  					$.scrollify({
+  						section : ".section",
+              interstitialSection: ".footer,.sumthing",
+              scrollSpeed: 1000,
+              easing: "easeOutExpo",
+  					});
+  				});
+
+  $(".item").click(function() {
+  		// e.preventDefault();
+      $.scrollify.move('#'+$(this).attr('id'));
+    	});
 
 $('.auth').click(function(){
   $(".ui.modal.auth").modal("show");
