@@ -15,8 +15,7 @@
   }
   var block = parseInt(document.getElementById("fblock").value);
   var total = 0;
-  var users = {{num_members}};
-  for (var i = 1; i <= users; i++)
+  for (var i = 1; i <= {{ num_members }}; i++)
 		       {
 		       if (!isNumber(document.getElementById("p" + String(i)).value)) {
 		       total = 200;
@@ -38,12 +37,11 @@
 		      {# var time_data = {{time_data}}; #}
 		{#       var price_data = {{price_data}}; #}
 
-		       var users = 2;
 			function drawChart() {
 				var ctx = document.getElementById("myChart");
 				var glables = [];
 				var gvalues = [];
-				for (var i = 1; i <= users; i++) {
+				for (var i = 1; i <= {{ num_members }}; i++) {
 					glables.push(document.getElementById("u"+String(i)).innerHTML);
 					gvalues.push(parseInt(document.getElementById("p" + String(i)).value));
 				}
@@ -66,7 +64,7 @@
 				}
 				var block = parseInt(document.getElementById("fblock").value);
 				var total = 0;
-				for (var i = 1; i <= users; i++) {
+				for (var i = 1; i <= {{ num_members }}; i++) {
 					if (!isNumber(document.getElementById("p" + String(i)).value)) {
 						total = 200;
 						break;
@@ -137,17 +135,17 @@
     {% endif %}
   </tbody>
 </table>
-<div class="sixteen wide column">
+  <div class="sixteen wide column">
+    <div class="ui huge header">Payments</div>
+  </div>
+  <div class="sixteen wide column">
+  <div class="sixteen wide column">&nbsp;</div>
+  <div class="sixteen wide column"><font size="3em">View and manage the payouts in your organization.</font></div>
   <div class="sixteen wide column">&nbsp;</div>
   <div class="sixteen wide column">&nbsp;</div>
   	<div class="ui center aligned segment">
 				<canvas id="myChart"></canvas>
 			</div>
-  <div class="sixteen wide column">
-    <div class="ui huge header">Payments</div>
-  </div>
-  <div class="sixteen wide column">&nbsp;</div>
-  <div class="sixteen wide column"><font size="3em">View and manage the payouts in your organization.</font></div>
   <div class="sixteen wide column">&nbsp;</div>
   <div class="sixteen wide column">
     <table class="ui selectable striped table form">
