@@ -136,11 +136,3 @@ STATICFILES_DIRS = (
 )
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
-try:
-    LOCAL_SETTINGS
-except NameError:
-    try:
-        from localsettings import *
-    except ImportError:
-        pass
